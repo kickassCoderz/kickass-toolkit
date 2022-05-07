@@ -1,0 +1,59 @@
+{
+    "sourceRoot": "apps/kickass-tools",
+    "projectType": "application",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/next:build",
+            "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "options": {
+                "root": "apps/kickass-tools",
+                "outputPath": "dist/apps/kickass-tools"
+            },
+            "configurations": {
+                "development": {},
+                "production": {}
+            }
+        },
+        "serve": {
+            "executor": "@nrwl/next:server",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "kickass-tools:build",
+                "dev": true
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "kickass-tools:build:development",
+                    "dev": true
+                },
+                "production": {
+                    "buildTarget": "kickass-tools:build:production",
+                    "dev": false
+                }
+            }
+        },
+        "export": {
+            "executor": "@nrwl/next:export",
+            "options": {
+                "buildTarget": "kickass-tools:build:production"
+            }
+        },
+        "test": {
+            "executor": "@nrwl/jest:jest",
+            "outputs": ["coverage/apps/kickass-tools"],
+            "options": {
+                "jestConfig": "apps/kickass-tools/jest.config.ts",
+                "passWithNoTests": true
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/kickass-tools/**/*.{ts,tsx,js,jsx}"]
+            }
+        }
+    },
+    "tags": []
+}

@@ -1,4 +1,8 @@
 {
-  "version": 2,
-  "projects": {}
+    "version": 2,
+    "projects": {
+        "kickass-tools": "apps/kickass-tools",
+        "kickass-tools-e2e": "apps/kickass-tools-e2e",
+        "primitives": "libs/primitives"
+    }
 }

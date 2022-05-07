@@ -1,0 +1,27 @@
+{
+    "sourceRoot": "apps/kickass-tools-e2e/src",
+    "projectType": "application",
+    "targets": {
+        "e2e": {
+            "executor": "@nrwl/cypress:cypress",
+            "options": {
+                "cypressConfig": "apps/kickass-tools-e2e/cypress.json",
+                "devServerTarget": "kickass-tools:serve:development"
+            },
+            "configurations": {
+                "production": {
+                    "devServerTarget": "kickass-tools:serve:production"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nrwl/linter:eslint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": ["apps/kickass-tools-e2e/**/*.{js,ts}"]
+            }
+        }
+    },
+    "tags": [],
+    "implicitDependencies": ["kickass-tools"]
+}
