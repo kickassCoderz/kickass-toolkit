@@ -1,1 +1,1 @@
-export * from './lib/Primitives'
+export * from './lib'
