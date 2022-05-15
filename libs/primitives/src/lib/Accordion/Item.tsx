@@ -12,6 +12,7 @@ type TAccordionItemRootProps = TAccordionItemViewProps & {
 
 type TAccordionItemProps = TAccordionItemRootProps & {
     value: string
+    isDisabled?: boolean
 }
 
 const AccordionItemView = forwardRef<HTMLLIElement, TAccordionItemViewProps>((props, ref) => {
@@ -33,7 +34,7 @@ const AccordionItemRoot = forwardRef<React.ElementRef<typeof AccordionItemView>,
 AccordionItemRoot.displayName = 'AccordionItemRoot'
 
 const AccordionItem = forwardRef<React.ElementRef<typeof AccordionItemRoot>, TAccordionItemProps>(
-    ({ value, ...restProps }, ref) => {
+    ({ value, isDisabled: isItemDisabled, ...restProps }, ref) => {
         const { isDisabled, activeValues, handleChange } = useAccordionContext()
 
         const isOpen = useMemo(() => activeValues.includes(value), [activeValues, value])
@@ -43,7 +44,7 @@ const AccordionItem = forwardRef<React.ElementRef<typeof AccordionItemRoot>, TAc
         }, [value, handleChange])
 
         return (
-            <CollapserProvider isDisabled={isDisabled} isOpen={isOpen} toggleOpen={toggleOpen}>
+            <CollapserProvider isDisabled={isItemDisabled ?? isDisabled} isOpen={isOpen} toggleOpen={toggleOpen}>
                 <AccordionItemRoot ref={ref} {...restProps} />
             </CollapserProvider>
         )

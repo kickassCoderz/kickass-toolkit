@@ -1,19 +1,19 @@
 import { forwardRef, useCallback } from 'react'
 
 import { Slot } from '../Slot'
-import { useCombinedControlState } from '../utils'
+import { TSetStateFn, useCombinedControlState } from '../utils'
 import { getDataDisabled, getDataState } from '../utils/helpers'
 import { AccordionProvider } from './AccordionProvider'
 
 type TAccordionRootViewBaseProps = React.ComponentPropsWithoutRef<'ul'>
 
-type TAccordionRootViewProps = {
+type TAccordionRootViewProps = TAccordionRootViewBaseProps & {
     dataState: string
     dataDisabled?: string
 }
 
 type TAccordionRootBaseProps = {
-    mode: 'single' | 'multiple'
+    mode: 'single' | 'singleCollapsible' | 'multiple' | 'multipleCollapsible'
     values?: string[]
     onValuesChange?: () => void
     defaultExpandedValues?: string[]
@@ -22,6 +22,55 @@ type TAccordionRootBaseProps = {
 }
 
 type TAccordionRootProps = TAccordionRootViewBaseProps & TAccordionRootBaseProps
+
+type TModeCallback = (nextStateOrSetter: string[] | TSetStateFn<string[]>) => void
+
+type TModeHandler = (nextValue: string, callback: TModeCallback) => void
+
+const handleSingleMode: TModeHandler = (nextValue, callback) => {
+    callback([nextValue])
+}
+
+const handleSingleCollapsibleMode: TModeHandler = (nextValue, callback) => {
+    callback(prevValues => {
+        if (prevValues?.includes(nextValue)) {
+            return []
+        }
+
+        return [nextValue]
+    })
+}
+
+const handleMultipleMode: TModeHandler = (nextValue, callback) => {
+    callback(prevValues => {
+        if (prevValues?.length === 1 && prevValues[0] === nextValue) {
+            return prevValues || []
+        }
+
+        if (prevValues?.includes(nextValue)) {
+            return prevValues.filter(prevValue => prevValue !== nextValue) || []
+        }
+
+        return [...(prevValues || []), nextValue]
+    })
+}
+
+const handleMultipleColapsibleMode: TModeHandler = (nextValue, callback) => {
+    callback(prevValues => {
+        if (prevValues?.includes(nextValue)) {
+            return prevValues.filter(prevValue => prevValue !== nextValue) || []
+        }
+
+        return [...(prevValues || []), nextValue]
+    })
+}
+
+const modeHandlersMap = {
+    single: handleSingleMode,
+    singleCollapsible: handleSingleCollapsibleMode,
+    multiple: handleMultipleMode,
+    multipleCollapsible: handleMultipleColapsibleMode
+}
 
 const AccordionRootView = forwardRef<HTMLUListElement, TAccordionRootViewProps>(
     ({ dataState, dataDisabled, ...restProps }, ref) => {
@@ -42,17 +91,9 @@ const AccordionRoot = forwardRef<React.ElementRef<typeof AccordionRootView>, TAc
 
         const handleChange = useCallback(
             (nextValue: string) => {
-                if (mode === 'multiple') {
-                    setActiveValues(previousValues => {
-                        if (previousValues?.includes(nextValue)) {
-                            return previousValues?.filter(previousValue => previousValue !== nextValue) || []
-                        }
+                const modeHandler = modeHandlersMap[mode]
 
-                        return [...(previousValues || []), nextValue]
-                    })
-                } else {
-                    setActiveValues([nextValue])
-                }
+                modeHandler(nextValue, setActiveValues)
             },
             [setActiveValues, mode]
         )
