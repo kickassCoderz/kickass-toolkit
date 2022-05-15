@@ -51,7 +51,7 @@ const AccordionPage = () => {
             <hr />
             <h2>Multiple</h2>
             <Accordion.Root mode="multiple">
-                <Accordion.Item value="item1" isDisabled>
+                <Accordion.Item value="item1">
                     <Accordion.Header>
                         <Accordion.Trigger>Im trigger 1</Accordion.Trigger>
                     </Accordion.Header>
@@ -67,7 +67,7 @@ const AccordionPage = () => {
             <hr />
             <h2>Multiple Collapsible</h2>
             <Accordion.Root mode="multipleCollapsible">
-                <Accordion.Item value="item1" isDisabled>
+                <Accordion.Item value="item1">
                     <Accordion.Header>
                         <Accordion.Trigger>Im trigger 1</Accordion.Trigger>
                     </Accordion.Header>
