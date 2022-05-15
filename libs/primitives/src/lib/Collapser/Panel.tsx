@@ -7,6 +7,7 @@ type TCollapserPanelViewBaseProps = React.ComponentPropsWithoutRef<'div'>
 
 type TCollapserPanelProps = TCollapserPanelViewBaseProps & {
     asController?: boolean
+    unmountChildren?: boolean
 }
 
 const CollapserPanelView = forwardRef<HTMLDivElement, TCollapserPanelViewBaseProps>((props, ref) => {
@@ -16,7 +17,7 @@ const CollapserPanelView = forwardRef<HTMLDivElement, TCollapserPanelViewBasePro
 CollapserPanelView.displayName = 'CollapserPanelView'
 
 const CollapserPanel = forwardRef<React.ElementRef<typeof CollapserPanelView>, TCollapserPanelProps>(
-    ({ asController, ...restProps }, ref) => {
+    ({ asController, unmountChildren, children, ...restProps }, ref) => {
         const { triggerId, panelId, dataState, isOpen, dataDisabled } = useCollapserContext()
 
         const Component = asController ? Slot : CollapserPanelView
@@ -30,7 +31,9 @@ const CollapserPanel = forwardRef<React.ElementRef<typeof CollapserPanelView>, T
                 aria-labelledby={triggerId}
                 data-state={dataState}
                 data-disabled={dataDisabled}
-            />
+            >
+                {!isOpen && unmountChildren ? null : children}
+            </Component>
         )
     }
 )

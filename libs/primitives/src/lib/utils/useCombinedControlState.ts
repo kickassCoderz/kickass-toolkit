@@ -49,4 +49,6 @@ const useCombinedControlState = <T>({ state, defaultState, handler }: TUseCombin
     return [combinedState, setCombinedState] as const
 }
 
+export type { TSetStateFn }
+
 export { useCombinedControlState }
