@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-import { useEvent } from './useEvent'
+import { useEvent } from '../useEvent'
 
 type TUseCombinedControlParams<T> = {
     state?: T
@@ -49,6 +49,6 @@ const useCombinedControlState = <T>({ state, defaultState, handler }: TUseCombin
     return [combinedState, setCombinedState] as const
 }
 
-export type { TSetStateFn }
+export type { TSetStateFn, TUseCombinedControlParams }
 
 export { useCombinedControlState }

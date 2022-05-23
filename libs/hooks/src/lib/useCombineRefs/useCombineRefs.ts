@@ -12,9 +12,9 @@ const combineRefs = <T>(...refs: React.Ref<T>[]): React.RefCallback<T> => {
     }
 }
 
-const useCombinedRef = <T>(...refs: React.Ref<T>[]): React.RefCallback<T> => {
+const useCombineRefs = <T>(...refs: React.Ref<T>[]): React.RefCallback<T> => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     return useCallback(combineRefs<T>(...refs), refs)
 }
 
-export { combineRefs, useCombinedRef }
+export { combineRefs, useCombineRefs }

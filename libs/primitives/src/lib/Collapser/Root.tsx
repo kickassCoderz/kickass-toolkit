@@ -1,8 +1,8 @@
+import { useCombinedControlState } from '@kickass-coderz/hooks'
 import React, { forwardRef, useCallback } from 'react'
 
 import { Slot } from '../Slot'
-import { useCombinedControlState } from '../utils'
-import { getDataDisabled, getDataState } from '../utils/helpers'
+import { getDataDisabled, getDataState } from '../utils'
 import { CollapserProvider } from './CollapserProvider'
 
 type TCollapserRootViewBaseProps = React.ComponentPropsWithoutRef<'div'>

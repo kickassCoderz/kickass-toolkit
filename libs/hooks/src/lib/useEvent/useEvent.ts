@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react'
 
-import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect'
+import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
 
 //@NOTE: useEventCallback updates the callback it's using after an "effective-time". So make sure to use it as a callback or in a useEffect which is placed after useEventCallback;
 

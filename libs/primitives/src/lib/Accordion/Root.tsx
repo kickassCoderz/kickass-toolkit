@@ -1,8 +1,9 @@
+import type { TSetStateFn } from '@kickass-coderz/hooks'
+import { useCombinedControlState } from '@kickass-coderz/hooks'
 import { forwardRef, useCallback } from 'react'
 
 import { Slot } from '../Slot'
-import { TSetStateFn, useCombinedControlState } from '../utils'
-import { getDataDisabled, getDataState } from '../utils/helpers'
+import { getDataDisabled, getDataState } from '../utils'
 import { AccordionProvider } from './AccordionProvider'
 
 type TAccordionRootViewBaseProps = React.ComponentPropsWithoutRef<'ul'>
@@ -15,7 +16,7 @@ type TAccordionRootViewProps = TAccordionRootViewBaseProps & {
 type TAccordionRootBaseProps = {
     mode: 'single' | 'singleCollapsible' | 'multiple' | 'multipleCollapsible'
     values?: string[]
-    onValuesChange?: () => void
+    onValuesChange?: (nextValue?: string[]) => void
     defaultExpandedValues?: string[]
     isDisabled?: boolean
     asController?: boolean
@@ -28,7 +29,17 @@ type TModeCallback = (nextStateOrSetter: string[] | TSetStateFn<string[]>) => vo
 type TModeHandler = (nextValue: string, callback: TModeCallback) => void
 
 const handleSingleMode: TModeHandler = (nextValue, callback) => {
-    callback([nextValue])
+    callback(prevValues => {
+        if (!prevValues || prevValues?.length > 1) {
+            return [nextValue]
+        }
+
+        if (prevValues?.includes(nextValue)) {
+            return prevValues
+        }
+
+        return [nextValue]
+    })
 }
 
 const handleSingleCollapsibleMode: TModeHandler = (nextValue, callback) => {

@@ -16,7 +16,7 @@ const combineEventHandlers = <E>(
     return handleEvent
 }
 
-const useCombinedEventHandler = <E>(
+const useCombineEventHandlers = <E>(
     ourHandler?: (event: E) => void,
     theirHandler?: (event: E) => void,
     { checkForDefaultPrevented = true } = {}
@@ -31,4 +31,4 @@ const useCombinedEventHandler = <E>(
     )
 }
 
-export { combineEventHandlers, useCombinedEventHandler }
+export { combineEventHandlers, useCombineEventHandlers }
