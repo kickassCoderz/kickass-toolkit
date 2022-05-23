@@ -1,6 +1,5 @@
+import { combineEventHandlers, combineRefs } from '@kickass-coderz/hooks'
 import React, { Children, cloneElement, forwardRef, isValidElement } from 'react'
-
-import { combineEventHandlers, combineRefs } from '../utils'
 
 type TSlotProps = React.HTMLAttributes<HTMLElement> & {
     children?: React.ReactNode

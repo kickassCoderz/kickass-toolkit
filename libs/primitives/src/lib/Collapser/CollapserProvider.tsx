@@ -1,6 +1,6 @@
 import { createContext, useContext, useId, useMemo } from 'react'
 
-import { getDataDisabled, getDataState } from '../utils/helpers'
+import { getDataDisabled, getDataState } from '../utils'
 
 type TCollapserContext = {
     isOpen: boolean

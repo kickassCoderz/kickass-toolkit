@@ -1,8 +1,8 @@
+import { useCombineEventHandlers } from '@kickass-coderz/hooks'
 import { forwardRef } from 'react'
 
 import { Slot } from '../Slot'
-import { useCombinedEventHandler } from '../utils'
-import { getDataDisabled } from '../utils/helpers'
+import { getDataDisabled } from '../utils'
 import { useCollapserContext } from './CollapserProvider'
 
 type TCollapserTriggerViewBaseProps = React.ComponentPropsWithoutRef<'button'>
@@ -20,7 +20,7 @@ CollapserTriggerView.displayName = 'CollapserTriggerView'
 const CollapserTrigger = forwardRef<React.ElementRef<typeof CollapserTriggerView>, TCollapserTriggerProps>(
     ({ asController, onClick: theirOnClick, ...restProps }, ref) => {
         const { triggerId, panelId, dataState, onClick, isOpen, isDisabled } = useCollapserContext()
-        const handleClick = useCombinedEventHandler(onClick, theirOnClick)
+        const handleClick = useCombineEventHandlers(onClick, theirOnClick)
 
         const Component = asController ? Slot : CollapserTriggerView
 

@@ -3,20 +3,13 @@ import Link from 'next/link'
 const DocsPage = () => {
     return (
         <div>
-            <nav>
-                <ul>
-                    <li>
-                        <Link href="/docs/collapser">
-                            <a style={{ color: 'blue' }}>Collapser</a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/docs/accordion">
-                            <a style={{ color: 'blue' }}>Accordion</a>
-                        </Link>
-                    </li>
-                </ul>
-            </nav>
+            <h1>Docs</h1>
+            <Link href="/docs/primitives">
+                <a style={{ color: 'blue' }}>Primitives</a>
+            </Link>
+            <Link href="/docs/hooks">
+                <a style={{ color: 'blue' }}>Hooks</a>
+            </Link>
         </div>
     )
 }
