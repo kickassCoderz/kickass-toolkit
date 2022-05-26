@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
-const useMountEffect = (callback: CallableFunction) => {
+const useMountEffect = (callbackFn: CallableFunction) => {
     useEffect(() => {
-        callback()
+        callbackFn()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 }

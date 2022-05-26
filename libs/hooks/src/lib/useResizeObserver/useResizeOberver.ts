@@ -75,7 +75,7 @@ const getResizeObserverInstance = () => {
 }
 
 type TUseResizeObserverOptions<T extends Element> = {
-    target: T
+    target?: T | null
     onResize: TResizeObserverCallback
 }
 
