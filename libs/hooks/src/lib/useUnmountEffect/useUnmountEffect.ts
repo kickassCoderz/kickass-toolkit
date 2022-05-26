@@ -1,9 +1,15 @@
 import { useEffect } from 'react'
 
-const useUnmountEffect = (callback: CallableFunction): void => {
+import { useEvent } from '../useEvent'
+
+const useUnmountEffect = (callbackFn: CallableFunction): void => {
+    const callback = useEvent(() => callbackFn())
+
     useEffect(
-        () => () => {
-            callback()
+        () => {
+            return () => {
+                callback()
+            }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         []
