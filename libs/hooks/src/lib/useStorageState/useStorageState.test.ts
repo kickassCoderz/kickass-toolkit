@@ -30,6 +30,9 @@ class StorageMock implements Storage {
 
 const storageMock = new StorageMock()
 const storageMock2 = new StorageMock()
+const spyGetItem = jest.spyOn(storageMock, 'getItem')
+const spyGetItem2 = jest.spyOn(storageMock2, 'getItem')
+const spySetItem = jest.spyOn(storageMock, 'setItem')
 
 const useTestStorageState = (key: string, initialState: string | null | (() => string | null) = null) =>
     useStorageState(key, storageMock, initialState)
@@ -38,6 +41,9 @@ describe('useStorageState', () => {
     afterEach(() => {
         storageMock.clear()
         storageMock2.clear()
+        spyGetItem.mockClear()
+        spyGetItem2.mockClear()
+        spySetItem.mockClear()
     })
 
     it('should be defined', () => {
@@ -49,6 +55,8 @@ describe('useStorageState', () => {
         const value = result.current[0]
 
         expect(value).toBeNull()
+        expect(spyGetItem).toHaveBeenCalledWith('sausage')
+        expect(spyGetItem).toHaveBeenCalledTimes(1)
     })
 
     it('should render when no storage is available', () => {
@@ -66,13 +74,17 @@ describe('useStorageState', () => {
         expect(value).toBeNull()
 
         act(() => {
-            setValue('test')
+            setValue('DDDD')
         })
 
         rerender()
         value = result.current[0]
 
-        expect(value).toBe('test')
+        expect(value).toBe('DDDD')
+        expect(spyGetItem).toHaveBeenCalledTimes(1)
+        expect(spySetItem).toHaveBeenCalledWith('sausage', 'DDDD')
+        expect(spySetItem).toHaveBeenCalledTimes(1)
+        expect(storageMock.getItem('sausage')).toBe('DDDD')
     })
 
     it('should set value through setter', () => {
@@ -120,6 +132,7 @@ describe('useStorageState', () => {
         rerender({ key: 'cake' })
         value = result.current[0]
         expect(value).toBe('BBBBB')
+        expect(spyGetItem).toHaveBeenCalledTimes(2)
     })
 
     it('should update value after storage change', () => {
@@ -136,5 +149,7 @@ describe('useStorageState', () => {
         rerender({ storage: storageMock2 })
         value = result.current[0]
         expect(value).toBe('DD')
+        expect(spyGetItem).toHaveBeenCalledTimes(1)
+        expect(spyGetItem2).toHaveBeenCalledTimes(1)
     })
 })
