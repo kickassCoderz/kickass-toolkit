@@ -7,7 +7,7 @@ import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
 type TCallbackFn = (...args: any[]) => any
 
 interface EventCallbackHook {
-    <F extends TCallbackFn>(callback?: F): (...args: Parameters<F>) => ReturnType<F>
+    <F extends TCallbackFn>(callback?: F): (this: any, ...args: Parameters<F>) => ReturnType<F>
 }
 
 const useEvent: EventCallbackHook = <F extends TCallbackFn>(callback?: F) => {
@@ -19,8 +19,11 @@ const useEvent: EventCallbackHook = <F extends TCallbackFn>(callback?: F) => {
 
     return useMemo(
         () =>
-            (...args: Parameters<F>) =>
-                callbackRef.current?.(...args),
+            function (this: any, ...args: Parameters<F>) {
+                if (callbackRef.current) {
+                    return Reflect.apply(callbackRef.current, this, args)
+                }
+            },
         []
     )
 }
