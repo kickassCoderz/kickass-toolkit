@@ -1,1 +1,1 @@
-export * from './useStorageState'
+export { useLocalStorageState, useSessionStorageState } from './useStorageState'
