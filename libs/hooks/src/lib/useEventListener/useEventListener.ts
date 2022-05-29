@@ -94,7 +94,7 @@ const useEventListener = <
     const eventHandler = useEvent(function (this: T, ...args) {
         if (typeof listener === 'function') {
             Reflect.apply(listener, this, args)
-        } else if (listener) {
+        } else if (typeof listener?.handleEvent === 'function') {
             Reflect.apply(listener.handleEvent, this, args)
         }
     })
