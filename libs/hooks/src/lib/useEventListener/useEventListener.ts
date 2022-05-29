@@ -1,73 +1,97 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 
 import { useEvent } from '../useEvent/useEvent'
 
-// function useEventListener<DET extends keyof DocumentEventMap>(
-//     target: Document | null | undefined,
-//     eventType: DET,
-//     listener: (this: Document, evt: DocumentEventMap[DET]) => void,
-//     options?: boolean | AddEventListenerOptions
-// ): void
+// List all `EventMap` types here.
+type DOMEventMapDefinitions = [
+    [AbortSignal, AbortSignalEventMap],
+    [AbstractWorker, AbstractWorkerEventMap],
+    [Animation, AnimationEventMap],
+    [AudioScheduledSourceNode, AudioScheduledSourceNodeEventMap],
+    [AudioWorkletNode, AudioWorkletNodeEventMap],
+    [BaseAudioContext, BaseAudioContextEventMap],
+    [BroadcastChannel, BroadcastChannelEventMap],
+    [Document, DocumentEventMap],
+    [DocumentAndElementEventHandlers, DocumentAndElementEventHandlersEventMap],
+    [Element, ElementEventMap],
+    [EventSource, EventSourceEventMap],
+    [FileReader, FileReaderEventMap],
+    [GlobalEventHandlers, GlobalEventHandlersEventMap],
+    [HTMLBodyElement, HTMLBodyElementEventMap],
+    [HTMLElement, HTMLElementEventMap],
+    [HTMLMediaElement, HTMLMediaElementEventMap],
+    [IDBDatabase, IDBDatabaseEventMap],
+    [IDBOpenDBRequest, IDBOpenDBRequestEventMap],
+    [IDBRequest, IDBRequestEventMap],
+    [IDBTransaction, IDBTransactionEventMap],
+    [MediaDevices, MediaDevicesEventMap],
+    [MediaKeySession, MediaKeySessionEventMap],
+    [MediaQueryList, MediaQueryListEventMap],
+    [MediaSource, MediaSourceEventMap],
+    [MediaStream, MediaStreamEventMap],
+    [MediaStreamTrack, MediaStreamTrackEventMap],
+    [MessagePort, MessagePortEventMap],
+    [Notification, NotificationEventMap],
+    [OfflineAudioContext, OfflineAudioContextEventMap],
+    [PaymentRequest, PaymentRequestEventMap],
+    [Performance, PerformanceEventMap],
+    [PermissionStatus, PermissionStatusEventMap],
+    [RTCDTMFSender, RTCDTMFSenderEventMap],
+    [RTCDataChannel, RTCDataChannelEventMap],
+    [RTCDtlsTransport, RTCDtlsTransportEventMap],
+    [RTCPeerConnection, RTCPeerConnectionEventMap],
+    [SVGElement, SVGElementEventMap],
+    [SVGSVGElement, SVGSVGElementEventMap],
+    [ScreenOrientation, ScreenOrientationEventMap],
+    [ServiceWorker, ServiceWorkerEventMap],
+    [ServiceWorkerContainer, ServiceWorkerContainerEventMap],
+    [ServiceWorkerRegistration, ServiceWorkerRegistrationEventMap],
+    [SourceBuffer, SourceBufferEventMap],
+    [SourceBufferList, SourceBufferListEventMap],
+    [SpeechSynthesis, SpeechSynthesisEventMap],
+    [SpeechSynthesisUtterance, SpeechSynthesisUtteranceEventMap],
+    [TextTrack, TextTrackEventMap],
+    [TextTrackCue, TextTrackCueEventMap],
+    [TextTrackList, TextTrackListEventMap],
+    [WebSocket, WebSocketEventMap],
+    [Window, WindowEventMap],
+    [WindowEventHandlers, WindowEventHandlersEventMap],
+    [Worker, WorkerEventMap],
+    [XMLHttpRequest, XMLHttpRequestEventMap],
+    [XMLHttpRequestEventTarget, XMLHttpRequestEventTargetEventMap]
+]
 
-// function useEventListener<HET extends keyof HTMLElementEventMap>(
-//     target: HTMLElement | null | undefined,
-//     eventType: HET,
-//     listener: (this: HTMLElement, evt: HTMLElementEventMap[HET]) => void,
-//     options?: boolean | AddEventListenerOptions
-// ): void
+type MapDefinitionToEventMap<D, T> = {
+    [K in keyof D]: D[K] extends [any, any] ? (T extends D[K][0] ? D[K][1] : never) : never
+}
+type GetDOMEventMaps<T> = MapDefinitionToEventMap<DOMEventMapDefinitions, T>
 
-// function useEventListener<WET extends keyof WindowEventMap>(
-//     target: Window | null | undefined,
-//     eventType: WET,
-//     listener: (this: Window, evt: WindowEventMap[WET]) => void,
-//     options?: boolean | AddEventListenerOptions
-// ): void
+type MapEventMapsToKeys<D> = { [K in keyof D]: D[K] extends never ? never : keyof D[K] }
+type MapEventMapsToEvent<D, T extends PropertyKey> = {
+    [K in keyof D]: D[K] extends never ? never : T extends keyof D[K] ? D[K][T] : never
+}
 
-// function useEventListener(
-//     target: Document | HTMLElement | Window | null | undefined,
-//     eventType: string,
-//     listener: (evt: Event) => void,
-//     options?: boolean | AddEventListenerOptions
-// ): void
+interface GenericEventListener<T> {
+    (evt: T): void
+}
 
-// function useEventListener<
-//     DET extends keyof DocumentEventMap,
-//     HET extends keyof HTMLElementEventMap,
-//     WET extends keyof WindowEventMap
-// >(
-//     target: Document | HTMLElement | Window | null | undefined,
-//     eventType: DET | HET | WET | string,
-//     listener: (
-//         this: typeof target,
-//         evt: DocumentEventMap[DET] | HTMLElementEventMap[HET] | WindowEventMap[WET] | Event
-//     ) => void,
-//     options?: boolean | AddEventListenerOptions
-// ): void {
-//     const eventHandler = useEvent(listener)
+interface GenericEventListenerObject<T> {
+    handleEvent(object: T): void
+}
 
-//     useEffect(() => {
-//         if (target && eventHandler) {
-//             target.addEventListener(eventType, eventHandler, options)
-//         }
+type GenericEventListenerOrEventListenerObject<T> = GenericEventListener<T> | GenericEventListenerObject<T>
 
-//         return () => {
-//             if (target && eventHandler) {
-//                 target.removeEventListener(eventType, eventHandler, options)
-//             }
-//         }
-//         // eslint-disable-next-line react-hooks/exhaustive-deps
-//     }, [target, eventType, eventHandler])
-// }
-
-// export { useEventListener }
-
-const useEventListener = <T extends EventTarget>(target: T, ...listenerParams: Parameters<T['addEventListener']>) => {
-    const eventType = listenerParams[0]
-    const listener = listenerParams[1]
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const options = useMemo(() => listenerParams[2], [listenerParams[2]])
-
+// Works for all types listed in `DOMEventMapDefinitions` and any types that are assingable to those types.
+const useEventListener = <
+    T extends EventTarget,
+    K extends MapEventMapsToKeys<M>[number] & string,
+    M extends GetDOMEventMaps<T>
+>(
+    target: T | null | undefined,
+    eventType: K,
+    listener: GenericEventListenerOrEventListenerObject<MapEventMapsToEvent<M, K>[number]>,
+    options?: boolean | AddEventListenerOptions | undefined
+) => {
     const eventHandler = useEvent(function (this: T, ...args) {
         if (typeof listener === 'function') {
             Reflect.apply(listener, this, args)
@@ -86,6 +110,7 @@ const useEventListener = <T extends EventTarget>(target: T, ...listenerParams: P
                 target.removeEventListener(eventType, eventHandler, options)
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [eventHandler, target, eventType])
 }
 

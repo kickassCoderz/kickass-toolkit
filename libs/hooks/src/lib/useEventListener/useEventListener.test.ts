@@ -9,16 +9,19 @@ describe('useEventListener', () => {
     })
 
     it('should render', () => {
-        const { result } = renderHook(() => useEventListener(null, '', () => {}))
+        const div = document.createElement('div')
+        const listener = jest.fn()
+        const { result } = renderHook(() => useEventListener(div, 'click', listener))
         expect(result.current).toBeUndefined()
     })
 
     it('should bind listener on mount and unbind on unmount', () => {
         const div = document.createElement('div')
+        const listener = jest.fn()
         const addSpy = jest.spyOn(div, 'addEventListener')
         const removeSpy = jest.spyOn(div, 'removeEventListener')
 
-        const { rerender, unmount } = renderHook(() => useEventListener(div, 'resize', () => {}, { passive: true }))
+        const { rerender, unmount } = renderHook(() => useEventListener(div, 'resize', listener, { passive: true }))
 
         expect(addSpy).toHaveBeenCalledTimes(1)
         expect(removeSpy).toHaveBeenCalledTimes(0)
@@ -34,12 +37,13 @@ describe('useEventListener', () => {
 
     it('should work with react refs', () => {
         const div = document.createElement('div')
+        const listener = jest.fn()
         const addSpy = jest.spyOn(div, 'addEventListener')
         const removeSpy = jest.spyOn(div, 'removeEventListener')
 
         const ref = { current: div }
         const { rerender, unmount } = renderHook(() =>
-            useEventListener(ref.current, 'resize', () => {}, { passive: true })
+            useEventListener(ref.current, 'resize', listener, { passive: true })
         )
 
         expect(addSpy).toHaveBeenCalledTimes(1)
@@ -57,8 +61,8 @@ describe('useEventListener', () => {
 
     it('should invoke provided function on event trigger with proper context', () => {
         const div = document.createElement('div')
-        let context: any
-        const spy = jest.fn(function (this: any) {
+        let context: unknown
+        const spy = jest.fn(function (this: unknown) {
             // eslint-disable-next-line @typescript-eslint/no-this-alias
             context = this
         })
@@ -74,8 +78,8 @@ describe('useEventListener', () => {
 
     it('should properly handle event listener objects', () => {
         const div = document.createElement('div')
-        let context: any
-        const spy = jest.fn(function (this: any) {
+        let context: unknown
+        const spy = jest.fn(function (this: unknown) {
             // eslint-disable-next-line @typescript-eslint/no-this-alias
             context = this
         })
