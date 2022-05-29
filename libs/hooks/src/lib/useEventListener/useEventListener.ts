@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import { useEvent } from '../useEvent/useEvent'
 
@@ -94,23 +94,46 @@ const useEventListener = <
     const eventHandler = useEvent(function (this: T, ...args) {
         if (typeof listener === 'function') {
             Reflect.apply(listener, this, args)
-        } else if (listener) {
+        } else if (typeof listener?.handleEvent === 'function') {
             Reflect.apply(listener.handleEvent, this, args)
         }
     })
 
+    const { once, passive, signal }: AddEventListenerOptions = typeof options === 'object' ? options : {}
+
+    let eventOptions: boolean | AddEventListenerOptions | undefined = useMemo(() => {
+        const computedOptions: AddEventListenerOptions = {}
+
+        if (typeof once !== 'undefined') {
+            computedOptions.once = once
+        }
+
+        if (typeof passive !== 'undefined') {
+            computedOptions.passive = passive
+        }
+
+        if (typeof signal !== 'undefined') {
+            computedOptions.signal = signal
+        }
+
+        return Object.keys(computedOptions).length > 0 ? computedOptions : undefined
+    }, [once, passive, signal])
+
+    if (typeof options === 'boolean') {
+        eventOptions = options
+    }
+
     useEffect(() => {
         if (target && eventType && eventHandler) {
-            target.addEventListener(eventType, eventHandler, options)
+            target.addEventListener(eventType, eventHandler, eventOptions)
         }
 
         return () => {
             if (target && eventType && eventHandler) {
-                target.removeEventListener(eventType, eventHandler, options)
+                target.removeEventListener(eventType, eventHandler, eventOptions)
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [eventHandler, target, eventType])
+    }, [eventHandler, target, eventType, eventOptions])
 }
 
 export { useEventListener }
