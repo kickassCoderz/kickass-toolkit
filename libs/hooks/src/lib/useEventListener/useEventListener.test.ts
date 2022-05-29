@@ -12,6 +12,7 @@ describe('useEventListener', () => {
         const div = document.createElement('div')
         const listener = jest.fn()
         const { result } = renderHook(() => useEventListener(div, 'click', listener))
+
         expect(result.current).toBeUndefined()
     })
 
@@ -27,10 +28,12 @@ describe('useEventListener', () => {
         expect(removeSpy).toHaveBeenCalledTimes(0)
 
         rerender()
+
         expect(addSpy).toHaveBeenCalledTimes(1)
         expect(removeSpy).toHaveBeenCalledTimes(0)
 
         unmount()
+
         expect(addSpy).toHaveBeenCalledTimes(1)
         expect(removeSpy).toHaveBeenCalledTimes(1)
     })
@@ -51,10 +54,12 @@ describe('useEventListener', () => {
         expect(removeSpy).toHaveBeenCalledTimes(0)
 
         rerender()
+
         expect(addSpy).toHaveBeenCalledTimes(1)
         expect(removeSpy).toHaveBeenCalledTimes(0)
 
         unmount()
+
         expect(addSpy).toHaveBeenCalledTimes(1)
         expect(removeSpy).toHaveBeenCalledTimes(1)
     })

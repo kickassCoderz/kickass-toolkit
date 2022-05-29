@@ -81,7 +81,6 @@ interface GenericEventListenerObject<T> {
 
 type GenericEventListenerOrEventListenerObject<T> = GenericEventListener<T> | GenericEventListenerObject<T>
 
-// Works for all types listed in `DOMEventMapDefinitions` and any types that are assingable to those types.
 const useEventListener = <
     T extends EventTarget,
     K extends MapEventMapsToKeys<M>[number] & string,
