@@ -28,16 +28,16 @@ class StorageMock implements Storage {
     }
 }
 
-const storageMock = new StorageMock()
-const storageMock2 = new StorageMock()
-const spyGetItem = jest.spyOn(storageMock, 'getItem')
-const spyGetItem2 = jest.spyOn(storageMock2, 'getItem')
-const spySetItem = jest.spyOn(storageMock, 'setItem')
-
-const useTestStorageState = (key: string, initialState: string | null | (() => string | null) = null) =>
-    useStorageState(key, storageMock, initialState)
-
 describe('useStorageState', () => {
+    const storageMock = new StorageMock()
+    const storageMock2 = new StorageMock()
+    const spyGetItem = jest.spyOn(storageMock, 'getItem')
+    const spyGetItem2 = jest.spyOn(storageMock2, 'getItem')
+    const spySetItem = jest.spyOn(storageMock, 'setItem')
+
+    const useTestStorageState = (key: string, initialState: string | null | (() => string | null) = null) =>
+        useStorageState(key, storageMock, initialState)
+
     afterEach(() => {
         storageMock.clear()
         storageMock2.clear()
