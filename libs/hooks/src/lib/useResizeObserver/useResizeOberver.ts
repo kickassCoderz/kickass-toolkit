@@ -1,3 +1,5 @@
+import { RefObject } from 'react'
+
 import { useEvent } from '../useEvent'
 import { getIsBrowser } from '../useIsBrowser'
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
@@ -75,7 +77,7 @@ const getResizeObserverInstance = () => {
 }
 
 type TUseResizeObserverOptions<T extends Element> = {
-    target?: T | null
+    target?: RefObject<T> | T | null
     onResize: TResizeObserverCallback
 }
 
@@ -85,13 +87,15 @@ const useResizeObserver = <T extends Element>({ target, onResize }: TUseResizeOb
     const onResizeCallback = useEvent(onResize)
 
     useIsomorphicLayoutEffect(() => {
-        if (!!resizeObserver && target) {
-            resizeObserver.subscribe(target, onResizeCallback)
+        const targetElement = target && 'current' in target ? target.current : target
+
+        if (resizeObserver && targetElement) {
+            resizeObserver.subscribe(targetElement, onResizeCallback)
         }
 
         return () => {
-            if (!!resizeObserver && target) {
-                resizeObserver.unsubscribe(target, onResizeCallback)
+            if (resizeObserver && targetElement) {
+                resizeObserver.unsubscribe(targetElement, onResizeCallback)
             }
         }
     }, [resizeObserver, onResizeCallback, target])
