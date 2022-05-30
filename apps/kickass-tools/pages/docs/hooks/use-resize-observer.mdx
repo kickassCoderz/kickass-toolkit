@@ -25,25 +25,35 @@ export const meta = {
 <UseResizeObserverExampleBasic />
 
 ```jsx
-import { useRef } from 'react'
 import { useResizeObserver } from '@kickass-coderz/hooks'
+import { styled } from '@stitches/react'
+import { useRef } from 'react'
+
+const Box = styled('div', {
+    width: 200,
+    height: 200,
+    background: 'hotpink',
+    resize: 'both',
+    overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+})
 
 const UseResizeObserverExampleBasic = () => {
     const elementRef = useRef()
 
     useResizeObserver({
-        target: elementRef.current,
-        onResize(entry) {
-            console.log(entry)
+        target: elementRef,
+        onResize({ contentRect }) {
+            elementRef.current.innerHTML = `
+             width: ${contentRect.width}
+             height: ${contentRect.height}
+             `
         }
     })
 
-    return (
-        <div
-            ref={elementRef}
-            style={{ width: 200, height: 200, background: 'blue', resize: 'both', overflow: 'hidden' }}
-        ></div>
-    )
+    return <Box ref={elementRef} />
 }
 ```
 
