@@ -3,7 +3,7 @@ import { styled } from '@stitches/react'
 const Pre = styled('pre', {
     textAlign: 'left',
     margin: '1em 0',
-    padding: '16px', //0.5em
+    padding: '24px 16px', //0.5em
     borderRadius: 4,
     overflow: 'scroll',
 
