@@ -1,11 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const withNx = require('@nrwl/next/plugins/with-nx')
-const { remarkMdxCodeMeta } = require('remark-mdx-code-meta')
+import mdx from '@next/mdx'
+import remarkGfm from 'remark-gfm'
+import { remarkMdxCodeMeta } from 'remark-mdx-code-meta'
+import withNx from '@nrwl/next/plugins/with-nx.js'
 
-const withMDX = require('@next/mdx')({
+const withMDX = mdx({
     extension: /\.mdx?$/,
     options: {
-        remarkPlugins: [remarkMdxCodeMeta],
+        remarkPlugins: [remarkMdxCodeMeta, remarkGfm],
         rehypePlugins: [],
         // If we dont use `MDXProvider`, comment the following line.
         providerImportSource: '@mdx-js/react'
@@ -24,4 +25,4 @@ const nextConfig = {
     }
 }
 
-module.exports = withMDX(withNx(nextConfig))
+export default withMDX(withNx(nextConfig))
