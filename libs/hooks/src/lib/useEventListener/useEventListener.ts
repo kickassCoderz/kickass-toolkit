@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { RefObject, useEffect, useMemo } from 'react'
 
 import { useEvent } from '../useEvent/useEvent'
 
@@ -86,7 +86,7 @@ const useEventListener = <
     K extends MapEventMapsToKeys<M>[number] & string,
     M extends GetDOMEventMaps<T>
 >(
-    target: T | null | undefined,
+    target: RefObject<T> | T | null | undefined,
     eventType: K,
     listener: GenericEventListenerOrEventListenerObject<MapEventMapsToEvent<M, K>[number]>,
     options?: boolean | AddEventListenerOptions | undefined
@@ -124,13 +124,15 @@ const useEventListener = <
     }
 
     useEffect(() => {
-        if (target && eventType && eventHandler) {
-            target.addEventListener(eventType, eventHandler, eventOptions)
+        const targetElement = target && 'current' in target ? target.current : target
+
+        if (targetElement && eventType && eventHandler) {
+            targetElement.addEventListener(eventType, eventHandler, eventOptions)
         }
 
         return () => {
-            if (target && eventType && eventHandler) {
-                target.removeEventListener(eventType, eventHandler, eventOptions)
+            if (targetElement && eventType && eventHandler) {
+                targetElement.removeEventListener(eventType, eventHandler, eventOptions)
             }
         }
     }, [eventHandler, target, eventType, eventOptions])
