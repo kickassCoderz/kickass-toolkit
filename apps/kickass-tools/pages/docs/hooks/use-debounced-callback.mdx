@@ -1,0 +1,51 @@
+import { UseDebouncedCallbackExampleBasic } from '../../../examples/hooks'
+import { DocsLayout } from '../../../components'
+
+export const meta = {
+    title: 'useDebouncedCallback',
+    description: 'Debounces provided callback function with given delay.'
+}
+
+[Back to Hooks](/docs/hooks)
+
+# {meta.title}
+
+<p>{meta.description}</p>
+
+-   Debounced function is allways void.
+-   No need to wrap callback with `useCallback`, because hook manages callback mutation internally.
+-   Deferred execution automatically cancelled on component unmount.
+-   Full TypeScript support.
+
+## Basic usage
+
+<UseDebouncedCallbackExampleBasic />
+
+```jsx
+import { useDebouncedCallback } from '@kickass-coderz/hooks'
+import { ChangeEvent, useState } from 'react'
+
+const UseDebouncedCallbackExampleBasic = () => {
+    const [state, setState] = useState('')
+
+    const [handleChange] = useDebouncedCallback(event => {
+        setState(event.target.value)
+    }, 1000)
+
+    return (
+        <div>
+            <div>value:{state}</div>
+            <input type="text" onChange={handleChange} />
+        </div>
+    )
+}
+```
+
+## Api Reference
+
+| Property     | Type               | Default | Description                                  |
+| :----------- | :----------------- | :------ | :------------------------------------------- |
+| `callbackFn` | `CallableFunction` | `none`  | A function which execution will be deffered. |
+| `delay`      | `number`           | `none`  | Delay for debounce                           |
+
+export default ({ children }) => <DocsLayout meta={meta}>{children}</DocsLayout>
