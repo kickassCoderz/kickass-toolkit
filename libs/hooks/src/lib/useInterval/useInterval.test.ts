@@ -40,16 +40,16 @@ describe('useInterval', () => {
         expect(onIntervalSpy).toHaveBeenCalledTimes(3)
     })
 
-    it('should abbandon old interval callback after delay change', () => {
+    it('should abbandon old interval callback after ms change', () => {
         const onIntervalSpy = jest.fn()
-        const { rerender } = renderHook(({ delay }: { delay: number }) => useInterval(onIntervalSpy, delay), {
+        const { rerender } = renderHook(({ ms }: { ms: number }) => useInterval(onIntervalSpy, ms), {
             initialProps: {
-                delay: 1000
+                ms: 1000
             }
         })
         jest.runOnlyPendingTimers()
 
-        rerender({ delay: 2000 })
+        rerender({ ms: 2000 })
 
         jest.runOnlyPendingTimers()
 
