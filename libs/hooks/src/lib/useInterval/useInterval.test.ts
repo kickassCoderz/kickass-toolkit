@@ -85,4 +85,26 @@ describe('useInterval', () => {
 
         expect(onIntervalSpy).toHaveBeenCalledTimes(1)
     })
+
+    it('should call interval callback with args', () => {
+        const onIntervalSpy = jest.fn((a: string, b: number) => {
+            return a + b
+        })
+        const { rerender } = renderHook(({ a, b }) => useInterval(onIntervalSpy, 1000, a, b), {
+            initialProps: {
+                a: 'a',
+                b: 1
+            }
+        })
+        jest.runOnlyPendingTimers()
+
+        expect(onIntervalSpy).toHaveBeenCalledTimes(1)
+        expect(onIntervalSpy).toHaveBeenCalledWith('a', 1)
+
+        rerender({ a: 'b', b: 2 })
+        jest.runOnlyPendingTimers()
+
+        expect(onIntervalSpy).toHaveBeenCalledTimes(2)
+        expect(onIntervalSpy).toHaveBeenCalledWith('a', 1)
+    })
 })
