@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 
 import { useEvent } from '../useEvent'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 /**
  * Drop in hook replacement for setInterval
  *
@@ -11,6 +10,7 @@ import { useEvent } from '../useEvent'
  * @param {number} ms
  * @param {...TArgs} args
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useInterval = <TArgs extends any[]>(callback: (...args: TArgs) => void, ms: number, ...args: TArgs) => {
     const onInterval = useEvent(() => {
         callback(...args)

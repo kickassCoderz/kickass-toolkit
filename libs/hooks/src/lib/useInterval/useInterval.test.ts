@@ -41,7 +41,7 @@ describe('useInterval', () => {
         expect(onIntervalSpy).toHaveBeenCalledTimes(3)
     })
 
-    it('should abbandon old interval callback after ms change', () => {
+    it('should abandon old interval callback after ms change', () => {
         const onIntervalSpy = jest.fn()
         const { rerender } = renderHook(({ ms }: { ms: number }) => useInterval(onIntervalSpy, ms), {
             initialProps: {
