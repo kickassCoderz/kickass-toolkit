@@ -27,6 +27,7 @@ describe('useInterval', () => {
         renderHook(() => useInterval(onIntervalSpy, 1000))
         jest.runOnlyPendingTimers()
 
+        expect(onIntervalSpy).toHaveBeenCalledWith()
         expect(onIntervalSpy).toHaveBeenCalledTimes(1)
     })
 
