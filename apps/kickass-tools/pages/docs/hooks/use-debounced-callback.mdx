@@ -13,8 +13,9 @@ export const meta = {
 <p>{meta.description}</p>
 
 -   Debounced function is allways void.
--   No need to wrap callback with `useCallback`, because hook manages callback mutation internally.
+-   No need to wrap callback with `useCallback`, because hook manages callback reference internally.
 -   Deferred execution automatically cancelled on component unmount.
+-   Returns tuple with `execute` and `clear` methods which you dont have to wrap with `useCallback` as this is managed internally.
 -   Full TypeScript support.
 
 ## Basic usage
@@ -43,9 +44,19 @@ const UseDebouncedCallbackExampleBasic = () => {
 
 ## Api Reference
 
+### Params
+
 | Property     | Type               | Default | Description                                  |
 | :----------- | :----------------- | :------ | :------------------------------------------- |
 | `callbackFn` | `CallableFunction` | `none`  | A function which execution will be deffered. |
 | `delay`      | `number`           | `none`  | Delay for debounce                           |
+
+### Returns
+
+| Property   | Type                                  | Default | Description                                                                                                                   |
+| :--------- | :------------------------------------ | :------ | :---------------------------------------------------------------------------------------------------------------------------- |
+| `Array`    | `[CallableFunction,CallableFunction]` | `none`  | Returns a tuple with two functions. First one is your provided and debounced callback, other one is clear method for timeout. |
+| `Array[0]` | `CallableFunction`                    | `none`  | Debounced callback trigger.                                                                                                   |
+| `Array[1]` | `CallableFunction`                    | `none`  | Clear method which clears timeout.                                                                                            |
 
 export default ({ children }) => <DocsLayout meta={meta}>{children}</DocsLayout>
