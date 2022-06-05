@@ -1,8 +1,9 @@
 import { MDXProvider } from '@mdx-js/react'
-import { styled } from '@stitches/react'
 import { MDXComponents } from 'mdx/types'
 
 import { CodeBlock } from '../../CodeBlock'
+import { Container } from '../../Container'
+import { Text } from '../../Text'
 
 const preToCodeBlock = preProps => {
     if (
@@ -34,6 +35,51 @@ const preToCodeBlock = preProps => {
 //@NOTE: That is the reason why the layouts are split, it would be ridiculous to import all components in _App.tsx
 
 const mdxComponents: MDXComponents = {
+    h1: ({ children }) => {
+        return (
+            <Text as="h1" variant="h1">
+                {children}
+            </Text>
+        )
+    },
+    h2: ({ children }) => {
+        return (
+            <Text as="h2" variant="h2">
+                {children}
+            </Text>
+        )
+    },
+    h3: ({ children }) => {
+        return (
+            <Text as="h3" variant="h3">
+                {children}
+            </Text>
+        )
+    },
+    h4: ({ children }) => {
+        return (
+            <Text as="h4" variant="h4">
+                {children}
+            </Text>
+        )
+    },
+    h5: ({ children }) => {
+        return (
+            <Text as="h5" variant="h5">
+                {children}
+            </Text>
+        )
+    },
+    h6: ({ children }) => {
+        return (
+            <Text as="h6" variant="h6">
+                {children}
+            </Text>
+        )
+    },
+    p: ({ children }) => {
+        return <Text variant="paragraph">{children}</Text>
+    },
     pre: preProps => {
         const codeBlockProps = preToCodeBlock(preProps)
         if (codeBlockProps) {
@@ -44,28 +90,17 @@ const mdxComponents: MDXComponents = {
     }
 }
 
-const Root = styled('div', {
-    display: 'flex',
-    minHeight: '100vh'
-})
-
-const Sidebar = styled('aside', {
-    maxWidth: '320px',
-    width: '100%',
-    borderRight: '1px solid black'
-})
-
-const Main = styled('main', {
-    padding: '20px'
-})
-
 const DocsLayout = ({ children, meta }) => {
     return (
         <MDXProvider components={mdxComponents}>
-            <Root>
-                <Sidebar>Sidebar</Sidebar>
-                <Main>{children}</Main>
-            </Root>
+            <Container>
+                <Container maxWidth="320" as="aside">
+                    SIDEBAR
+                </Container>
+                <Container as="main" direction="column">
+                    {children}
+                </Container>
+            </Container>
         </MDXProvider>
     )
 }
