@@ -1,2 +1,5 @@
 export * from './CodeBlock'
+export * from './Container'
+export * from './Flex'
 export * from './Layouts'
+export * from './Text'

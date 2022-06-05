@@ -1,5 +1,11 @@
+import { Container } from '../../Container'
+
 const LandingLayout = ({ children }) => {
-    return <main>{children}</main>
+    return (
+        <Container as="main" direction="column">
+            {children}
+        </Container>
+    )
 }
 
 export { LandingLayout }

@@ -3,12 +3,13 @@ import { createStitches } from '@stitches/react'
 
 const { styled, globalCss, keyframes, getCssText } = createStitches({
     media: {
-        bp1: '(min-width: 650px)',
-        bp2: '(min-width: 960px)',
-        bp3: '(min-width: 1280px)',
-        bp4: '(min-width: 650px)',
-        bp5: '(min-width: 1400px)',
-        bp6: '(min-width: 1920px)'
+        bp1: '(min-width: 320px)',
+        bp2: '(min-width: 480px)',
+        bp3: '(min-width: 640px)',
+        bp4: '(min-width: 960px)',
+        bp5: '(min-width: 1280px)',
+        bp6: '(min-width: 1400px)',
+        bp7: '(min-width: 1920px)'
     },
     theme: {
         fonts: {
@@ -17,13 +18,22 @@ const { styled, globalCss, keyframes, getCssText } = createStitches({
         fontSizes: {
             htmlFontSize: '62.5%',
             bodyFontSize: '1.6rem',
-            small: '1.3rem', //13px
-            default: '$bodyFontSize',
-            large: '1.8rem' //18px
+            1: '1rem', //10px
+            2: '1.2rem', //12px
+            3: '1.4rem', //14px
+            4: '1.6rem', //16px
+            5: '1.8rem', //18px
+            6: '2rem', //20px
+            7: '2.4rem', //24px
+            8: '2.8rem', //28px
+            9: '3.2rem', //32px
+            10: '4.2rem', //42px
+            11: '6.8rem' //68px
         },
         fontWeights: {
-            medium: 500,
-            semiBold: 600
+            regular: 400,
+            semiBold: 600,
+            bold: 700
         },
 
         space: {
