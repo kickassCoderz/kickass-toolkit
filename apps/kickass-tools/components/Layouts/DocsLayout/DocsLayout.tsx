@@ -1,5 +1,7 @@
 import { MDXProvider } from '@mdx-js/react'
 import { MDXComponents } from 'mdx/types'
+import { NextSeo } from 'next-seo'
+import { useMemo } from 'react'
 
 import { CodeBlock } from '../../CodeBlock'
 import { Container } from '../../Container'
@@ -90,18 +92,40 @@ const mdxComponents: MDXComponents = {
     }
 }
 
-const DocsLayout = ({ children, meta }) => {
+const getSeoTitle = (title: string, repository?: string) => {
+    return [repository, title].filter(Boolean).join(' | ')
+}
+
+type TDocsMeta = {
+    repository?: string
+    title: string
+    description: string
+}
+
+type TDocsLayoutProps = {
+    children: React.ReactNode
+    meta: TDocsMeta
+}
+
+const DocsLayout = ({ children, meta }: TDocsLayoutProps) => {
+    const { title, repository, description } = meta
+
+    const seoTitle = useMemo(() => getSeoTitle(title, repository), [title, repository])
+
     return (
-        <MDXProvider components={mdxComponents}>
-            <Container>
-                <Container maxWidth="320" as="aside">
-                    SIDEBAR
+        <>
+            <NextSeo title={seoTitle} description={description} />
+            <MDXProvider components={mdxComponents}>
+                <Container>
+                    <Container maxWidth="320" as="aside">
+                        SIDEBAR
+                    </Container>
+                    <Container as="main" direction="column">
+                        {children}
+                    </Container>
                 </Container>
-                <Container as="main" direction="column">
-                    {children}
-                </Container>
-            </Container>
-        </MDXProvider>
+            </MDXProvider>
+        </>
     )
 }
 
