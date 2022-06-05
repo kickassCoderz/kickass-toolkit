@@ -19,7 +19,7 @@ describe('useInterval', () => {
         const onIntervalSpy = jest.fn()
         const { result } = renderHook(() => useInterval(onIntervalSpy, 1000))
 
-        expect(result.current).toBeUndefined()
+        expect(typeof result.current).toBe('function')
     })
 
     it('should call interval callback', () => {
@@ -107,5 +107,35 @@ describe('useInterval', () => {
 
         expect(onIntervalSpy).toHaveBeenCalledTimes(2)
         expect(onIntervalSpy).toHaveBeenCalledWith('a', 1)
+    })
+
+    it('should not call interval callback after calling clear function', () => {
+        const onIntervalSpy = jest.fn()
+        const { result } = renderHook(() => useInterval(onIntervalSpy, 1000))
+        jest.runOnlyPendingTimers()
+
+        result.current()
+
+        jest.runOnlyPendingTimers()
+
+        expect(onIntervalSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('should clear latest interval after props change', () => {
+        const onIntervalSpy = jest.fn()
+        const { result, rerender } = renderHook(({ ms }: { ms: number }) => useInterval(onIntervalSpy, ms), {
+            initialProps: {
+                ms: 1000
+            }
+        })
+        jest.runOnlyPendingTimers()
+
+        rerender({ ms: 2000 })
+
+        result.current()
+
+        jest.runOnlyPendingTimers()
+
+        expect(onIntervalSpy).toHaveBeenCalledTimes(1)
     })
 })
