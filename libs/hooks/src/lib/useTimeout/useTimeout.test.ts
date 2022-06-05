@@ -19,7 +19,7 @@ describe('useTimeout', () => {
         const onTimeoutSpy = jest.fn()
         const { result } = renderHook(() => useTimeout(onTimeoutSpy, 1000))
 
-        expect(result.current).toBeUndefined()
+        expect(typeof result.current).toBe('function')
     })
 
     it('should call timeout callback', () => {
@@ -98,5 +98,33 @@ describe('useTimeout', () => {
 
         expect(onTimeoutSpy).toHaveBeenCalledTimes(1)
         expect(onTimeoutSpy).toHaveBeenCalledWith('a', 1)
+    })
+
+    it('should not call timeout callback after calling clear function', () => {
+        const onTimeoutSpy = jest.fn()
+        const { result } = renderHook(() => useTimeout(onTimeoutSpy, 1000))
+
+        result.current()
+
+        jest.runOnlyPendingTimers()
+
+        expect(onTimeoutSpy).toHaveBeenCalledTimes(0)
+    })
+
+    it('should clear latest timeout after props change', () => {
+        const onTimeoutSpy = jest.fn()
+        const { result, rerender } = renderHook(({ ms }: { ms: number }) => useTimeout(onTimeoutSpy, ms), {
+            initialProps: {
+                ms: 1000
+            }
+        })
+
+        rerender({ ms: 2000 })
+
+        result.current()
+
+        jest.runOnlyPendingTimers()
+
+        expect(onTimeoutSpy).toHaveBeenCalledTimes(0)
     })
 })
