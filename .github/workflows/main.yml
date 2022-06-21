@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  
+  workflow_dispatch:
+
+jobs:
+  lint_affected:
+    name: Lint affected
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: NX Set SHAs
+        uses: nrwl/nx-set-shas@v2
+      - name: Setup volta
+        uses: volta-cli/action@v1
+      - run: npm ci
+      - run: npx nx workspace-lint
+      - run: npx nx affected --target=lint --parallel=3
+
+  test_affected:
+    name: Test affected
+    runs-on: ubuntu-latest
+    needs: lint_affected
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: NX Set SHAs
+        uses: nrwl/nx-set-shas@v2
+      - name: Setup volta
+        uses: volta-cli/action@v1
+      - run: npm ci
+      - run: npx nx affected --target=test --parallel=3 --ci --code-coverage
