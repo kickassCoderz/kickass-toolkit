@@ -3,7 +3,8 @@ import { useEffect, useMemo } from 'react'
 import { useEvent } from '../useEvent'
 import { useIsBrowser } from '../useIsBrowser'
 
-const observers: IntersectionObserver[] = []
+type ObserverPoolItem = { observer: IntersectionObserver; callbacks: IntersectionObserverCallback[] }
+const observerPool: ObserverPoolItem[] = []
 
 /**
  * Drop in hook replacement for IntersectionObserver
@@ -22,18 +23,18 @@ const useIntersectionObserver = (
     const { root = null, rootMargin = '0px 0px 0px 0px', threshold = 0.0 } = options || {}
     const observerCallback = useEvent(callback)
 
-    const observer = useMemo(() => {
+    const observerItem = useMemo(() => {
         if (!isBrowser) {
             return undefined
         }
 
         const thresholds = Array.isArray(threshold) ? threshold : [threshold]
 
-        const existingObserver = observers.find(item =>
+        const existingObserver = observerPool.find(item =>
             [
-                item.root === root,
-                item.rootMargin === rootMargin,
-                item.thresholds.toString() === thresholds.toString()
+                item.observer.root === root,
+                item.observer.rootMargin === rootMargin,
+                item.observer.thresholds.toString() === thresholds.toString()
             ].every(Boolean)
         )
 
@@ -41,25 +42,46 @@ const useIntersectionObserver = (
             return existingObserver
         }
 
-        const newObserver = new IntersectionObserver(observerCallback, { root, rootMargin, threshold })
-        observers.push(newObserver)
+        const partialObserverItem: Partial<ObserverPoolItem> = { observer: undefined, callbacks: [] }
+        partialObserverItem.observer = new IntersectionObserver(
+            (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void => {
+                partialObserverItem.callbacks?.forEach(callbackItem => {
+                    callbackItem(entries, observer)
+                })
+            },
+            { root, rootMargin, threshold }
+        )
+        const observerItem = partialObserverItem as ObserverPoolItem
+        observerPool.push(observerItem as ObserverPoolItem)
 
-        return newObserver
-    }, [isBrowser, root, rootMargin, threshold, observerCallback])
+        return observerItem
+    }, [isBrowser, root, rootMargin, threshold])
 
     useEffect(() => {
-        if (!element || !observer) {
+        if (!observerItem) {
+            return
+        }
+
+        observerItem.callbacks.push(observerCallback)
+
+        return () => {
+            observerItem.callbacks = observerItem.callbacks.filter(item => item !== observerCallback)
+        }
+    }, [observerItem, observerCallback])
+
+    useEffect(() => {
+        if (!element || !observerItem?.observer) {
             return undefined
         }
 
-        observer.observe(element)
+        observerItem.observer.observe(element)
 
         return () => {
-            observer.unobserve(element)
+            observerItem.observer.unobserve(element)
         }
-    }, [observer, element])
+    }, [observerItem?.observer, element])
 
-    return observer
+    return observerItem?.observer
 }
 
 export { useIntersectionObserver }
