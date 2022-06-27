@@ -11,6 +11,7 @@ const useRequestAnimationFrame = () => {
     const clear = useCallback(() => {
         if (isBrowser && animationFrameRef.current) {
             cancelAnimationFrame(animationFrameRef.current)
+
             animationFrameRef.current = undefined
         }
     }, [isBrowser])

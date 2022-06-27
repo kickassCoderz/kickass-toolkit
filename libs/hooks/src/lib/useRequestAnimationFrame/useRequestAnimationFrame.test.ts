@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react'
 
-import { useRequestAnimationFrameCallback } from './useRequestAnimationFrameCallback'
+import { useRequestAnimationFrame } from './useRequestAnimationFrame'
 
-describe('useRequestAnimationFrameCallback', () => {
+describe('useRequestAnimationFrame', () => {
     beforeAll(() => {
         jest.useFakeTimers()
     })
@@ -16,12 +16,12 @@ describe('useRequestAnimationFrameCallback', () => {
     })
 
     it('should be defined', () => {
-        expect(useRequestAnimationFrameCallback).toBeDefined()
+        expect(useRequestAnimationFrame).toBeDefined()
     })
 
-    it('should render and return an array with two functions', () => {
+    it('should render', () => {
         const spyFn = jest.fn()
-        const { result } = renderHook(() => useRequestAnimationFrameCallback(spyFn))
+        const { result } = renderHook(() => useRequestAnimationFrame())
 
         expect(result.current).toBeDefined()
 
@@ -38,11 +38,11 @@ describe('useRequestAnimationFrameCallback', () => {
 
     it('should call passed callback only on next raf', () => {
         const spyFn = jest.fn()
-        const { result } = renderHook(() => useRequestAnimationFrameCallback(spyFn))
+        const { result } = renderHook(() => useRequestAnimationFrame())
 
         const execute = result.current[0]
 
-        act(() => execute())
+        act(() => execute(spyFn))
 
         expect(spyFn).toHaveBeenCalledTimes(0)
 
@@ -53,13 +53,13 @@ describe('useRequestAnimationFrameCallback', () => {
 
     it('should cancel scheduled call on consequential calls', () => {
         const spyFn = jest.fn()
-        const { result } = renderHook(() => useRequestAnimationFrameCallback(spyFn))
+        const { result } = renderHook(() => useRequestAnimationFrame())
 
         const execute = result.current[0]
 
-        act(() => execute())
-        act(() => execute())
-        act(() => execute())
+        act(() => execute(spyFn))
+        act(() => execute(spyFn))
+        act(() => execute(spyFn))
 
         expect(spyFn).toHaveBeenCalledTimes(0)
 
@@ -70,12 +70,12 @@ describe('useRequestAnimationFrameCallback', () => {
 
     it('should cancel scheduled call when clear method is called', () => {
         const spyFn = jest.fn()
-        const { result } = renderHook(() => useRequestAnimationFrameCallback(spyFn))
+        const { result } = renderHook(() => useRequestAnimationFrame())
 
         const execute = result.current[0]
         const clear = result.current[1]
 
-        act(() => execute())
+        act(() => execute(spyFn))
 
         expect(spyFn).toHaveBeenCalledTimes(0)
 
@@ -88,11 +88,11 @@ describe('useRequestAnimationFrameCallback', () => {
 
     it('should cancel scheduled call on unmount', () => {
         const spyFn = jest.fn()
-        const { result, unmount } = renderHook(() => useRequestAnimationFrameCallback(spyFn))
+        const { result, unmount } = renderHook(() => useRequestAnimationFrame())
 
         const execute = result.current[0]
 
-        act(() => execute())
+        act(() => execute(spyFn))
 
         expect(spyFn).toHaveBeenCalledTimes(0)
 
