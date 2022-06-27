@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 
 import { useEvent } from '../useEvent'
 
-type ObserverPoolItem = { observer: IntersectionObserver; callbacks: IntersectionObserverCallback[] }
+type ObserverPoolItem = { observer: IntersectionObserver; callbacks: Set<IntersectionObserverCallback> }
 const observerPool: ObserverPoolItem[] = []
 
 /**
@@ -35,7 +35,7 @@ const useIntersectionObserver = (
         if (!observerItem) {
             const partialObserverItem: Partial<ObserverPoolItem> = {
                 observer: undefined,
-                callbacks: [observerCallback]
+                callbacks: new Set([observerCallback])
             }
             partialObserverItem.observer = new IntersectionObserver(
                 (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void => {
@@ -48,7 +48,7 @@ const useIntersectionObserver = (
             observerItem = partialObserverItem as ObserverPoolItem
             observerPool.push(observerItem as ObserverPoolItem)
         } else {
-            observerItem.callbacks.push(observerCallback)
+            observerItem.callbacks.add(observerCallback)
         }
 
         observerItemRef.current = observerItem
@@ -58,9 +58,9 @@ const useIntersectionObserver = (
                 return
             }
 
-            observerItem.callbacks = observerItem.callbacks.filter(item => item !== observerCallback)
+            observerItem.callbacks.delete(observerCallback)
 
-            if (observerItem.callbacks.length === 0) {
+            if (observerItem.callbacks.size === 0) {
                 observerItem.observer.disconnect()
                 const observerIndex = observerPool.findIndex(item => item === observerItem)
                 observerPool.splice(observerIndex, 1)

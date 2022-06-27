@@ -15,8 +15,8 @@ describe('useIntersectionObserver', () => {
     beforeAll(() => {
         IntersectionObserverSpy = jest.fn(
             (callback: IntersectionObserverCallback, options?: IntersectionObserverInit): IntersectionObserver => {
-                const thresholds =
-                    typeof options !== 'undefined' && Array.isArray(options.threshold) ? options.threshold : [0.0]
+                const threshold = typeof options?.threshold === 'undefined' ? 0 : options?.threshold
+                const thresholds = Array.isArray(threshold) ? threshold : [threshold]
 
                 return {
                     root: options?.root || null,
@@ -78,7 +78,7 @@ describe('useIntersectionObserver', () => {
             useIntersectionObserver(div, callbackSpy, { root: div, rootMargin: '3px 3px 3px 3px', threshold: 0.5 })
         )
 
-        expect(IntersectionObserverSpy).toHaveBeenCalledTimes(2)
+        expect(IntersectionObserverSpy).toHaveBeenCalledTimes(1)
     })
 
     it('should create IntersectionObserver instance for every hook render with different options', () => {
@@ -95,11 +95,14 @@ describe('useIntersectionObserver', () => {
         renderHook(() =>
             useIntersectionObserver(div, callbackSpy, { root: div, rootMargin: '3px 3px 3px 3px', threshold: 0.8 })
         ) // some options different
+        renderHook(() =>
+            useIntersectionObserver(div, callbackSpy, { root: div2, rootMargin: '3px 3px 3px 3px', threshold: 0.5 })
+        ) // element different
         renderHook(() => useIntersectionObserver(div, callbackSpy, { root: div })) // only root option specified
         renderHook(() => useIntersectionObserver(div, callbackSpy, { rootMargin: '3px 3px 3px 3px' })) // only rootMargin option specified
         renderHook(() => useIntersectionObserver(div, callbackSpy, { threshold: 0.8 })) // only threshold option specified
 
-        expect(IntersectionObserverSpy).toHaveBeenCalledTimes(7)
+        expect(IntersectionObserverSpy).toHaveBeenCalledTimes(8)
     })
 
     it('should create IntersectionObserver instance after options change', () => {
