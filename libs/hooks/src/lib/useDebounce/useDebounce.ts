@@ -3,9 +3,7 @@ import { useCallback, useRef } from 'react'
 import { useEvent } from '../useEvent'
 import { useUnmountEffect } from '../useUnmountEffect'
 
-type TCallbackFn = (...args: any[]) => any
-
-const useDebouncedCallback = <F extends TCallbackFn>(callback: F, delay: number) => {
+const useDebounce = (delay: number) => {
     const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
 
     const clear = useCallback(() => {
@@ -17,13 +15,12 @@ const useDebouncedCallback = <F extends TCallbackFn>(callback: F, delay: number)
 
     useUnmountEffect(clear)
 
-    const execute = useEvent(function (this: ThisParameterType<F>, ...args: Parameters<F>) {
+    const execute = useEvent((callback: () => void) => {
         clear()
-
-        timeoutRef.current = setTimeout(() => Reflect.apply(callback, this, args), delay)
+        timeoutRef.current = setTimeout(callback, delay)
     })
 
     return [execute, clear] as const
 }
 
-export { useDebouncedCallback }
+export { useDebounce }
