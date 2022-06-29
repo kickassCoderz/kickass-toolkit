@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'react'
 import { useEvent } from '../useEvent'
 
 type TObserverPoolItem = { observer: IntersectionObserver; callbacks: Set<IntersectionObserverCallback> }
+// See this for observerPool type
+// https://github.com/kickassCoderz/kickass-toolkit/pull/42#issuecomment-1169928398
 const observerPool: TObserverPoolItem[] = []
 
 /**
