@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react'
 
 import { useEvent } from '../useEvent'
 
-type ObserverPoolItem = { observer: IntersectionObserver; callbacks: Set<IntersectionObserverCallback> }
-const observerPool: ObserverPoolItem[] = []
+type TObserverPoolItem = { observer: IntersectionObserver; callbacks: Set<IntersectionObserverCallback> }
+const observerPool: TObserverPoolItem[] = []
 
 /**
  * Drop in hook replacement for IntersectionObserver
@@ -19,7 +19,7 @@ const useIntersectionObserver = (
 ): void => {
     const { root = null, rootMargin = '0px 0px 0px 0px', threshold = 0.0 } = options || {}
     const observerCallback = useEvent(callback)
-    const observerItemRef = useRef<ObserverPoolItem | undefined>()
+    const observerItemRef = useRef<TObserverPoolItem | undefined>()
 
     useEffect(() => {
         const thresholds = Array.isArray(threshold) ? threshold : [threshold]
@@ -33,7 +33,7 @@ const useIntersectionObserver = (
         )
 
         if (!observerItem) {
-            const partialObserverItem: Partial<ObserverPoolItem> = {
+            const partialObserverItem: Partial<TObserverPoolItem> = {
                 observer: undefined,
                 callbacks: new Set([observerCallback])
             }
@@ -45,8 +45,8 @@ const useIntersectionObserver = (
                 },
                 { root, rootMargin, threshold }
             )
-            observerItem = partialObserverItem as ObserverPoolItem
-            observerPool.push(observerItem as ObserverPoolItem)
+            observerItem = partialObserverItem as TObserverPoolItem
+            observerPool.push(observerItem as TObserverPoolItem)
         } else {
             observerItem.callbacks.add(observerCallback)
         }
