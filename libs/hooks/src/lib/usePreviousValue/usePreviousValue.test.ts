@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 import { useState } from 'react'
 
 import { usePreviousValue } from './usePreviousValue'
@@ -9,13 +9,62 @@ describe('usePreviousValue', () => {
     })
 
     it('should render', () => {
-        const { result } = renderHook(() => useState(0))
-        const { result: previousResult } = renderHook(({ value }) => usePreviousValue(value), {
-            initialProps: {
-                value: result.current[0]
-            }
+        const { result } = renderHook(() => usePreviousValue(undefined))
+
+        expect(result.current).toBeUndefined()
+    })
+
+    it('should return undefined on first render', () => {
+        const { result } = renderHook(() => {
+            const [value] = useState(0)
+            const previousValue = usePreviousValue(value)
+
+            return { previousValue }
         })
 
-        expect(previousResult.current).toBeUndefined()
+        expect(result.current.previousValue).toBeUndefined()
+    })
+
+    it('should return previous value after rerender', () => {
+        const { result, rerender } = renderHook(() => {
+            const [value, setValue] = useState(0)
+            const previousValue = usePreviousValue(value)
+
+            return { previousValue, setValue }
+        })
+        const setState = result.current.setValue
+
+        act(() => {
+            setState(current => current + 1)
+        })
+        rerender()
+
+        expect(result.current.previousValue).toBe(1)
+    })
+
+    it('should return previous values after each rerender', () => {
+        const { result, rerender } = renderHook(() => {
+            const [value, setValue] = useState(0)
+            const previousValue = usePreviousValue(value)
+
+            return { previousValue, setValue }
+        })
+        const setState = result.current.setValue
+
+        expect(result.current.previousValue).toBeUndefined()
+
+        act(() => {
+            setState(current => current + 1)
+        })
+        rerender()
+
+        expect(result.current.previousValue).toBe(1)
+
+        act(() => {
+            setState(current => current + 1)
+        })
+        rerender()
+
+        expect(result.current.previousValue).toBe(2)
     })
 })
