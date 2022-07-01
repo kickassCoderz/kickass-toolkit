@@ -5,5 +5,6 @@ module.exports = {
         '^.+\\.[tj]sx?$': ['@swc/jest', { jsc: { transform: { react: { runtime: 'automatic' } } } }]
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-    coverageDirectory: '../../coverage/libs/hooks'
+    coverageDirectory: '../../coverage/libs/hooks',
+    coveragePathIgnorePatterns: ['index.ts']
 }
