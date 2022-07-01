@@ -71,4 +71,18 @@ describe('useConsole', () => {
         expect(consoleInfoSpy).toHaveBeenCalledWith(1)
         expect(consoleInfoSpy).toHaveBeenCalledTimes(2)
     })
+
+    it('should fallback to console.log method if invalid level is provided', () => {
+        renderHook(() => useConsole('wrong' as TConsoleLevel, 1))
+
+        expect(consoleLogSpy).toHaveBeenCalledWith(1)
+        expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('should fallback to console.log method if invalid level is not a string', () => {
+        renderHook(() => useConsole(undefined as unknown as TConsoleLevel, 1))
+
+        expect(consoleLogSpy).toHaveBeenCalledWith(1)
+        expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+    })
 })

@@ -1,7 +1,5 @@
 import { useDebugValue, useEffect } from 'react'
 
-const isEnabled = typeof process !== 'undefined' ? process.env['NODE_ENV'] !== 'production' : true
-
 export type TConsoleLevel =
     | 'debug'
     | 'error'
@@ -43,10 +41,6 @@ const useConsole = (level: TConsoleLevel, ...args: unknown[]): void => {
     useDebugValue(args)
 
     useEffect(() => {
-        if (!isEnabled) {
-            return
-        }
-
         logger(...args)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [level, logger, ...args])
