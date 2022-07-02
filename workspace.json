@@ -2,8 +2,7 @@
     "version": 2,
     "projects": {
         "hooks": "libs/hooks",
-        "kickass-tools": "apps/kickass-tools",
-        "kickass-tools-e2e": "apps/kickass-tools-e2e",
+        "kickass-toolkit": "apps/kickass-toolkit",
         "primitives": "libs/primitives"
     }
 }
