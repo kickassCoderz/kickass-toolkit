@@ -2,32 +2,43 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Introduction
 
-Let's discover **Docusaurus in less than 5 minutes**.
+## Key features
 
-## Getting Started
+📦 **Out-of-the-box**: data fetching, authentication, subscription, low level api hooks
 
-Get started by **creating a new site**.
+🔌 **Backend agnostic**: Connect to any backend (built-in pluggins planned)
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+📝 **Written in Typescript**: Get all the goodies which TS provides
 
-## Generate a new site
+📉 **Boilerplate-free**: Keeps your code nice and clean
 
-Generate a new Docusaurus site using the **classic template**:
+🔍 **Thoroughly tested**: All code meets quality standards
 
-```shell
-nx generate @nx-plus/docusaurus:app my-app
-```
+🎨 **Headless**: Works with any UI
 
-## Start your site
+## What is Kickass Toolkit
 
-Run the development server:
+**Kickass Toolkit** is a set of finely crafted and curated tools for rapid development of modern applications based on **[React](https://reactjs.org/)** and it's ecosystem.
 
-```shell
-nx serve my-app
-```
+It is a collection of multiple standalone libraries:
 
-Your site starts at `http://localhost:3000`.
+-   [@kickass-coderz/hooks](https://reactjs.org/)
+-   [@kickass-coderz/auth-service](https://reactjs.org/)
+-   [@kickass-coderz/data-service](https://reactjs.org/)
+-   [@kickass-coderz/subscription-service](https://reactjs.org/)
 
-Open `docs/intro.md` and edit some lines: the site **reloads automatically** and displays your changes.
+## Motivation
+
+We have created **Kickass Toolkit** because we are scratching our own itch. Let's be real, developers are lazy. Starting a new project is a boring and repetitive task which always has to be done. This is where **Kickass Toolkit** kicks in.
+
+By default **Kickass Toolkit** is unopinionated about your **UI** or **buissines logic** but it is strongly opinionated about three parts:
+
+-   **Data fetching**
+-   **Authentication and Authorization**
+-   **Subscriptions**
+
+It is our opinion that those are most important parts of modern web application and that should be handled in a robust way by following industry best practices.
+
+Furthermore **Kickass Toolkit** provides you with collection of hooks which expose low level native browser API. If you need more than bare bones you can explore our [Hook recipes](https://reactjs.org/).

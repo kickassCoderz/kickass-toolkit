@@ -1,5 +1,6 @@
-import React from 'react'
 import clsx from 'clsx'
+import React from 'react'
+
 import styles from './HomepageFeatures.module.css'
 
 type FeatureItem = {
@@ -41,7 +42,7 @@ const FeatureList: FeatureItem[] = [
     }
 ]
 
-function Feature({ title, image, description }: FeatureItem) {
+const Feature = ({ title, image, description }: FeatureItem) => {
     return (
         <div className={clsx('col col--4')}>
             <div className="text--center">
@@ -55,7 +56,7 @@ function Feature({ title, image, description }: FeatureItem) {
     )
 }
 
-export default function HomepageFeatures(): JSX.Element {
+const HomepageFeatures = (): JSX.Element => {
     return (
         <section className={styles.features}>
             <div className="container">
@@ -68,3 +69,5 @@ export default function HomepageFeatures(): JSX.Element {
         </section>
     )
 }
+
+export { HomepageFeatures }

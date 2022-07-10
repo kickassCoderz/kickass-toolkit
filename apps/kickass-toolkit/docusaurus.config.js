@@ -3,6 +3,7 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
+const npm2yarn = require('@docusaurus/remark-plugin-npm2yarn')
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -24,7 +25,8 @@ const config = {
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
                     // Please change this to your repo.
-                    editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/'
+                    editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
+                    remarkPlugins: [[npm2yarn, { sync: true }]]
                 },
                 blog: {
                     showReadingTime: true,
@@ -52,7 +54,7 @@ const config = {
                         type: 'doc',
                         docId: 'intro',
                         position: 'left',
-                        label: 'Tutorial'
+                        label: 'Docs'
                     },
                     { to: '/blog', label: 'Blog', position: 'left' },
                     {
@@ -69,8 +71,28 @@ const config = {
                         title: 'Docs',
                         items: [
                             {
-                                label: 'Tutorial',
+                                label: 'Introduction',
                                 to: '/docs/intro'
+                            },
+                            {
+                                label: 'Quick Start',
+                                to: '/docs/quick-start'
+                            },
+                            {
+                                label: 'Hooks',
+                                to: '/docs/hooks/overview'
+                            },
+                            {
+                                label: 'Data service',
+                                to: '/docs/data-service/overview'
+                            },
+                            {
+                                label: 'Auth service',
+                                to: '/docs/auth-service/overview'
+                            },
+                            {
+                                label: 'Subscription service',
+                                to: '/docs/subscription-service/overview'
                             }
                         ]
                     },
