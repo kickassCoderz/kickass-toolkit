@@ -31,15 +31,15 @@ describe('useMediaQuery', () => {
     it('should render', () => {
         const { result } = renderHook(() => useMediaQuery('(max-width: 600px)'))
 
-        expect(typeof result.current).toBe('boolean')
+        expect(typeof result.current.matches).toBe('boolean')
     })
 
     it('should update value when document changes', () => {
         const { result } = renderHook(() => useMediaQuery('(max-width: 600px)'))
 
-        expect(result.current).toBe(true)
+        expect(result.current.matches).toBe(true)
 
         // TODO feat/use-media-query
-        // expect(result.current).toBe(false)
+        // expect(result.current.matches).toBe(false)
     })
 })

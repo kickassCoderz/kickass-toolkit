@@ -2,13 +2,24 @@ import { useEffect, useState } from 'react'
 
 import { useIsBrowser } from '../useIsBrowser'
 
-const useMediaQuery = (query: string, fallbackValue?: boolean) => {
+/**
+ * Drop in replacement for media query detection and browser matchMedia.
+ *
+ * @param {string} query
+ * @param {boolean} [fallbackValue]
+ * @return {*}  {{ matches: boolean }}
+ */
+const useMediaQuery = (query: string, fallbackValue?: boolean): { matches: boolean } => {
     const isBrowser = useIsBrowser()
     const isSSRMode = typeof fallbackValue !== 'undefined'
 
     const [matches, setMatches] = useState(() => {
-        if (!isBrowser && isSSRMode) {
+        if (isSSRMode) {
             return fallbackValue
+        }
+
+        if (!isBrowser) {
+            return false
         }
 
         return matchMedia(query).matches
@@ -32,7 +43,7 @@ const useMediaQuery = (query: string, fallbackValue?: boolean) => {
         }
     }, [query, isSSRMode])
 
-    return matches
+    return { matches }
 }
 
 export { useMediaQuery }
