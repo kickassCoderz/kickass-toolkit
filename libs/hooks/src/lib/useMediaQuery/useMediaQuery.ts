@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { useIsBrowser } from '../useIsBrowser'
+import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
 
 /**
  * Drop in replacement for media query detection and browser matchMedia.
@@ -25,7 +26,7 @@ const useMediaQuery = (query: string, fallbackValue?: boolean): { matches: boole
         return matchMedia(query).matches
     })
 
-    useEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const mediaQueryList = matchMedia(query)
 
         if (isSSRMode) {
