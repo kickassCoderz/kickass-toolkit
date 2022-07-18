@@ -34,6 +34,13 @@ describe('useMediaQuery', () => {
         expect(typeof result.current.matches).toBe('boolean')
     })
 
+    it('should update value after hydration when using fallback value', () => {
+        const { result } = renderHook(() => useMediaQuery('(max-width: 500px)', true))
+
+        // after effects run value is false because media does not match
+        expect(result.current.matches).toBe(false)
+    })
+
     it('should update value when document changes', () => {
         const { result } = renderHook(() => useMediaQuery('(max-width: 600px)'))
 
