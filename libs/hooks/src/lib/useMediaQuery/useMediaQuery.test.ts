@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 
 import { useMediaQuery } from './useMediaQuery'
 
@@ -49,13 +49,16 @@ describe('useMediaQuery', () => {
         expect(result.current.matches).toBe(false)
     })
 
-    it('should update value when document changes', () => {
+    it('should update value when document media changes', () => {
         const { result } = renderHook(() => useMediaQuery('(max-width: 600px)'))
 
         expect(result.current.matches).toBe(true)
 
-        // TODO feat/use-media-query
-        // expect(result.current.matches).toBe(false)
+        act(() => {
+            onChangeSpy.mock.calls[0][1]({ matches: false })
+        })
+
+        expect(result.current.matches).toBe(false)
     })
 
     it('should cleanup change listener on component unmount', () => {
