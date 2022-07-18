@@ -25,6 +25,7 @@
         "@swc/core": "~1.2.143",
         "@swc/jest": "0.2.20",
         "@testing-library/react": "13.1.1",
+        "@testing-library/react-hooks": "^8.0.1",
         "@types/jest": "27.4.1",
         "@types/node": "16.11.7",
         "@types/react": "18.0.8",
