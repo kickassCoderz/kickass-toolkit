@@ -19,7 +19,7 @@ describe('useMediaQuery', () => {
     })
 
     it('should render in SSR mode with fallback value', () => {
-        const { result } = renderHook(() => useMediaQuery('(max-width: 600px)', { fallbackValue: true }))
+        const { result } = renderHook(() => useMediaQuery('(max-width: 600px)', { initialValue: true }))
 
         expect(result.current.matches).toBe(true)
     })

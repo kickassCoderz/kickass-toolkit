@@ -4,23 +4,23 @@ import { useIsBrowser } from '../useIsBrowser'
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
 
 type TUseMediaQueryOptions = {
-    fallbackValue?: boolean
+    initialValue?: boolean
 }
 
 /**
  * Drop in replacement for media query detection and browser matchMedia.
  *
  * @param {string} query
- * @param {TUseMediaQueryOptions} [{ fallbackValue }={}] - fallbackValue is the value that will be used for initial render if the environment does not support matchMedia
+ * @param {TUseMediaQueryOptions} [{ initialValue }={}] - value that will be used for the initial render, use when evironment does not support matchMedia eg. during SSR (Server Side Rendering). If undefined is provided it will default to matchMedia.matches in Browser and to false in all other environments.
  * @return {*}  {{ matches: boolean }}
  */
-const useMediaQuery = (query: string, { fallbackValue }: TUseMediaQueryOptions = {}): { matches: boolean } => {
+const useMediaQuery = (query: string, { initialValue }: TUseMediaQueryOptions = {}): { matches: boolean } => {
     const isBrowser = useIsBrowser()
-    const isSSRMode = typeof fallbackValue !== 'undefined'
+    const isSSRMode = typeof initialValue !== 'undefined'
 
     const [matches, setMatches] = useState(() => {
         if (isSSRMode) {
-            return fallbackValue
+            return initialValue
         }
 
         if (!isBrowser) {
