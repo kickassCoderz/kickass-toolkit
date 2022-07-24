@@ -15,6 +15,7 @@
         "skipDefaultLibCheck": true,
         "baseUrl": ".",
         "paths": {
+            "@kickass-coderz/data-service": ["libs/data-service/src/index.ts"],
             "@kickass-coderz/hooks": ["libs/hooks/src/index.ts"],
             "@kickass-coderz/primitives": ["libs/primitives/src/index.ts"]
         }
