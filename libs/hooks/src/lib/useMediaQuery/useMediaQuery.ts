@@ -7,6 +7,36 @@ type TUseMediaQueryOptions = {
     initialValue?: boolean
 }
 
+type TMediaQueryPoolItem = {
+    mediaQuery: MediaQueryList
+    callbacks: Set<(event: MediaQueryListEvent) => void>
+    removeListener: () => void
+}
+
+const mediaQueryPool: Record<string, TMediaQueryPoolItem> = {}
+
+const getMediaQueryInstance = (query: string): TMediaQueryPoolItem => {
+    if (!mediaQueryPool[query]) {
+        const mediaQuery = matchMedia(query)
+        const callbacks = new Set<(event: MediaQueryListEvent) => void>()
+        const handleChange = (event: MediaQueryListEvent) => {
+            callbacks.forEach(callback => callback(event))
+        }
+
+        mediaQuery.addEventListener('change', handleChange)
+
+        mediaQueryPool[query] = {
+            mediaQuery,
+            callbacks,
+            removeListener: () => {
+                mediaQuery.removeEventListener('change', handleChange)
+            }
+        }
+    }
+
+    return mediaQueryPool[query]
+}
+
 /**
  * Drop in replacement for media query detection and browser matchMedia.
  *
@@ -27,24 +57,29 @@ const useMediaQuery = (query: string, { initialValue }: TUseMediaQueryOptions = 
             return false
         }
 
-        return matchMedia(query).matches
+        return getMediaQueryInstance(query).mediaQuery.matches
     })
 
     useIsomorphicLayoutEffect(() => {
-        const mediaQueryList = matchMedia(query)
+        const { mediaQuery, callbacks, removeListener } = getMediaQueryInstance(query)
 
         if (isSSRMode) {
-            setMatches(mediaQueryList.matches)
+            setMatches(mediaQuery.matches)
         }
 
         const handleChange = (event: MediaQueryListEvent) => {
             setMatches(event.matches)
         }
 
-        mediaQueryList.addEventListener('change', handleChange)
+        callbacks.add(handleChange)
 
         return () => {
-            mediaQueryList.removeEventListener('change', handleChange)
+            callbacks.delete(handleChange)
+
+            if (callbacks.size === 0) {
+                removeListener()
+                delete mediaQueryPool[query]
+            }
         }
     }, [query, isSSRMode])
 
