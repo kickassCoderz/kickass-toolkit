@@ -56,6 +56,7 @@
         "@docusaurus/preset-classic": "2.0.0-beta.13",
         "@docusaurus/remark-plugin-npm2yarn": "^2.0.0-beta.22",
         "@mdx-js/react": "^1.6.21",
+        "@tanstack/react-query": "^4.0.9",
         "clsx": "^1.1.1",
         "core-js": "^3.6.5",
         "prism-react-renderer": "^1.2.1",
