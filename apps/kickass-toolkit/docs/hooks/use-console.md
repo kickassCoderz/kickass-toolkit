@@ -111,11 +111,11 @@ const Component = ({ users }) => {
 
 | Property | Type            | Default | Required | Description                                                            |
 | :------- | :-------------- | :------ | :------- | :--------------------------------------------------------------------- |
-| `level`  | `TConsoleLevel` | `log`   | true     | Define log level/method for the underlying     console implementation. |
+| `level`  | `TConsoleLevel` |         | true     | Define log level/method for the underlying     console implementation. |
 | `args`   | `any[]`         | `[]`    | false    | Series of values you wish to log and watch for changes.                |
 
 ### Return value
 
-| Property | Type   | Description                   |
-| :------- | :----- | :---------------------------- |
+| Property | Type   | Description                     |
+| :------- | :----- | :------------------------------ |
 |          | `void` | Hook does not return any value. |

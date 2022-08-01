@@ -1,6 +1,6 @@
 # useMediaQuery
 
-Drop in replacement for media query detection and browser matchMedia.
+Drop in replacement for media query detection and browser matchMedia as a React hook.
 
 ## Features
 
@@ -83,10 +83,10 @@ const Layout = ({ matches: matchesSSR }) => {
 
 ### Properties
 
-| Property               | Type                    | Default     | Required | Description                                                                                                                                                                                                                                               |
-| :--------------------- | :---------------------- | :---------- | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `query`                | `string`                | `undefined` | true     | A string specifying the media query to parse into a MediaQueryList.                                                                                                                                                                                       |
-| `options`              | `TUseMediaQueryOptions` | `{}`        | false    | Additional options.                                                                                                                                                                                                                                       |
+| Property               | Type                    | Default     | Required | Description                                                                                                                                                                                                                                          |
+| :--------------------- | :---------------------- | :---------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `query`                | `string`                |             | true     | A string specifying the media query to parse into a MediaQueryList.                                                                                                                                                                                  |
+| `options`              | `TUseMediaQueryOptions` | `{}`        | false    | Additional options.                                                                                                                                                                                                                                  |
 | `options.initialValue` | `boolean`               | `undefined` | false    | Value that will be used for the initial render, use when evironment does not support matchMedia eg. during SSR (Server Side Rendering). If not provided it will default to `matchMedia.matches` in browser and to `false` in all other environments. |
 
 ### Return value
