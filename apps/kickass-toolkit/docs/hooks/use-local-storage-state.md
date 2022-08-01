@@ -36,6 +36,6 @@ const Component = () => {
 
 ### Return value
 
-| Property | Type    | Description             |
-| :------- | :------ | :---------------------- |
+| Property | Type    | Description                                                    |
+| :------- | :------ | :------------------------------------------------------------- |
 | Array    | `array` | Return value and setter function for updating the state value. |
