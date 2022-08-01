@@ -31,7 +31,7 @@ export type TConsoleLevel =
 /**
  * Drop in replacement for console but it is reactive.
  *
- * It also automatically silences all logs if NODE_ENV is set to proudction.
+ * It also automatically silences all logs if NODE_ENV is set to production.
  *
  * @param {TConsoleLevel} level
  * @param {...unknown[]} args any arguments to watch and log on changes
