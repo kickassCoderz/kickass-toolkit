@@ -3,7 +3,7 @@
  */
 import { renderHook } from '@testing-library/react'
 
-import { TConsoleLevel, useConsole } from './useConsole'
+import { TConsoleLevel, useConsole, useConsoleError, useConsoleInfo, useConsoleLog, useConsoleWarn } from './useConsole'
 
 describe('useConsole', () => {
     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation()
@@ -84,5 +84,36 @@ describe('useConsole', () => {
 
         expect(consoleLogSpy).toHaveBeenCalledWith(1)
         expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('useConsoleLog should log to console with level log', () => {
+        renderHook(() => useConsoleLog(1))
+
+        expect(consoleLogSpy).toHaveBeenCalledWith(1)
+        expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('useConsoleWarn should log to console with level warn', () => {
+        const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation()
+        renderHook(() => useConsoleWarn(1))
+
+        expect(consoleWarnSpy).toHaveBeenCalledWith(1)
+        expect(consoleWarnSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('useConsoleError should log to console with level error', () => {
+        const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation()
+        renderHook(() => useConsoleError(1))
+
+        expect(consoleErrorSpy).toHaveBeenCalledWith(1)
+        expect(consoleErrorSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('useConsoleInfo should log to console with level info', () => {
+        const consoleInfoSpy = jest.spyOn(console, 'info').mockImplementation()
+        renderHook(() => useConsoleInfo(1))
+
+        expect(consoleInfoSpy).toHaveBeenCalledWith(1)
+        expect(consoleInfoSpy).toHaveBeenCalledTimes(1)
     })
 })

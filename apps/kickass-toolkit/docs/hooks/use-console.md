@@ -105,6 +105,22 @@ const Component = ({ users }) => {
 }
 ```
 
+## Shortcut hooks
+
+We also export few shortcut hooks that automatically log with specified log level. Depending on the usage we may in the future export more shortcuts for other log levels
+
+```jsx
+import { useConsoleLog, useConsoleWarn, useConsoleError, useConsoleInfo } from '@kickass-coderz/hooks'
+
+useConsoleLog('render')
+
+useConsoleWarn('memory leak detected') // this will log warn level
+
+useConsoleError(error) // this will log error level
+
+useConsoleInfo('mounted') // this will log info level
+```
+
 ## API Reference
 
 ### Properties
