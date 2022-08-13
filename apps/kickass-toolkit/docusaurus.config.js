@@ -4,6 +4,9 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 const npm2yarn = require('@docusaurus/remark-plugin-npm2yarn')
+const path = require('path')
+const fs = require('fs')
+const kebabCase = require('lodash.kebabcase')
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -133,7 +136,33 @@ const config = {
                 theme: lightCodeTheme,
                 darkTheme: darkCodeTheme
             }
-        })
+        }),
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    plugins: [
+        ...fs
+            .readdirSync(path.resolve(__dirname, '../../libs/hooks/src/lib'))
+            .filter(path => !path.endsWith('.ts'))
+            .map(hookName => {
+                return [
+                    'docusaurus-plugin-typedoc',
+                    {
+                        id: hookName,
+                        entryPoints: [path.resolve(__dirname, `../../libs/hooks/src/lib/${hookName}/index.ts`)],
+                        tsconfig: path.resolve(__dirname, '../../libs/hooks/tsconfig.json'),
+                        out: 'types',
+                        entryDocument: `${kebabCase(hookName)}.md`,
+                        sidebar: {
+                            categoryLabel: 'Types reference',
+                            indexLabel: hookName
+                        },
+                        readme: 'none',
+                        readmeTitle: hookName
+                    }
+                ]
+            })
+    ]
 }
 
 module.exports = config
