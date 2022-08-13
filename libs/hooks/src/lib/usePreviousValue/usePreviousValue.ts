@@ -8,8 +8,8 @@ import { useEffect, useRef } from 'react'
  * Hook is always undefined on the first render.
  *
  * @template T
- * @param {T} value
- * @return {*}  {(T | undefined)}
+ * @param {T} value current value
+ * @return {*}  {(T | undefined)} previous value
  */
 const usePreviousValue = <T>(value: T): T | undefined => {
     const ref = useRef<T>()

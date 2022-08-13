@@ -10,9 +10,9 @@ const observerPool: TObserverPoolItem[] = []
 /**
  * Drop in hook replacement for IntersectionObserver
  *
- * @param {Element} element
- * @param {IntersectionObserverCallback} callback
- * @param {IntersectionObserverInit} [options]
+ * @param {Element} element element to observe
+ * @param {IntersectionObserverCallback} callback callback to call when intersection changes
+ * @param {IntersectionObserverInit} [options] options to pass to the observer
  */
 const useIntersectionObserver = (
     element: Element,

@@ -4,6 +4,11 @@ import { useEvent } from '../useEvent'
 import { useIsBrowser } from '../useIsBrowser'
 import { useUnmountEffect } from '../useUnmountEffect'
 
+/**
+ * Drop in replacement for requestAnimationFrame as a React hook
+ *
+ * @return {*}
+ */
 const useRequestAnimationFrame = () => {
     const isBrowser = useIsBrowser()
     const animationFrameRef = useRef<ReturnType<typeof requestAnimationFrame>>()

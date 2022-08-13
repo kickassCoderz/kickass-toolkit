@@ -81,6 +81,17 @@ interface GenericEventListenerObject<T> {
 
 type GenericEventListenerOrEventListenerObject<T> = GenericEventListener<T> | GenericEventListenerObject<T>
 
+/**
+ * Drop in replacement for addEventListener as a React hook
+ *
+ * @template T
+ * @template K
+ * @template M
+ * @param {(RefObject<T> | T | null | undefined)} target
+ * @param {K} eventType
+ * @param {GenericEventListenerOrEventListenerObject<MapEventMapsToEvent<M, K>[number]>} listener
+ * @param {(boolean | AddEventListenerOptions | undefined)} [options]
+ */
 const useEventListener = <
     T extends EventTarget,
     K extends MapEventMapsToKeys<M>[number] & string,

@@ -81,6 +81,12 @@ type TUseResizeObserverOptions<T extends Element> = {
     onResize: TResizeObserverCallback
 }
 
+/**
+ * Drop in replacement for ResizeObserver
+ *
+ * @template T
+ * @param {TUseResizeObserverOptions<T>} { target, onResize }
+ */
 const useResizeObserver = <T extends Element>({ target, onResize }: TUseResizeObserverOptions<T>) => {
     const resizeObserver = getResizeObserverInstance()
 

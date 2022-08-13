@@ -8,9 +8,9 @@ type ClearTimeoutFn = () => void
  * Drop in hook replacement for setTimeout
  *
  * @template TArgs
- * @param {(...args: TArgs) => void} callback
- * @param {number} ms
- * @param {...TArgs} args
+ * @param {(...args: TArgs) => void} callback callback to call on timeout
+ * @param {number} ms timeout in milliseconds
+ * @param {...TArgs} args arguments to pass to callback
  * @return {*}  {ClearTimeoutFn}
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
