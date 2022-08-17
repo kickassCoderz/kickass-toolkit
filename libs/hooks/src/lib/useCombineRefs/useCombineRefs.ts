@@ -20,7 +20,7 @@ const combineRefs = <T>(...refs: React.Ref<T>[]): React.RefCallback<T> => {
  *
  * @template T
  * @param {...React.Ref<T>[]} refs
- * @return {*}  {React.RefCallback<T>}
+ * @return {*} ref callback
  */
 const useCombineRefs = <T>(...refs: React.Ref<T>[]): React.RefCallback<T> => {
     return useEvent(combineRefs<T>(...refs))
