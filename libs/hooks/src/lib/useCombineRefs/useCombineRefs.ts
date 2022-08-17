@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useEvent } from '../useEvent'
 
 const combineRefs = <T>(...refs: React.Ref<T>[]): React.RefCallback<T> => {
     return (node: T) => {
@@ -6,15 +6,24 @@ const combineRefs = <T>(...refs: React.Ref<T>[]): React.RefCallback<T> => {
             if (typeof ref === 'function') {
                 ref(node)
             } else if (ref !== null && ref !== undefined) {
-                ;(ref as React.MutableRefObject<T>).current = node
+                const mutableRef = ref as React.MutableRefObject<T> // fuck typescript
+                mutableRef.current = node
             }
         })
     }
 }
 
+/**
+ * Creates a callback that combines all the given refs into single one.
+ *
+ * Each ref provided to this hook will be passed the ref prop on the target element.
+ *
+ * @template T
+ * @param {...React.Ref<T>[]} refs
+ * @return {*}  {React.RefCallback<T>}
+ */
 const useCombineRefs = <T>(...refs: React.Ref<T>[]): React.RefCallback<T> => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    return useCallback(combineRefs<T>(...refs), refs)
+    return useEvent(combineRefs<T>(...refs))
 }
 
 export { combineRefs, useCombineRefs }
