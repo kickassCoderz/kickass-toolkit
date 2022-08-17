@@ -16,9 +16,9 @@ Detect window width changes and show modal that spans full screen.
 ```jsx
 import { useResizeObserver } from '@kickass-coderz/hooks'
 
-const Layout = () => {
+const Component = () => {
     const [width, setWidth] = useState(0)
-    const { matches } = useResizeObserver(document.body, (entry) => {
+    useResizeObserver(document.body, ([entry]) => {
       setWidth(entry.borderBoxSize.inlineSize)
     })
 
