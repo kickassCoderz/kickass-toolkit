@@ -18,16 +18,6 @@ const MyPage = () => {
 }
 ```
 
-## API Reference
+## [API Reference](/docs/types/use-mount-effect)
 
-### Properties
-
-| Property     | Type               | Default | Description                                         |
-| :----------- | :----------------- | :------ | :-------------------------------------------------- |
-| `callbackFn` | `CallableFunction` | `none`  | A function which will be called on component mount. |
-
-### Return value
-
-| Property    | Type   | Default | Description                      |
-| :---------- | :----- | :------ | :------------------------------- |
-| `undefined` | `void` | `void`  | `useMountEffect` returns nothing |
+[For detailed TypeScript and API reference click here.](/docs/types/use-mount-effect)

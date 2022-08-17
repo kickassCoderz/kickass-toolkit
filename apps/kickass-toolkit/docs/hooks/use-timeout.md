@@ -46,18 +46,6 @@ const Component = () => {
 }
 ```
 
-## API Reference
+## [API Reference](/docs/types/use-timeout)
 
-### Properties
-
-| Property   | Type       | Default     | Required | Description                                                          |
-| :--------- | :--------- | :---------- | :------- | :------------------------------------------------------------------- |
-| `callback` | `function` |             | true     | Callback funtion to execute after timeout.                           |
-| `ms`       | `number`   | `0`         | false    | Timeout in miliseconds.                                              |
-| `args`     | `any[]`    | `undefined` | false    | Arguments to be passed to `callback` function when timeout executes. |
-
-### Return value
-
-| Property | Type       | Description             |
-| :------- | :--------- | :---------------------- |
-| clear    | `function` | Clears running timeout. |
+[For detailed TypeScript and API reference click here.](/docs/types/use-timeout)

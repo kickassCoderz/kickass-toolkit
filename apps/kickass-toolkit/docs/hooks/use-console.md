@@ -121,17 +121,6 @@ useConsoleError(error) // this will log error level
 useConsoleInfo('mounted') // this will log info level
 ```
 
-## API Reference
+## [API Reference](/docs/types/use-console)
 
-### Properties
-
-| Property | Type            | Default | Required | Description                                                            |
-| :------- | :-------------- | :------ | :------- | :--------------------------------------------------------------------- |
-| `level`  | `TConsoleLevel` |         | true     | Define log level/method for the underlying     console implementation. |
-| `args`   | `any[]`         | `[]`    | false    | Series of values you wish to log and watch for changes.                |
-
-### Return value
-
-| Property | Type   | Description                     |
-| :------- | :----- | :------------------------------ |
-|          | `void` | Hook does not return any value. |
+[For detailed TypeScript and API reference click here.](/docs/types/use-console)

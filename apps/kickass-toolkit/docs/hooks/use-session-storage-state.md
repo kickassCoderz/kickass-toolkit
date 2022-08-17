@@ -62,16 +62,6 @@ const onClick = useCallback(() => {
 }, []) // onClick reference will stay the same avoiding re-renders
 ```
 
-## API Reference
+## [API Reference](/docs/types/use-storage-state#usesessionstoragestate)
 
-### Properties
-
-| Property       | Type                          | Default | Required | Description                                                     |
-| :------------- | :---------------------------- | :------ | :------- | :-------------------------------------------------------------- |
-| `initialState` | <code>string\|function</code> | `null`  | `false`  | Initial value for the state. It can also be a creator function. |
-
-### Return value
-
-| Property | Type    | Description                                                    |
-| :------- | :------ | :------------------------------------------------------------- |
-| Array    | `array` | Return value and setter function for updating the state value. |
+[For detailed TypeScript and API reference click here.](/docs/types/use-storage-state#usesessionstoragestate)

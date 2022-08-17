@@ -46,18 +46,6 @@ const Component = () => {
 }
 ```
 
-## API Reference
+## [API Reference](/docs/types/use-interval)
 
-### Properties
-
-| Property   | Type       | Default     | Required | Description                                                               |
-| :--------- | :--------- | :---------- | :------- | :------------------------------------------------------------------------ |
-| `callback` | `function` |             | true     | Callback funtion to executed on each interval.                            |
-| `ms`       | `number`   | `0`         | false    | Interval time in miliseconds.                                             |
-| `args`     | `any[]`    | `undefined` | false    | Arguments to be passed to `callback` function on each interval execution. |
-
-### Return value
-
-| Property | Type       | Description              |
-| :------- | :--------- | :----------------------- |
-| clear    | `function` | Clears running interval. |
+[For detailed TypeScript and API reference click here.](/docs/types/use-interval)

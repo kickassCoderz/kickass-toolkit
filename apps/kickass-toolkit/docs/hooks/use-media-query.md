@@ -79,19 +79,6 @@ const Layout = ({ matches: matchesSSR }) => {
 }
 ```
 
-## API Reference
+## [API Reference](/docs/types/use-media-query)
 
-### Properties
-
-| Property               | Type                    | Default     | Required | Description                                                                                                                                                                                                                                          |
-| :--------------------- | :---------------------- | :---------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `query`                | `string`                |             | true     | A string specifying the media query to parse into a MediaQueryList.                                                                                                                                                                                  |
-| `options`              | `TUseMediaQueryOptions` | `{}`        | false    | Additional options.                                                                                                                                                                                                                                  |
-| `options.initialValue` | `boolean`               | `undefined` | false    | Value that will be used for the initial render, use when evironment does not support matchMedia eg. during SSR (Server Side Rendering). If not provided it will default to `matchMedia.matches` in browser and to `false` in all other environments. |
-
-### Return value
-
-| Property             | Type      | Description                                                                                                |
-| :------------------- | :-------- | :--------------------------------------------------------------------------------------------------------- |
-| `mediaQuery`         | `object`  | Media query properties.                                                                                    |
-| `mediaQuery.matches` | `boolean` | A boolean value that returns true if the document currently matches the media query list, or false if not. |
+[For detailed TypeScript and API reference click here.](/docs/types/use-media-query)
