@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
 /**
  * Same as useEffect but runs only once on component mount,
@@ -6,16 +6,7 @@ import { useEffect, useRef } from 'react'
  * @param {CallableFunction} callbackFn
  */
 const useMountEffect = (callbackFn: CallableFunction) => {
-    const mountedRef = useRef(false)
-
     useEffect(() => {
-        // to avoid re-renders in concurrent mode
-        if (mountedRef.current) {
-            return
-        }
-
-        mountedRef.current = true
-
         callbackFn()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
