@@ -3,13 +3,13 @@ import { useEffect, useRef } from 'react'
 /**
  * Hook that returns the previous value of the given value.
  *
- * Previous value is the value before the current render.
+ * Previous value is the value during previous render.
  *
- * Hook is always undefined on the first render.
+ * Hook return value is always undefined on the first render.
  *
  * @template T
- * @param {T} value
- * @return {*}  {(T | undefined)}
+ * @param {T} value current value
+ * @return {*}  {(T | undefined)} previous value
  */
 const usePreviousValue = <T>(value: T): T | undefined => {
     const ref = useRef<T>()

@@ -76,12 +76,14 @@ const getResizeObserverInstance = () => {
     return resizeObserverInstance
 }
 
-type TUseResizeObserverOptions<T extends Element> = {
-    target?: RefObject<T> | T | null
-    onResize: TResizeObserverCallback
-}
-
-const useResizeObserver = <T extends Element>({ target, onResize }: TUseResizeObserverOptions<T>) => {
+/**
+ * Drop in replacement for ResizeObserver.
+ *
+ * @template T
+ * @param {(RefObject<T> | T | null)} target
+ * @param {TResizeObserverCallback} onResize
+ */
+const useResizeObserver = <T extends Element>(target: RefObject<T> | T | null, onResize: TResizeObserverCallback) => {
     const resizeObserver = getResizeObserverInstance()
 
     const onResizeCallback = useEvent(onResize)

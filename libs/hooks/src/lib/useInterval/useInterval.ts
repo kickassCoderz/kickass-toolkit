@@ -8,10 +8,10 @@ type ClearIntervalFn = () => void
  * Drop in hook replacement for setInterval
  *
  * @template TArgs
- * @param {(...args: TArgs) => void} callback
- * @param {number} ms
- * @param {...TArgs} args
- * @return {*}  {ClearIntervalFn}
+ * @param {(...args: TArgs) => void} callback callback to call on interval
+ * @param {number} ms interval in milliseconds
+ * @param {...TArgs} args arguments to pass to callback
+ * @return {*}  {ClearIntervalFn} function to call to clear the interval
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useInterval = <TArgs extends any[]>(

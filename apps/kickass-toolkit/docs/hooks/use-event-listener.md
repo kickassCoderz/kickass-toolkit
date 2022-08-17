@@ -33,18 +33,6 @@ const MyComponent = () => {
 }
 ```
 
-## Api Reference
+## [API Reference](/docs/types/use-event-listener)
 
-### Properties
-
-| Property    | Type                                 | Default | Description                                                                                                                                                        |
-| :---------- | :----------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `target`    | `EventTarget`                        | `none`  | Any valid `EventTarget`, be it `element`, `elementref`, `window`, `document` or for example `fileReader` instance.                                                 |
-| `eventType` | `string`                             | `none`  | Any valid `EventType` for targeted reference. Types will be inferred based on target.                                                                              |
-| `listener`  | `EventListenerOrEventListenerObject` | `none`  | A `function` or `EventListenerObject`. See more [here](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#the_event_listener_callback). |
-
-### Return value
-
-| Property    | Type   | Default | Description                        |
-| :---------- | :----- | :------ | :--------------------------------- |
-| `undefined` | `void` | `void`  | `useEventListener` returns nothing |
+[For detailed TypeScript and API reference click here.](/docs/types/use-event-listener)

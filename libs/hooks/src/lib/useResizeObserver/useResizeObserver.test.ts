@@ -40,7 +40,7 @@ describe('useResizeObserver', () => {
     it('should render', () => {
         const div = document.createElement('div')
 
-        const { result } = renderHook(() => useResizeObserver({ target: div, onResize: onResizeCallbackSpy }))
+        const { result } = renderHook(() => useResizeObserver(div, onResizeCallbackSpy))
 
         expect(result.current).toBeUndefined()
     })
@@ -49,8 +49,8 @@ describe('useResizeObserver', () => {
         expect(ResizeObserverSpy).toHaveBeenCalledTimes(1)
         const div = document.createElement('div')
 
-        renderHook(() => useResizeObserver({ target: div, onResize: onResizeCallbackSpy }))
-        renderHook(() => useResizeObserver({ target: div, onResize: onResizeCallbackSpy }))
+        renderHook(() => useResizeObserver(div, onResizeCallbackSpy))
+        renderHook(() => useResizeObserver(div, onResizeCallbackSpy))
 
         expect(ResizeObserverSpy).toHaveBeenCalledTimes(1)
     })
@@ -60,12 +60,9 @@ describe('useResizeObserver', () => {
         const ref: React.MutableRefObject<Element | null> = { current: null }
 
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        const { rerender } = renderHook(
-            ({ ref }) => useResizeObserver({ target: ref.current, onResize: onResizeCallbackSpy }),
-            {
-                initialProps: { ref }
-            }
-        )
+        const { rerender } = renderHook(({ ref }) => useResizeObserver(ref.current, onResizeCallbackSpy), {
+            initialProps: { ref }
+        })
 
         expect(observeSpy).toHaveBeenCalledTimes(0)
 
@@ -90,8 +87,8 @@ describe('useResizeObserver', () => {
     it('should invoke each callback listening same element synchronusly', () => {
         const div = document.createElement('div')
 
-        renderHook(() => useResizeObserver({ target: div, onResize: onResizeCallbackSpy }))
-        renderHook(() => useResizeObserver({ target: div, onResize: onResizeCallbackSpy1 }))
+        renderHook(() => useResizeObserver(div, onResizeCallbackSpy))
+        renderHook(() => useResizeObserver(div, onResizeCallbackSpy1))
 
         expect(observeSpy).toHaveBeenCalledTimes(2)
 
@@ -113,8 +110,8 @@ describe('useResizeObserver', () => {
         const div = document.createElement('div')
         const div2 = document.createElement('div')
 
-        renderHook(() => useResizeObserver({ target: div, onResize: onResizeCallbackSpy }))
-        renderHook(() => useResizeObserver({ target: div2, onResize: onResizeCallbackSpy1 }))
+        renderHook(() => useResizeObserver(div, onResizeCallbackSpy))
+        renderHook(() => useResizeObserver(div2, onResizeCallbackSpy1))
 
         expect(observeSpy).toHaveBeenCalledTimes(2)
 
@@ -142,7 +139,7 @@ describe('useResizeObserver', () => {
     it('should unsubscribe on component unmount', () => {
         const div = document.createElement('div')
 
-        const { unmount } = renderHook(() => useResizeObserver({ target: div, onResize: onResizeCallbackSpy }))
+        const { unmount } = renderHook(() => useResizeObserver(div, onResizeCallbackSpy))
 
         expect(observeSpy).toHaveBeenCalledTimes(1)
 

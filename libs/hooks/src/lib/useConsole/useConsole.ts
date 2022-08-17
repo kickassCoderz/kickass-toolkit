@@ -31,9 +31,9 @@ export type TConsoleLevel =
 /**
  * Drop in replacement for console but it is reactive.
  *
- * It also automatically silences all logs if NODE_ENV is set to proudction.
+ * It also automatically silences all logs if NODE_ENV is set to production.
  *
- * @param {TConsoleLevel} level
+ * @param {TConsoleLevel} level log level like log, error, warn and others
  * @param {...unknown[]} args any arguments to watch and log on changes
  */
 const useConsole = (level: TConsoleLevel, ...args: unknown[]): void => {
@@ -52,4 +52,12 @@ const useConsole = (level: TConsoleLevel, ...args: unknown[]): void => {
     }, [level, logger, ...args])
 }
 
-export { useConsole }
+const useConsoleLog = (...args: unknown[]) => useConsole('log', ...args)
+
+const useConsoleWarn = (...args: unknown[]) => useConsole('warn', ...args)
+
+const useConsoleError = (...args: unknown[]) => useConsole('error', ...args)
+
+const useConsoleInfo = (...args: unknown[]) => useConsole('info', ...args)
+
+export { useConsole, useConsoleError, useConsoleInfo, useConsoleLog, useConsoleWarn }

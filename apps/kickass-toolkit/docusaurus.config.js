@@ -4,12 +4,15 @@
 const lightCodeTheme = require('prism-react-renderer/themes/github')
 const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 const npm2yarn = require('@docusaurus/remark-plugin-npm2yarn')
+const path = require('path')
+const fs = require('fs')
+const kebabCase = require('lodash.kebabcase')
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'Kickass Toolkit',
     tagline: 'Set of curated tools for kickass projects. Focus on code let us take care of chores!',
-    url: 'https://your-docusaurus-test-site.com',
+    url: 'https://kickass.codes',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
@@ -24,14 +27,12 @@ const config = {
             ({
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
-                    // Please change this to your repo.
-                    editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
+                    editUrl: 'https://github.com/capJavert/kickass-toolkit/tree/master/apps/kickass-toolkit',
                     remarkPlugins: [[npm2yarn, { sync: true }]]
                 },
                 blog: {
                     showReadingTime: true,
-                    // Please change this to your repo.
-                    editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/blog/'
+                    editUrl: 'https://github.com/capJavert/kickass-toolkit/tree/master/apps/kickass-toolkit/blog/'
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css')
@@ -56,7 +57,7 @@ const config = {
                         position: 'left',
                         label: 'Docs'
                     },
-                    { to: '/blog', label: 'Blog', position: 'left' },
+                    // { to: '/blog', label: 'Blog', position: 'left' }, // enable if we use the blog
                     {
                         href: 'https://github.com/kickassCoderz/kickass-toolkit',
                         label: 'GitHub',
@@ -99,31 +100,13 @@ const config = {
                     {
                         title: 'Community',
                         items: [
-                            {
-                                label: 'Stack Overflow',
-                                href: 'https://stackoverflow.com/questions/tagged/docusaurus'
-                            },
-                            {
-                                label: 'Discord',
-                                href: 'https://discordapp.com/invite/docusaurus'
-                            },
-                            {
-                                label: 'Twitter',
-                                href: 'https://twitter.com/docusaurus'
-                            }
+                            // TODO add links
                         ]
                     },
                     {
                         title: 'More',
                         items: [
-                            {
-                                label: 'Blog',
-                                to: '/blog'
-                            },
-                            {
-                                label: 'GitHub',
-                                href: 'https://github.com/facebook/docusaurus'
-                            }
+                            // TODO add more
                         ]
                     }
                 ],
@@ -133,7 +116,33 @@ const config = {
                 theme: lightCodeTheme,
                 darkTheme: darkCodeTheme
             }
-        })
+        }),
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    plugins: [
+        ...fs
+            .readdirSync(path.resolve(__dirname, '../../libs/hooks/src/lib'))
+            .filter(path => !path.endsWith('.ts'))
+            .map(hookName => {
+                return [
+                    'docusaurus-plugin-typedoc',
+                    {
+                        id: hookName,
+                        entryPoints: [path.resolve(__dirname, `../../libs/hooks/src/lib/${hookName}/index.ts`)],
+                        tsconfig: path.resolve(__dirname, '../../libs/hooks/tsconfig.json'),
+                        out: 'types',
+                        entryDocument: `${kebabCase(hookName)}.md`,
+                        sidebar: {
+                            categoryLabel: 'Types reference',
+                            indexLabel: hookName
+                        },
+                        readme: 'none',
+                        readmeTitle: hookName
+                    }
+                ]
+            })
+    ]
 }
 
 module.exports = config
