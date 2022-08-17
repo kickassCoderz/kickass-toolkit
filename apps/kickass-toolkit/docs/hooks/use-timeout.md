@@ -10,7 +10,7 @@ Drop in replacement for setTimeout as a React hook.
 - Server-Side Rendering friendly
 - Full TypeScript support
 
-## Basic usage
+## Example usage
 
 ```jsx
 import { useTimeout } from '@kickass-coderz/hooks'

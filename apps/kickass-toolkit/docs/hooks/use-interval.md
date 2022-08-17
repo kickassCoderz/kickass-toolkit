@@ -10,7 +10,7 @@ Drop in replacement for setInterval as a React hook.
 - Server-Side Rendering friendly
 - Full TypeScript support
 
-## Basic usage
+## Example usage
 
 ```jsx
 import { useInterval } from '@kickass-coderz/hooks'

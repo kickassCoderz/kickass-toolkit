@@ -9,7 +9,7 @@ Just like React's useState but persits into browser session storage API to keep 
 - Server-Side Rendering friendly
 - Full TypeScript support
 
-## Basic usage
+## Example usage
 
 ```jsx
 import { useSessionStorageState } from '@kickass-coderz/hooks'

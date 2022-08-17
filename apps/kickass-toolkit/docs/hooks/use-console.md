@@ -12,7 +12,7 @@ Drop in replacement for console but it is reactive. Never again use console.log 
 - Full TypeScript support
 
 
-## Basic usage
+## Example usage
 
 We all do it... logging component props and doing infamous "Console Debugging"
 

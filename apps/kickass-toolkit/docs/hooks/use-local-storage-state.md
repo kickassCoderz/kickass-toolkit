@@ -9,7 +9,7 @@ Just like React's useState but persits into browser local storage API to keep st
 - Server-Side Rendering friendly
 - Full TypeScript support
 
-## Basic usage
+## Example usage
 
 ```jsx
 import { useLocalStorageState } from '@kickass-coderz/hooks'

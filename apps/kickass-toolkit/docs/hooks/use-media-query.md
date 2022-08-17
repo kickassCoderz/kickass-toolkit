@@ -11,7 +11,7 @@ Drop in replacement for media query detection and browser matchMedia as a React 
 - Reuses event listeners - calling the same hook twice will save memory and listener will be reused
 
 
-## Basic usage
+## Example usage
 
 ```jsx
 import { useMediaQuery } from '@kickass-coderz/hooks'
