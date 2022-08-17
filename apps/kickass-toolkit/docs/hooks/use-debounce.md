@@ -59,7 +59,7 @@ There is no need to `useCallback` the function that `execute` returns because is
 import { useDebounce } from '@kickass-coderz/hooks'
 
 const Component = ({ handleUpvote, goBack }) => {
-    const [execute, clear] = useDebounce(1000)
+    const [execute] = useDebounce(1000)
 
     // UpVoteButton will not re-render because of the onClick prop
     // because execute will always return the same reference even
