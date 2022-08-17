@@ -12,7 +12,7 @@ const kebabCase = require('lodash.kebabcase')
 const config = {
     title: 'Kickass Toolkit',
     tagline: 'Set of curated tools for kickass projects. Focus on code let us take care of chores!',
-    url: 'https://your-docusaurus-test-site.com',
+    url: 'https://kickass.codes',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
@@ -27,14 +27,12 @@ const config = {
             ({
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
-                    // Please change this to your repo.
-                    editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
+                    editUrl: 'https://github.com/capJavert/kickass-toolkit/tree/master/apps/kickass-toolkit',
                     remarkPlugins: [[npm2yarn, { sync: true }]]
                 },
                 blog: {
                     showReadingTime: true,
-                    // Please change this to your repo.
-                    editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/blog/'
+                    editUrl: 'https://github.com/capJavert/kickass-toolkit/tree/master/apps/kickass-toolkit/blog/'
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css')
@@ -59,7 +57,7 @@ const config = {
                         position: 'left',
                         label: 'Docs'
                     },
-                    { to: '/blog', label: 'Blog', position: 'left' },
+                    // { to: '/blog', label: 'Blog', position: 'left' }, // enable if we use the blog
                     {
                         href: 'https://github.com/kickassCoderz/kickass-toolkit',
                         label: 'GitHub',
@@ -102,31 +100,13 @@ const config = {
                     {
                         title: 'Community',
                         items: [
-                            {
-                                label: 'Stack Overflow',
-                                href: 'https://stackoverflow.com/questions/tagged/docusaurus'
-                            },
-                            {
-                                label: 'Discord',
-                                href: 'https://discordapp.com/invite/docusaurus'
-                            },
-                            {
-                                label: 'Twitter',
-                                href: 'https://twitter.com/docusaurus'
-                            }
+                            // TODO add links
                         ]
                     },
                     {
                         title: 'More',
                         items: [
-                            {
-                                label: 'Blog',
-                                to: '/blog'
-                            },
-                            {
-                                label: 'GitHub',
-                                href: 'https://github.com/facebook/docusaurus'
-                            }
+                            // TODO add more
                         ]
                     }
                 ],
