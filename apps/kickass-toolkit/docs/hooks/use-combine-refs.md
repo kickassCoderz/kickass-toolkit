@@ -25,7 +25,7 @@ Usually when you want to get a reference to the DOM element of a component you w
 const Component = () => {
     const ref = useRef()
 
-    return <div ref={ref.current} />
+    return <div ref={ref} />
 }
 ```
 
@@ -36,7 +36,7 @@ const Component = () => {
     const ref = useRef()
     const { ref: sliderRef } = useSlider()
 
-    return <div ref={ref.current} /> // here you can not assing sliderRef because you already passed your own ref
+    return <div ref={ref} /> // here you can not assing sliderRef because you already passed your own ref
 }
 ```
 
