@@ -19,12 +19,9 @@ import { useIntersectionObserver } from '@kickass-coderz/hooks'
 const Component = () => {
     const videoContainerRef = useRef()
     const [isVideoVisible, setVideoVisible] = useState(false)
-    useIntersectionObserver(([entry]) => {
+
+    useIntersectionObserver(videoContainerRef, ([entry]) => {
       setVideoVisible(entry.isIntersecting)
-    }, {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.99
     })
 
     return (
@@ -37,6 +34,23 @@ const Component = () => {
       </div>
     )
 }
+```
+
+The hook accepts React ref, or any `Element` same as `IntersectionObserver` constructor.
+
+## Observer options
+
+We also fully support options like `threshold` and `root` as described in [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver#properties).
+
+
+```jsx
+useIntersectionObserver(videoContainerRef, ([entry]) => {
+  setVideoVisible(entry.isIntersecting)
+}, {
+  root: document.body,
+  rootMargin: '10px',
+  threshold: [0.5, 0.9]
+})
 ```
 
 ## Memory optimization

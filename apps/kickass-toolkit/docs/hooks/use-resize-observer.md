@@ -30,6 +30,27 @@ const Component = () => {
 }
 ```
 
+## Usage with React ref
+
+As this is a React hook we also support passing React ref as a target directly.
+
+```jsx
+import { useResizeObserver } from '@kickass-coderz/hooks'
+
+const Component = () => {
+    const [width, setWidth] = useState(0)
+    const ref = useRef()
+
+    useResizeObserver(ref, ([entry]) => {
+      setWidth(entry.borderBoxSize.inlineSize)
+    })
+
+    return (
+        <div ref={ref} />
+    )
+}
+```
+
 ## Memory optimization
 
 As said above, `useResizeObserver` reuses observer instance to save memory. So calling the hook multiple times will not create new ResizeObserver instance. It achives this by attaching callbacks for different targets inside the callbacks `Map`. This `Map` is then checked when change is detected for the target and each registered callback is called sequentially.
