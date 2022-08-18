@@ -72,16 +72,19 @@ describe('useResizeObserver', () => {
 
         expect(observeSpy).toHaveBeenCalledTimes(1)
 
-        const entry = {
-            target: div,
-            contentRect: {},
-            borderBoxSize: {},
-            contentBoxSize: {}
-        } as unknown as ResizeObserverEntry
+        const entries = [
+            {
+                target: div,
+                contentRect: {},
+                borderBoxSize: {},
+                contentBoxSize: {}
+            } as unknown as ResizeObserverEntry
+        ]
+        const observerInstance = ResizeObserverSpy.mock.instances[0]
 
-        ResizeObserverSpy.mock.calls[0][0]([entry])
+        ResizeObserverSpy.mock.calls[0][0](entries, observerInstance)
 
-        expect(onResizeCallbackSpy).toHaveBeenCalledWith(entry)
+        expect(onResizeCallbackSpy).toHaveBeenCalledWith(entries, observerInstance)
     })
 
     it('should invoke each callback listening same element synchronusly', () => {
@@ -92,18 +95,21 @@ describe('useResizeObserver', () => {
 
         expect(observeSpy).toHaveBeenCalledTimes(2)
 
-        const entry = {
-            target: div,
-            contentRect: {},
-            borderBoxSize: {},
-            contentBoxSize: {}
-        } as unknown as ResizeObserverEntry
+        const entries = [
+            {
+                target: div,
+                contentRect: {},
+                borderBoxSize: {},
+                contentBoxSize: {}
+            } as unknown as ResizeObserverEntry
+        ]
+        const observerInstance = ResizeObserverSpy.mock.instances[0]
 
-        ResizeObserverSpy.mock.calls[0][0]([entry])
+        ResizeObserverSpy.mock.calls[0][0](entries, observerInstance)
 
-        expect(onResizeCallbackSpy).toHaveBeenCalledWith(entry)
+        expect(onResizeCallbackSpy).toHaveBeenCalledWith(entries, observerInstance)
 
-        expect(onResizeCallbackSpy1).toHaveBeenCalledWith(entry)
+        expect(onResizeCallbackSpy1).toHaveBeenCalledWith(entries, observerInstance)
     })
 
     it('should call each callback listening different element', () => {
@@ -115,25 +121,27 @@ describe('useResizeObserver', () => {
 
         expect(observeSpy).toHaveBeenCalledTimes(2)
 
-        const entry1 = {
-            target: div,
-            contentRect: {},
-            borderBoxSize: {},
-            contentBoxSize: {}
-        } as unknown as ResizeObserverEntry
+        const entries = [
+            {
+                target: div,
+                contentRect: { test: 1 }, // to make sure entries are different
+                borderBoxSize: {},
+                contentBoxSize: {}
+            } as unknown as ResizeObserverEntry,
+            {
+                target: div2,
+                contentRect: { test: 2 }, // to make sure entries are different
+                borderBoxSize: {},
+                contentBoxSize: {}
+            } as unknown as ResizeObserverEntry
+        ]
+        const observerInstance = ResizeObserverSpy.mock.instances[0]
 
-        const entry2 = {
-            target: div2,
-            contentRect: {},
-            borderBoxSize: {},
-            contentBoxSize: {}
-        } as unknown as ResizeObserverEntry
+        ResizeObserverSpy.mock.calls[0][0](entries, observerInstance)
 
-        ResizeObserverSpy.mock.calls[0][0]([entry1, entry2])
+        expect(onResizeCallbackSpy).toHaveBeenCalledWith([entries[0]], observerInstance)
 
-        expect(onResizeCallbackSpy).toHaveBeenCalledWith(entry1)
-
-        expect(onResizeCallbackSpy1).toHaveBeenCalledWith(entry2)
+        expect(onResizeCallbackSpy1).toHaveBeenCalledWith([entries[1]], observerInstance)
     })
 
     it('should unsubscribe on component unmount', () => {

@@ -4,12 +4,10 @@ import { useEvent } from '../useEvent'
 import { getIsBrowser } from '../useIsBrowser'
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
 
-type TResizeObserverCallback = (entry: ResizeObserverEntry) => void
-
 type TResizeObserverInstance = {
     observer: ResizeObserver
-    subscribe: (target: Element, onResizeCallback: TResizeObserverCallback) => void
-    unsubscribe: (target: Element, onResizeCallback: TResizeObserverCallback) => void
+    subscribe: (target: Element, onResizeCallback: ResizeObserverCallback) => void
+    unsubscribe: (target: Element, onResizeCallback: ResizeObserverCallback) => void
 }
 
 let resizeObserverInstance: TResizeObserverInstance
@@ -25,15 +23,15 @@ const getResizeObserverInstance = () => {
         return resizeObserverInstance
     }
 
-    const onResizeCallbacksMap = new Map<Element, Set<TResizeObserverCallback>>()
+    const onResizeCallbacksMap = new Map<Element, Set<ResizeObserverCallback>>()
 
-    const roObserver = new ResizeObserver(entries => {
+    const roObserver = new ResizeObserver((entries, observer) => {
         entries.forEach(entry => {
             const targetElement = entry.target
             const observedElementCallbacksSet = onResizeCallbacksMap.get(targetElement)
 
             observedElementCallbacksSet?.forEach(onResizeCallback => {
-                onResizeCallback(entry)
+                onResizeCallback([entry], observer)
             })
         })
     })
@@ -44,7 +42,7 @@ const getResizeObserverInstance = () => {
             const observedElementCallbacksSet = onResizeCallbacksMap.get(target)
 
             if (!observedElementCallbacksSet) {
-                const newCallbacksSet = new Set<TResizeObserverCallback>()
+                const newCallbacksSet = new Set<ResizeObserverCallback>()
 
                 newCallbacksSet.add(onResizeCallback)
 
@@ -81,9 +79,9 @@ const getResizeObserverInstance = () => {
  *
  * @template T
  * @param {(RefObject<T> | T | null)} target
- * @param {TResizeObserverCallback} onResize
+ * @param {ResizeObserverCallback} onResize
  */
-const useResizeObserver = <T extends Element>(target: RefObject<T> | T | null, onResize: TResizeObserverCallback) => {
+const useResizeObserver = <T extends Element>(target: RefObject<T> | T | null, onResize: ResizeObserverCallback) => {
     const resizeObserver = getResizeObserverInstance()
 
     const onResizeCallback = useEvent(onResize)
