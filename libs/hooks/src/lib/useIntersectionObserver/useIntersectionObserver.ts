@@ -10,15 +10,16 @@ const observerPool: TObserverPoolItem[] = []
 /**
  * Drop in hook replacement for IntersectionObserver
  *
- * @param {Element} element element to observe
+ * @param {(React.RefObject<T> | T | null)} target
  * @param {IntersectionObserverCallback} callback callback to call when intersection changes
  * @param {IntersectionObserverInit} [options] options to pass to the observer
  */
-const useIntersectionObserver = (
-    element: Element,
+const useIntersectionObserver = <T extends Element>(
+    target: React.RefObject<T> | T | null,
     callback: IntersectionObserverCallback,
     options?: IntersectionObserverInit
 ): void => {
+    const element = target && 'current' in target ? target.current : target
     const { root = null, rootMargin = '0px 0px 0px 0px', threshold = 0.0 } = options || {}
     const observerCallback = useEvent<IntersectionObserverCallback>((entries, observer) => {
         const targetEntries = entries.filter(entry => entry.target === element)

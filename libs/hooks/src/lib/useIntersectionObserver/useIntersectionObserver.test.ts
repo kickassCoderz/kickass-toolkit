@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react'
+import { useRef } from 'react'
 
 import { useIntersectionObserver } from './useIntersectionObserver'
 
@@ -348,5 +349,17 @@ describe('useIntersectionObserver', () => {
         // this is the only way to validate proper cleanup
         // for observerPool after last hook unmount
         expect(IntersectionObserverSpy).toHaveBeenCalledTimes(2)
+    })
+
+    it('should accept React ref as a target', () => {
+        const div = document.createElement('div')
+        const callbackSpy = jest.fn()
+        const { result: resultRef } = renderHook(() => useRef(div))
+        const { result } = renderHook(() => useIntersectionObserver(resultRef.current, callbackSpy))
+
+        expect(observeSpy).toHaveBeenCalledTimes(1)
+        expect(observeSpy).toHaveBeenCalledWith(div)
+        expect(IntersectionObserverSpy).toHaveBeenCalledTimes(1)
+        expect(result.current).toBeUndefined()
     })
 })
