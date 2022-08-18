@@ -132,6 +132,7 @@ describe('useIntersectionObserver', () => {
 
     it('should update IntersectionObserver callback after callback change', () => {
         const div = document.createElement('div')
+        const rect = document.createElement('div').getBoundingClientRect()
         const callbackSpy = jest.fn()
         const callbackSpy2 = jest.fn()
 
@@ -142,13 +143,26 @@ describe('useIntersectionObserver', () => {
             }
         )
 
-        IntersectionObserverSpy.mock.calls[0][0]([], {})
+        const entries: IntersectionObserverEntry[] = [
+            {
+                target: div,
+                boundingClientRect: rect,
+                intersectionRatio: 0.5,
+                intersectionRect: rect,
+                rootBounds: rect,
+                time: Date.now(),
+                isIntersecting: true
+            }
+        ]
+        const observerInstance = IntersectionObserverSpy.mock.instances[0]
+
+        IntersectionObserverSpy.mock.calls[0][0](entries, observerInstance)
 
         expect(callbackSpy).toHaveBeenCalledTimes(1)
 
         rerender({ callback: callbackSpy2 })
 
-        IntersectionObserverSpy.mock.calls[0][0]([], {})
+        IntersectionObserverSpy.mock.calls[0][0](entries, observerInstance)
 
         expect(callbackSpy).toHaveBeenCalledTimes(1)
         expect(callbackSpy2).toHaveBeenCalledTimes(1)
@@ -213,7 +227,7 @@ describe('useIntersectionObserver', () => {
 
         expect(observeSpy).toHaveBeenCalledTimes(2)
 
-        const entries: IntersectionObserverEntry[] = [
+        const entries1: IntersectionObserverEntry[] = [
             {
                 target: div,
                 boundingClientRect: rect,
@@ -222,7 +236,9 @@ describe('useIntersectionObserver', () => {
                 rootBounds: rect,
                 time: Date.now(),
                 isIntersecting: true
-            },
+            }
+        ]
+        const entries2: IntersectionObserverEntry[] = [
             {
                 target: div2,
                 boundingClientRect: rect,
@@ -235,9 +251,10 @@ describe('useIntersectionObserver', () => {
         ]
         const observerInstance = IntersectionObserverSpy.mock.instances[0]
 
-        IntersectionObserverSpy.mock.calls[0][0](entries, observerInstance)
-
-        expect(callbackSpy).toHaveBeenCalledWith(entries, observerInstance)
+        IntersectionObserverSpy.mock.calls[0][0](entries1, observerInstance)
+        expect(callbackSpy).toHaveBeenCalledWith(entries1, observerInstance)
+        IntersectionObserverSpy.mock.calls[0][0](entries2, observerInstance)
+        expect(callbackSpy).toHaveBeenCalledWith(entries2, observerInstance)
         expect(callbackSpy).toHaveBeenCalledTimes(2)
     })
 

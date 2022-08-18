@@ -20,7 +20,13 @@ const useIntersectionObserver = (
     options?: IntersectionObserverInit
 ): void => {
     const { root = null, rootMargin = '0px 0px 0px 0px', threshold = 0.0 } = options || {}
-    const observerCallback = useEvent(callback)
+    const observerCallback = useEvent<IntersectionObserverCallback>((entries, observer) => {
+        const targetEntries = entries.filter(entry => entry.target === element)
+
+        if (targetEntries.length) {
+            callback(targetEntries, observer)
+        }
+    })
     const observerItemRef = useRef<TObserverPoolItem | undefined>()
 
     useEffect(() => {
