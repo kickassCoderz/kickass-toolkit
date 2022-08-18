@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react'
+import { useRef } from 'react'
 
 import { useResizeObserver } from './useResizeOberver'
 
@@ -162,5 +163,17 @@ describe('useResizeObserver', () => {
         expect(unobserveSpy).toHaveBeenCalledTimes(1)
 
         expect(unobserveSpy).toHaveBeenCalledWith(div)
+    })
+
+    it('should accept React ref as a target', () => {
+        expect(ResizeObserverSpy).toHaveBeenCalledTimes(1)
+        const div = document.createElement('div')
+        const { result: resultRef } = renderHook(() => useRef(div))
+
+        renderHook(() => useResizeObserver(resultRef.current, onResizeCallbackSpy))
+
+        expect(observeSpy).toHaveBeenCalledWith(div)
+        expect(observeSpy).toHaveBeenCalledTimes(1)
+        expect(ResizeObserverSpy).toHaveBeenCalledTimes(1)
     })
 })

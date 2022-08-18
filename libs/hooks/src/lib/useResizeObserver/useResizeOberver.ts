@@ -79,16 +79,14 @@ const getResizeObserverInstance = () => {
  *
  * @template T
  * @param {(RefObject<T> | T | null)} target
- * @param {ResizeObserverCallback} onResize
+ * @param {ResizeObserverCallback} callback
  */
-const useResizeObserver = <T extends Element>(target: RefObject<T> | T | null, onResize: ResizeObserverCallback) => {
+const useResizeObserver = <T extends Element>(target: RefObject<T> | T | null, callback: ResizeObserverCallback) => {
     const resizeObserver = getResizeObserverInstance()
-
-    const onResizeCallback = useEvent(onResize)
+    const targetElement = target && 'current' in target ? target.current : target
+    const onResizeCallback = useEvent(callback)
 
     useIsomorphicLayoutEffect(() => {
-        const targetElement = target && 'current' in target ? target.current : target
-
         if (resizeObserver && targetElement) {
             resizeObserver.subscribe(targetElement, onResizeCallback)
         }
@@ -98,7 +96,7 @@ const useResizeObserver = <T extends Element>(target: RefObject<T> | T | null, o
                 resizeObserver.unsubscribe(targetElement, onResizeCallback)
             }
         }
-    }, [resizeObserver, onResizeCallback, target])
+    }, [resizeObserver, onResizeCallback, targetElement])
 }
 
 export { useResizeObserver }
