@@ -4,10 +4,10 @@ import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
 
 //@NOTE: useEvent updates the callback it's using after an "effective-time". So make sure to use it as a callback or in a useEffect which is placed after useEvent
 
-type TCallbackFn = (...args: any[]) => any
+type TUseEventCallback = (...args: any[]) => any
 
-interface EventCallbackHook {
-    <F extends TCallbackFn>(callback?: F): (this: any, ...args: Parameters<F>) => ReturnType<F>
+interface IEventCallbackHook {
+    <F extends TUseEventCallback>(callback?: F): (this: any, ...args: Parameters<F>) => ReturnType<F>
 }
 
 /**
@@ -15,11 +15,13 @@ interface EventCallbackHook {
  *
  * Based on RFC https://github.com/reactjs/rfcs/blob/useevent/text/0000-useevent.md
  *
+ * useEvent updates the callback it's using after an "effective-time". So make sure to use it as a callback or in a useEffect which is placed after useEvent
+ *
  * @template F
  * @param {F} [callback] function to use for event handler
  * @return {*} event handler
  */
-const useEvent: EventCallbackHook = <F extends TCallbackFn>(callback?: F) => {
+const useEvent: IEventCallbackHook = <F extends TUseEventCallback>(callback?: F) => {
     const callbackRef = useRef(callback)
 
     useIsomorphicLayoutEffect(() => {
