@@ -1,7 +1,51 @@
 # Data Service Overview
 
-:::info
+## What is Data Service
 
-## Coming soon!
+Whenever your application, website or any other program needs to communicate with your or 3party APIs, it does it through an object called the Data Service. The DataService exposes a set of methods (based on common interface) that allows it to query any API in a standard way.
+
+For instance, to query some API for a single record, you would use `dataService.getOne` method.
+
+```js
+dataService
+    .getOne('posts', { id: 456 })
+    .then(response => {
+        console.log(response.data) // { id: 456, title: "I am the Boss!" }
+    })
+```
+
+It’s the Data Service’s job to turn these method calls into HTTP requests (or any other protocol), and transform the responses to the data format expected by your application. In technical terms, a Data Service is an adapter for any API.
+
+## Architecture
+
+Thanks to this abstraction, Data Service allows your app to communicate with any API, whether it uses REST, GraphQL, RPC, or even SOAP, regardless of the dialect it uses. 
+
+:::note
+
+<!-- TODO add data provider implementations  -->
+
+## Add links to default REST, RPC and GraphQL implementation maybe?
 
 :::
+
+You can also write your own Data Service so that it fits with your unique API(s) methods and organization. Data Service can use fetch, ky-universal, axios, apollo-client, or any other library to communicate with APIs.
+
+Data Service interface looks something this:
+
+```ts
+export interface IDataService {
+    getOne<T>(resource, params): Promise<T>
+    getMany<T>(resource, params): Promise<T[]>
+    getList<T>(resource, params): Promise<T[]>
+    createOne<T>(resource, params): Promise<T>
+    createMany<T>(resource, params): Promise<T[]>
+    updateOne<T>(resource, params): Promise<T>
+    updateMany<T>(resource, params): Promise<T[]>
+    deleteOne<T>(resource, params): Promise<T>
+    deleteMany<T>(resource, params): Promise<T[]>
+}
+```
+
+[For detailed TypeScript and API reference click here.](/docs/types/interfaces/IDataService)
+
+By being opinionated about the Data Service interface, kickass-toolkit can be very flexible AND provide advanced features, including shared caching, invalidation, optimistic updates and global access to your data through React hooks.
