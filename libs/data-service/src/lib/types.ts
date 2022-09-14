@@ -103,7 +103,7 @@ export interface IDataService {
     getMany<T extends TBaseResponse>(resource: string, params: TGetManyParams, context?: TQueryContext): Promise<T[]>
     getList<T extends TBaseResponse>(
         resource: string,
-        params: TGetListParams,
+        params?: TGetListParams,
         context?: TQueryContext
     ): Promise<TGetListResponse<T[]>>
     createOne<T extends TBaseResponse>(resource: string, params: TCreateOneParams): Promise<T>
