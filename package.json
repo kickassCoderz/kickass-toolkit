@@ -48,6 +48,7 @@
         "husky": "^7.0.4",
         "jest": "27.5.1",
         "lodash.kebabcase": "^4.1.1",
+        "miragejs": "^0.1.45",
         "nx": "14.1.4",
         "patch-package": "^6.4.7",
         "prettier": "^2.5.1",
