@@ -15,9 +15,9 @@ import {
 } from './types'
 
 class RestDataService implements IDataService {
-    private readonly fetch: typeof fetch
+    readonly fetch: typeof fetch
 
-    private readonly baseUrl: string
+    readonly baseUrl: string
 
     private readonly jsonHeaders = {
         'content-type': 'application/json',
@@ -75,23 +75,23 @@ class RestDataService implements IDataService {
     }
     async getList<T extends TBaseResponse>(
         resource: string,
-        params: TGetListParams,
+        params?: TGetListParams,
         context?: TQueryContext | undefined
     ): Promise<TGetListResponse<T[]>> {
         const url = new URL(`${this.baseUrl}/${resource}`)
 
-        if (params.pagination?.page) {
+        if (params?.pagination?.page) {
             url.searchParams.append('page', params.pagination.page.toString())
 
             if (params.pagination.perPage) {
                 url.searchParams.append('perPage', params.pagination.perPage.toString())
             }
         } else {
-            if (params.pagination?.nextCursor) {
+            if (params?.pagination?.nextCursor) {
                 url.searchParams.append('nextCursor', params.pagination.nextCursor.toString())
             }
 
-            if (params.pagination?.previousCursor) {
+            if (params?.pagination?.previousCursor) {
                 url.searchParams.append('previousCursor', params.pagination.previousCursor.toString())
             }
         }
@@ -151,7 +151,19 @@ class RestDataService implements IDataService {
             method: 'DELETE',
             headers: this.jsonHeaders
         })
-        const result = await response.json()
+        let result
+
+        try {
+            result = await response.json()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error.message === 'Unexpected end of JSON input') {
+                result = { id: params.id }
+            } else {
+                /* istanbul ignore next - no need to test this case as it is generic catch call */
+                throw error
+            }
+        }
 
         return result
     }
