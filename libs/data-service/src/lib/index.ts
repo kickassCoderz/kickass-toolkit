@@ -1,5 +1,6 @@
 export { DataServiceProvider } from './DataServiceProvider'
 export * from './queryKeys'
+export { RestDataService } from './RestDataService'
 export * from './types'
 export * from './useCreateMany'
 export * from './useCreateOne'

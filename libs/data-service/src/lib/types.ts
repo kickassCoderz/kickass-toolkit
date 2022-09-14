@@ -74,7 +74,7 @@ export type TUpdateOneParams = {
 
 export type TUpdateManyParams = {
     ids: string[] | number[]
-    payload: Record<string, unknown>
+    payload: Record<string, unknown>[]
 }
 
 export type TDeleteOneParams = {
@@ -99,18 +99,18 @@ export type TGetListResponse<T> = {
 
 export interface IDataService {
     getOne<T extends TBaseResponse>(resource: string, params: TGetOneParams, context?: TQueryContext): Promise<T>
-    getMany<T extends TBaseResponse[]>(resource: string, params: TGetManyParams, context?: TQueryContext): Promise<T>
-    getList<T extends TBaseResponse[]>(
+    getMany<T extends TBaseResponse>(resource: string, params: TGetManyParams, context?: TQueryContext): Promise<T[]>
+    getList<T extends TBaseResponse>(
         resource: string,
         params: TGetListParams,
         context?: TQueryContext
-    ): Promise<TGetListResponse<T>>
+    ): Promise<TGetListResponse<T[]>>
     createOne<T extends TBaseResponse>(resource: string, params: TCreateOneParams): Promise<T>
-    createMany<T extends TBaseResponse[]>(resource: string, params: TCreateManyParams): Promise<T>
+    createMany<T extends TBaseResponse>(resource: string, params: TCreateManyParams): Promise<T[]>
     updateOne<T extends TBaseResponse>(resource: string, params: TUpdateOneParams): Promise<T>
-    updateMany<T extends TBaseResponse[]>(resource: string, params: TUpdateManyParams): Promise<T>
+    updateMany<T extends TBaseResponse>(resource: string, params: TUpdateManyParams): Promise<T[]>
     deleteOne<T extends Partial<TBaseResponse>>(resource: string, params: TDeleteOneParams): Promise<T>
-    deleteMany<T extends Partial<TBaseResponse[]>>(resource: string, params: TDeleteManyParams): Promise<T>
+    deleteMany<T extends Partial<TBaseResponse>>(resource: string, params: TDeleteManyParams): Promise<T[]>
 }
 
 export interface IDataServiceProvider {
