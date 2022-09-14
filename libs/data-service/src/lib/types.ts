@@ -1,4 +1,5 @@
 import type {
+    QueryClient,
     QueryKey as TQueryKey,
     QueryMeta as TQueryMeta,
     UseMutationOptions as TUseMutationOptions,
@@ -116,6 +117,7 @@ export interface IDataService {
 export interface IDataServiceProvider {
     children?: React.ReactNode
     dataService?: IDataService
+    queryClient?: QueryClient
 }
 
 //QUERY KEYS
