@@ -27,12 +27,12 @@ const config = {
             ({
                 docs: {
                     sidebarPath: require.resolve('./sidebars.js'),
-                    editUrl: 'https://github.com/capJavert/kickass-toolkit/tree/master/apps/kickass-toolkit',
+                    editUrl: 'https://github.com/kickass-toolkit/tree/master/apps/kickass-toolkit',
                     remarkPlugins: [[npm2yarn, { sync: true }]]
                 },
                 blog: {
                     showReadingTime: true,
-                    editUrl: 'https://github.com/capJavert/kickass-toolkit/tree/master/apps/kickass-toolkit/blog/'
+                    editUrl: 'https://github.com/kickass-toolkit/tree/master/apps/kickass-toolkit/blog/'
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css')
