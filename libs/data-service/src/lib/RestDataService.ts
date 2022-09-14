@@ -82,10 +82,6 @@ class RestDataService implements IDataService {
 
         if (params?.pagination?.page) {
             url.searchParams.append('page', params.pagination.page.toString())
-
-            if (params.pagination.perPage) {
-                url.searchParams.append('perPage', params.pagination.perPage.toString())
-            }
         } else {
             if (params?.pagination?.nextCursor) {
                 url.searchParams.append('nextCursor', params.pagination.nextCursor.toString())
@@ -94,6 +90,10 @@ class RestDataService implements IDataService {
             if (params?.pagination?.previousCursor) {
                 url.searchParams.append('previousCursor', params.pagination.previousCursor.toString())
             }
+        }
+
+        if (params?.pagination?.perPage) {
+            url.searchParams.append('perPage', params.pagination.perPage.toString())
         }
 
         const response = await this.fetch(url, {

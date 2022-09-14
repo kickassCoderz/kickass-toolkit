@@ -82,6 +82,114 @@ describe('RestDataService', () => {
         })
     })
 
+    it('should getList with page pagination', async () => {
+        server.get('/api/beers', (_, request) => {
+            const beers = [
+                { id: 1, name: 'Ožujsko' },
+                { id: 2, name: 'Pan' },
+                { id: 3, name: 'Karlovačko' },
+                { id: 4, name: 'Laško' }
+            ]
+            const page = +request.queryParams?.['page'] || 1
+            const perPage = +request.queryParams?.['perPage'] || 2
+
+            return beers.slice((page - 1) * perPage, page * perPage)
+        })
+
+        const result = await dataService.getList('beers')
+        const result2 = await dataService.getList('beers', {
+            pagination: {
+                page: 2
+            }
+        })
+        const result3 = await dataService.getList('beers', {
+            pagination: {
+                page: 1,
+                perPage: 4
+            }
+        })
+
+        expect(result).toMatchObject({
+            data: [
+                { id: 1, name: 'Ožujsko' },
+                { id: 2, name: 'Pan' }
+            ],
+            total: 2
+        })
+        expect(result2).toMatchObject({
+            data: [
+                { id: 3, name: 'Karlovačko' },
+                { id: 4, name: 'Laško' }
+            ],
+            total: 2
+        })
+        expect(result3).toMatchObject({
+            data: [
+                { id: 1, name: 'Ožujsko' },
+                { id: 2, name: 'Pan' },
+                { id: 3, name: 'Karlovačko' },
+                { id: 4, name: 'Laško' }
+            ],
+            total: 4
+        })
+    })
+
+    it('should getList with cursor pagination', async () => {
+        server.get('/api/beers', (_, request) => {
+            const beers = [
+                { id: 1, name: 'Ožujsko' },
+                { id: 2, name: 'Pan' },
+                { id: 3, name: 'Karlovačko' },
+                { id: 4, name: 'Laško' }
+            ]
+            const nextCursor = +request.queryParams?.['nextCursor'] || 1
+            const previousCursor = +request.queryParams?.['previousCursor']
+            const perPage = +request.queryParams?.['perPage'] || 2
+
+            if (previousCursor) {
+                return beers.slice((previousCursor - 1) * perPage, previousCursor * perPage)
+            }
+
+            return beers.slice((nextCursor - 1) * perPage, nextCursor * perPage)
+        })
+
+        const result = await dataService.getList('beers')
+        const result2 = await dataService.getList('beers', {
+            pagination: {
+                nextCursor: 2
+            }
+        })
+        const result3 = await dataService.getList('beers', {
+            pagination: {
+                previousCursor: 1,
+                perPage: 3
+            }
+        })
+
+        expect(result).toMatchObject({
+            data: [
+                { id: 1, name: 'Ožujsko' },
+                { id: 2, name: 'Pan' }
+            ],
+            total: 2
+        })
+        expect(result2).toMatchObject({
+            data: [
+                { id: 3, name: 'Karlovačko' },
+                { id: 4, name: 'Laško' }
+            ],
+            total: 2
+        })
+        expect(result3).toMatchObject({
+            data: [
+                { id: 1, name: 'Ožujsko' },
+                { id: 2, name: 'Pan' },
+                { id: 3, name: 'Karlovačko' }
+            ],
+            total: 3
+        })
+    })
+
     it('should createOne', async () => {
         server.post('/api/beers', (_, request) => {
             const beer = JSON.parse(request.requestBody)
