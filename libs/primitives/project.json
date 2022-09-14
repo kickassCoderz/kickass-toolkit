@@ -37,6 +37,16 @@
                 "jestConfig": "libs/primitives/jest.config.ts",
                 "passWithNoTests": true
             }
+        },
+        "tsc": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    {
+                        "command": "cd libs/primitives && tsc -b"
+                    }
+                ]
+            }
         }
     }
 }
