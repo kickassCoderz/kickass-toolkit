@@ -96,7 +96,7 @@ class RestDataService implements IDataService {
             url.searchParams.append('perPage', params.pagination.perPage.toString())
         }
 
-        const response = await this.fetch(url, {
+        const response = await this.fetch(url.toString(), {
             headers: this.jsonHeaders
         })
         const result = (await response.json()) as T[]

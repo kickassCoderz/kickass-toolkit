@@ -147,7 +147,7 @@ export type TUseGetManyResult<TData, TError> = TUseQueryResult<TData, TError>
 
 export type TUseGetListVariables = {
     resource: string
-    params: TGetListParams
+    params?: TGetListParams
 }
 
 export type TUseGetListResult<TData, TError> = TUseQueryResult<TGetListResponse<TData>, TError>
@@ -201,7 +201,7 @@ export type TUseUpdateManyVariables = {
 
 export type TUseUpdateManyPayload<T extends Record<string, unknown>> = {
     ids: string[] | number[]
-    payload: T
+    payload: T[]
 }
 
 export type TUseUpdateManyResult<TData, TError, TPayload, TContext> = TUseMutationResult<

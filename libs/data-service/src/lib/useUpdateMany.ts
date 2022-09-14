@@ -11,18 +11,18 @@ import type {
 import { useDataService } from './useDataService'
 
 const useUpdateMany = <
-    TData extends TBaseResponse[] = TBaseResponse[],
+    TData extends TBaseResponse = TBaseResponse,
     TError = unknown,
     TPayload extends Record<string, unknown> = Record<string, unknown>,
     TContext = unknown
 >(
     variables: TUseUpdateManyVariables,
-    mutationOptions?: TMutationOptions<TData, TError, TUseUpdateManyPayload<TPayload>, TContext>
-): TUseUpdateManyResult<TData, TError, TUseUpdateManyPayload<TPayload>, TContext> => {
+    mutationOptions?: TMutationOptions<TData[], TError, TUseUpdateManyPayload<TPayload>, TContext>
+): TUseUpdateManyResult<TData[], TError, TUseUpdateManyPayload<TPayload>, TContext> => {
     const dataService = useDataService()
     const queryClient = useQueryClient()
 
-    const updateManyMutation = useMutation<TData, TError, TUseUpdateManyPayload<TPayload>, TContext>(
+    const updateManyMutation = useMutation<TData[], TError, TUseUpdateManyPayload<TPayload>, TContext>(
         params => dataService.updateMany(variables.resource, params),
         {
             onSuccess(data) {
