@@ -4,9 +4,9 @@ import type { ReactNode } from 'react'
 
 import { DataServiceProvider } from './DataServiceProvider'
 import { RestDataService } from './RestDataService'
-import { useGetOne } from './useGetOne'
+import { useGetMany } from './useGetMany'
 
-describe('useGetOne', () => {
+describe('useGetMany', () => {
     let server: ReturnType<typeof createServer>
 
     beforeEach(() => {
@@ -26,21 +26,31 @@ describe('useGetOne', () => {
     )
 
     it('should be defined', () => {
-        expect(useGetOne).toBeDefined()
+        expect(useGetMany).toBeDefined()
     })
 
     it('should render', async () => {
-        server.get('/api/beers/:id', () => {
-            return { id: 1, name: 'Ožujsko' }
+        server.get('/api/beers/:id', (_, request) => {
+            const beers = [
+                { id: 1, name: 'Ožujsko' },
+                { id: 2, name: 'Pan' }
+            ]
+            const beer = beers.find(item => item.id === +request.params['id'])
+
+            if (!beer) {
+                throw new Error('not found')
+            }
+
+            return beer
         })
-        const dataServiceSpy = jest.spyOn(dataService, 'getOne')
+        const dataServiceSpy = jest.spyOn(dataService, 'getMany')
 
         const { result } = renderHook(
             () =>
-                useGetOne({
+                useGetMany({
                     resource: 'beers',
                     params: {
-                        id: 1
+                        ids: [1, 2]
                     }
                 }),
             {
@@ -50,11 +60,14 @@ describe('useGetOne', () => {
 
         await waitFor(() => expect(result.current.data).toBeDefined())
 
-        expect(result.current.data).toMatchObject({ id: 1, name: 'Ožujsko' })
+        expect(result.current.data).toMatchObject([
+            { id: 1, name: 'Ožujsko' },
+            { id: 2, name: 'Pan' }
+        ])
         expect(dataServiceSpy).toHaveBeenCalledTimes(1)
         expect(dataServiceSpy).toHaveBeenCalledWith(
             'beers',
-            { id: 1 },
+            { ids: [1, 2] },
             expect.objectContaining({
                 meta: undefined,
                 signal: expect.any(AbortSignal)

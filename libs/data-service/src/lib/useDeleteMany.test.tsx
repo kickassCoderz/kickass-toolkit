@@ -1,12 +1,13 @@
 import { renderHook, waitFor } from '@testing-library/react'
-import { createServer } from 'miragejs'
+import { createServer, Response } from 'miragejs'
 import type { ReactNode } from 'react'
+import { act } from 'react-dom/test-utils'
 
 import { DataServiceProvider } from './DataServiceProvider'
 import { RestDataService } from './RestDataService'
-import { useGetOne } from './useGetOne'
+import { useDeleteMany } from './useDeleteMany'
 
-describe('useGetOne', () => {
+describe('useDeleteMany', () => {
     let server: ReturnType<typeof createServer>
 
     beforeEach(() => {
@@ -26,39 +27,34 @@ describe('useGetOne', () => {
     )
 
     it('should be defined', () => {
-        expect(useGetOne).toBeDefined()
+        expect(useDeleteMany).toBeDefined()
     })
 
     it('should render', async () => {
-        server.get('/api/beers/:id', () => {
-            return { id: 1, name: 'Ožujsko' }
+        server.del('/api/beers/:id', () => {
+            return new Response(204, {}, '')
         })
-        const dataServiceSpy = jest.spyOn(dataService, 'getOne')
+
+        const dataServiceSpy = jest.spyOn(dataService, 'deleteMany')
 
         const { result } = renderHook(
             () =>
-                useGetOne({
-                    resource: 'beers',
-                    params: {
-                        id: 1
-                    }
+                useDeleteMany({
+                    resource: 'beers'
                 }),
             {
                 wrapper: App
             }
         )
 
+        act(() => {
+            result.current.mutate({ ids: [1, 2] })
+        })
+
         await waitFor(() => expect(result.current.data).toBeDefined())
 
-        expect(result.current.data).toMatchObject({ id: 1, name: 'Ožujsko' })
+        expect(result.current.data).toMatchObject([{ id: 1 }, { id: 2 }])
         expect(dataServiceSpy).toHaveBeenCalledTimes(1)
-        expect(dataServiceSpy).toHaveBeenCalledWith(
-            'beers',
-            { id: 1 },
-            expect.objectContaining({
-                meta: undefined,
-                signal: expect.any(AbortSignal)
-            })
-        )
+        expect(dataServiceSpy).toHaveBeenCalledWith('beers', { ids: [1, 2] })
     })
 })

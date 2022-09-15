@@ -36,7 +36,7 @@ describe('useGetList', () => {
                 { id: 2, name: 'Pan' }
             ]
         })
-        const getOneSpy = jest.spyOn(dataService, 'getList')
+        const dataServiceSpy = jest.spyOn(dataService, 'getList')
 
         const { result } = renderHook(
             () =>
@@ -58,8 +58,8 @@ describe('useGetList', () => {
             ],
             total: 2
         })
-        expect(getOneSpy).toHaveBeenCalledTimes(1)
-        expect(getOneSpy).toHaveBeenCalledWith(
+        expect(dataServiceSpy).toHaveBeenCalledTimes(1)
+        expect(dataServiceSpy).toHaveBeenCalledWith(
             'beers',
             undefined,
             expect.objectContaining({

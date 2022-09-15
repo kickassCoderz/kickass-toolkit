@@ -1,12 +1,13 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { createServer } from 'miragejs'
 import type { ReactNode } from 'react'
+import { act } from 'react-dom/test-utils'
 
 import { DataServiceProvider } from './DataServiceProvider'
 import { RestDataService } from './RestDataService'
-import { useGetOne } from './useGetOne'
+import { useUpdateOne } from './useUpdateOne'
 
-describe('useGetOne', () => {
+describe('useUpdateOne', () => {
     let server: ReturnType<typeof createServer>
 
     beforeEach(() => {
@@ -26,39 +27,38 @@ describe('useGetOne', () => {
     )
 
     it('should be defined', () => {
-        expect(useGetOne).toBeDefined()
+        expect(useUpdateOne).toBeDefined()
     })
 
     it('should render', async () => {
-        server.get('/api/beers/:id', () => {
-            return { id: 1, name: 'Ožujsko' }
+        server.put('/api/beers/:id', (_, request) => {
+            const beer = JSON.parse(request.requestBody)
+
+            return {
+                ...beer,
+                id: +request.params['id']
+            }
         })
-        const dataServiceSpy = jest.spyOn(dataService, 'getOne')
+        const dataServiceSpy = jest.spyOn(dataService, 'updateOne')
 
         const { result } = renderHook(
             () =>
-                useGetOne({
-                    resource: 'beers',
-                    params: {
-                        id: 1
-                    }
+                useUpdateOne({
+                    resource: 'beers'
                 }),
             {
                 wrapper: App
             }
         )
 
+        act(() => {
+            result.current.mutate({ id: 1, payload: { name: 'Ožujsko' } })
+        })
+
         await waitFor(() => expect(result.current.data).toBeDefined())
 
         expect(result.current.data).toMatchObject({ id: 1, name: 'Ožujsko' })
         expect(dataServiceSpy).toHaveBeenCalledTimes(1)
-        expect(dataServiceSpy).toHaveBeenCalledWith(
-            'beers',
-            { id: 1 },
-            expect.objectContaining({
-                meta: undefined,
-                signal: expect.any(AbortSignal)
-            })
-        )
+        expect(dataServiceSpy).toHaveBeenCalledWith('beers', { id: 1, payload: { name: 'Ožujsko' } })
     })
 })
