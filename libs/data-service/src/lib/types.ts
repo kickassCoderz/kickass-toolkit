@@ -156,6 +156,10 @@ export type TUseCreateOneVariables = {
     resource: string
 }
 
+export type TUseCreateOnePayload<T extends Record<string, unknown>> = {
+    payload: T
+}
+
 export type TUseCreateOneResult<TData, TError, TPayload, TContext> = TUseMutationResult<
     TData,
     TError,
@@ -170,6 +174,10 @@ export type TMutationOptions<TData, TError, TVariables = unknown, TContext = unk
 
 export type TUseCreateManyVariables = {
     resource: string
+}
+
+export type TUseCreateManyPayload<T extends Record<string, unknown>> = {
+    payload: T[]
 }
 
 export type TUseCreateManyResult<TData, TError, TPayload, TContext> = TUseMutationResult<

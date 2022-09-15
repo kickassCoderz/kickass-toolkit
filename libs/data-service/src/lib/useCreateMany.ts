@@ -1,23 +1,29 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { createBaseQueryKey, createGetOneQueryKey } from './queryKeys'
-import type { TBaseResponse, TMutationOptions, TUseCreateManyResult, TUseCreateManyVariables } from './types'
+import type {
+    TBaseResponse,
+    TMutationOptions,
+    TUseCreateManyPayload,
+    TUseCreateManyResult,
+    TUseCreateManyVariables
+} from './types'
 import { useDataService } from './useDataService'
 
 const useCreateMany = <
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,
-    TPayload extends Record<string, unknown>[] = Record<string, unknown>[],
+    TPayload extends Record<string, unknown> = Record<string, unknown>,
     TContext = unknown
 >(
     variables: TUseCreateManyVariables,
-    mutationOptions?: TMutationOptions<TData[], TError, TPayload, TContext>
-): TUseCreateManyResult<TData[], TError, TPayload, TContext> => {
+    mutationOptions?: TMutationOptions<TData[], TError, TUseCreateManyPayload<TPayload>, TContext>
+): TUseCreateManyResult<TData[], TError, TUseCreateManyPayload<TPayload>, TContext> => {
     const dataService = useDataService()
     const queryClient = useQueryClient()
 
-    const createManyMutation = useMutation<TData[], TError, TPayload, TContext>(
-        payload => dataService.createMany(variables.resource, { payload }),
+    const createManyMutation = useMutation<TData[], TError, TUseCreateManyPayload<TPayload>, TContext>(
+        params => dataService.createMany(variables.resource, params),
         {
             onSuccess(data) {
                 const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')
