@@ -2,7 +2,7 @@
 sidebar_position: 0
 ---
 
-# Data Service Overview
+# Overview
 
 ## What is Data Service
 
@@ -23,6 +23,8 @@ It’s the Data Service’s job to turn these method calls into HTTP requests (o
 ## Architecture
 
 Thanks to this abstraction, Data Service allows your app to communicate with any API, whether it uses REST, GraphQL, RPC, or even SOAP, regardless of the dialect it uses. 
+
+It handles caching, background updates and stale data out of the box with zero-configuration.
 
 :::note
 
