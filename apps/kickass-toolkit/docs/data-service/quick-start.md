@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Quick Start
 
-Through the next few examples we will teach you have to fetch data from [Punk API](https://punkapi.com/documentation/v2). This is a JSON based REST API. This will get you familiar with all the basic concepts so you can take it away working on your own project.
+Through the next few examples we will teach you have to fetch data from [Punk API](https://punkapi.com/documentation/v2). This is a JSON based REST API. You will get familiar with all the basic concepts so you can take it away working on your own project.
 
 ## Installation
 
@@ -25,7 +25,7 @@ We provide following data services as part of the library:
 import { RestDataService } from '@kickass-coderz/data-service'
 ```
 
-To implement your own DataService you can check out the the [following example](/docs/data-service/creating-custom-service).
+To implement your own DataService you can check out the [following example](/docs/data-service/creating-custom-service).
 
 ## Adding a provider to your app
 
@@ -33,7 +33,7 @@ Now that you have your DataService ready you need to hook it up inside your app.
 
 ### Create React App
 
-For CRA (Create React App) that would `src/index.js` or `src/index.tsx` (for Typescript) file.
+For CRA (Create React App) that would be `src/index.js` or `src/index.tsx` (for Typescript) file.
 
 ```tsx
 import React from 'react'
@@ -72,11 +72,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             <Head>
                 <title>My Next App</title>
             </Head>
-            <NextUIProvider theme={theme}>
-                <DataServiceProvider dataService={dataService}>
-                    <Component {...pageProps} />
-                </DataServiceProvider>
-            </NextUIProvider>
+            <DataServiceProvider dataService={dataService}>
+                <Component {...pageProps} />
+            </DataServiceProvider>
         </>
     )
 }
@@ -84,7 +82,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 export default MyApp
 ```
 
-Now you can start using the hooks to fetch and use data inside your components
+Now you can start using the hooks to fetch and use data inside your components.
 
 ## Fetching data
 
@@ -128,7 +126,7 @@ We also provide hook for other REST methods and CRUD actions:
 - useUpdateOne (and useUpdateMany)
 - useDeleteOne (and useDeleteMany)
 
-The methods ending with `Many` are special methods that can get, create, update or delete multiple resources in the same time. You can read more in our [Fetching multiple resources](/docs/data-service/fetching-multiple-resources)
+The methods ending with `Many` are special methods that can get, create, update or delete multiple resources in the same time. You can read more in our [Fetching multiple resources](/docs/data-service/fetching-multiple-resources) guide.
 
 ### Error handling
 
@@ -149,18 +147,17 @@ if (isError) {
 
 You can also detect if the hook is in error state with `isError` property.
 
-
 ## Bonus features
 
 :::info
 
-Remember that we handle caching, background updates and stale data out of the box with zero-configuration. **In case you don't know what does mean or are interested in more details you can find concrete examples below**.
+Remember that we handle caching, background updates, retries and stale data out of the box with zero-configuration. **In case you don't know what that means or are interested in more details you can find concrete examples below**.
 
 :::
 
 ### Caching
 
-All of the data you fetch from your API is automatically cached on the client side. Which means that if you fetch some data from your API in component A and call the same hook inside the component B there will be additional network call. The component B will just reuse the cached data. If you wish to know more check out our [Caching topic](/docs/data-service/advanced-topics#caching)
+All of the data you fetch from your API is automatically cached on the client side. Which means that if you fetch some data from your API in component A and call the same hook inside component B, there will be no additional network call. The component B will just reuse the cached data. If you wish to know more check out our [Caching topic](/docs/data-service/advanced-topics#caching).
 
 ### Background updates and stale data
 
@@ -168,4 +165,4 @@ If any of the data becomes stale (cache is no longer valid) our hooks will autom
 
 ### Automatic retrys
 
-If any of the calls to your API fail for some reason (promise gets rejected) our hooks will automatically retry for a chance to get the data. If that fails multiple times you will get an `error` object which you can then use to show error state inside your app.
+If any of the calls to your API fail for some reason (promise gets rejected) our hooks will automatically retry for a chance to get the data. If that fails multiple times you will get an `error` object which you can then use to show error state inside your app. You can find more about this from our [QueryClient topic](/docs/data-service/advanced-topics#query-client).

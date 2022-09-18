@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Creating custom DataService 
 
-To create a custom DataService the most easier way is to implement our public `IDataService` interface. 
+To create a custom DataService the easiest way is to implement our public `IDataService` interface. 
 
 ## Implementing the interface
 
@@ -34,8 +34,10 @@ class MyDataService implements IDataService {
         context?: TQueryContext | undefined
     ): Promise<T> {
         const response = await fetch(`https://yourapi.com/api/${resource}/${params.id}`, {
-          'content-type': 'application/json',
-          accept: 'application/json'
+            headers: {
+                'content-type': 'application/json',
+                accept: 'application/json'
+            }
         })
         const result = await response.json()
 
@@ -44,7 +46,7 @@ class MyDataService implements IDataService {
 }
 ```
 
-Even though DataService interface requires all of the `CRUD` methods your API might not support all of those methods or you might not use them. The recommended way to handle this is to add a stub methods.
+Even though DataService interface requires all of the `CRUD` methods, your API might not support all of those methods or you might not use them. The recommended way to handle this is to add a stub methods.
 
 ```ts
 class MyDataService implements IDataService {
@@ -61,7 +63,7 @@ class MyDataService implements IDataService {
 }
 ```
 
-Like this you respect the interface requirements but you also catch any misuse inside your codebase. For example if anyone accidently uses this method it will throw an error and you can catch it during development or in production. Also when you wish to add support for some method you just replace the stub with a correct implementation.
+Like this you respect the interface requirements but you also catch any misuse inside your codebase. For example if anyone accidently uses this method it will throw an error and you can catch that during development or in production. Also when you wish to add support for some method you just replace the stub with a correct implementation.
 
 As you can see it is competely your choice on what protocol or data fetching library you wish to use inside your DataService. We do however have a few tips you can also use to standardize your DataService and keep it more readable.
 
@@ -85,7 +87,7 @@ class RestDataService implements IDataService {
 }
 ```
 
-As you can see we the constructor for our service expects `baseUrl` and `fetchInstances` parameters.
+The constructor for our service expects `baseUrl` and `fetchInstances` parameters.
 
 `baseUrl` would be a base of your API eg. `https://yourapi.com/api`. This is useful when you wish to use the same service for different APIs eg. our `RestDataService` is made to be compatible with any API following a `REST` specification. Also if you have different environments (development, staging, production) you can inject a different `baseUrl` depending on environment variable eg. from the `.env` file or during the build process.
 
@@ -93,7 +95,7 @@ As you can see we the constructor for our service expects `baseUrl` and `fetchIn
 
 ## Reusable code
 
-As DataService is just a class or speaking plainly in JavaScript an object prototype you can of couse add any additional methods for the parts of the code you use across your data fetching methods. 
+As DataService is just a class you can of course add any additional methods for the parts of the code you use across your data fetching methods. 
 
 For example in our `RestDataService` we add `isValidId` method which checks if the `params.id` is valid and it is called for any method that accepts this param. 
 
@@ -149,3 +151,29 @@ const response = await this.fetch(`${this.baseUrl}/${resource}/${params.id}`, {
 This is especially useful when you use some more advanced HTTP client packages like `axios` or `ky-universal` which give you even more options to instantiate them.
 
 For more inspiration you can always take a look at a source code of our data services or ask on GitHub.
+
+## Plain object DataService
+
+Even though we recomment using classes for implementing your DataService you can also create on with a plain object.
+
+```ts
+const dataService: IDataService = {
+    async getOne<T extends TBaseResponse>(
+        resource: string,
+        params: TGetOneParams,
+        context?: TQueryContext | undefined
+    ): Promise<T> {
+        const response = await fetch(`https://yourapi.com/api/${resource}/${params.id}`, {
+            headers: {
+                'content-type': 'application/json',
+                accept: 'application/json'
+            }
+        })
+        const result = await response.json()
+
+        return result
+    }
+
+    // rest of the methods
+}
+```
