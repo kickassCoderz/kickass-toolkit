@@ -129,7 +129,7 @@ We also provide hook for other REST methods and CRUD actions:
 - useUpdateOne (and useUpdateMany)
 - useDeleteOne (and useDeleteMany)
 
-The methods ending with `Many` are special methods that can get, create, update or delete multiple resources in the same time. You can read more in our [Fetching multiple resources](/docs/data-service/fetching-multiple-resources) guide.
+The methods ending with `Many` are special methods that can get, create, update or delete multiple records in the same time. You can read more in our [Fetching multiple resources](/docs/data-service/fetching-multiple-resources) guide.
 
 ### Error handling
 
