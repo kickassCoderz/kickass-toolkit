@@ -40,7 +40,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
-import { RestDataService } from '@kickass-coderz/data-service'
+import { RestDataService, DataServiceProvider } from '@kickass-coderz/data-service'
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -63,6 +63,7 @@ For Next you whould add the provider to your `_app.js` or `_app.tsx` file. If yo
 ```tsx
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
+import { RestDataService, DataServiceProvider } from '@kickass-coderz/data-service'
 
 const dataService = new RestDataService('https://api.punkapi.com/v2')
 
@@ -89,6 +90,8 @@ Now you can start using the hooks to fetch and use data inside your components.
 We provide the hooks that match `IDataService` interface. So for example if you wish to fetch a list of items from your API you would use `useGetList` hook that will call `DataService.getList` method under the hood.
 
 ```tsx
+import { useGetList } from '@kickass-coderz/data-service'
+
 const Component = () => {
     const { data, isLoading } = useGetList({
         resource: 'beers' // this calls https://api.punkapi.com/v2/beers
