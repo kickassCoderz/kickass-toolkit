@@ -160,7 +160,7 @@ Remember that we handle caching, background updates, retries and stale data out 
 
 ### Caching
 
-All of the data you fetch from your API is automatically cached on the client side. Which means that if you fetch some data from your API in component A and call the same hook inside component B, there will be no additional network call. The component B will just reuse the cached data. If you wish to know more check out our [Caching topic](/docs/data-service/advanced-topics#caching).
+All of the data you fetch from your API is automatically cached on the client side. Which means that if you fetch some data from your API in component A and call the same hook inside component B, there will be no additional network call. The component B will just reuse the cached data. If you wish to know more check out our [Caching topic](/docs/data-service/data-client#caching).
 
 ### Background updates and stale data
 
@@ -168,4 +168,4 @@ If any of the data becomes stale (cache is no longer valid) our hooks will autom
 
 ### Automatic retrys
 
-If any of the calls to your API fail for some reason (promise gets rejected) our hooks will automatically retry for a chance to get the data. If that fails multiple times you will get an `error` object which you can then use to show error state inside your app. You can find more about this from our [QueryClient topic](/docs/data-service/advanced-topics#query-client).
+If any of the calls to your API fail for some reason (promise gets rejected) our hooks will automatically retry for a chance to get the data. If that fails multiple times you will get an `error` object which you can then use to show error state inside your app. You can find more about this from our [DataClient page](/docs/data-service/data-client).
