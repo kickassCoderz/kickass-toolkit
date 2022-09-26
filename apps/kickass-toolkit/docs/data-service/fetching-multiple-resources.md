@@ -120,3 +120,7 @@ const onDelete = (images: { id: number; title: string; blob: File }[]) => {
     })
 }
 ```
+
+## Cache management
+
+`Many` hooks also manage cache automatically same as their `One` counterparts. You can read more about that in our [CRUD operations](/docs/data-service/crud-operations) section.

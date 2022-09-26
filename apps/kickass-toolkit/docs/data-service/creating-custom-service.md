@@ -22,7 +22,7 @@ export interface IDataService {
 }
 ```
 
-The next example is showing how you would use browser `fetch` method to get the data from your API endpoint by some `id` through `getOne` method.
+The next example is showing how you would use browser `fetch` function to get the data from your API endpoint by some `id` through `getOne` method.
 
 ```ts
 import { IDataService } from '@kickass-coderz/data-service'
