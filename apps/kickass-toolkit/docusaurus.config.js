@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
@@ -44,8 +45,8 @@ const config = {
     themeConfig:
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
-            themeConfig: {
-                respectPrefersColorScheme: false
+            colorMode: {
+                respectPrefersColorScheme: true
             },
             navbar: {
                 title: 'Kickass Toolkit',
@@ -120,10 +121,8 @@ const config = {
                 darkTheme: darkCodeTheme
             }
         }),
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     plugins: [
+        // @ts-ignore
         ...fs
             .readdirSync(path.resolve(__dirname, '../../libs/hooks/src/lib'))
             .filter(path => !path.endsWith('.ts'))
@@ -144,7 +143,26 @@ const config = {
                         readmeTitle: hookName
                     }
                 ]
-            })
+            }),
+        // @ts-ignore
+        ...[
+            [
+                'docusaurus-plugin-typedoc',
+                {
+                    id: 'DataService',
+                    entryPoints: [path.resolve(__dirname, '../../libs/data-service/src/lib/index.ts')],
+                    tsconfig: path.resolve(__dirname, '../../libs/data-service/tsconfig.json'),
+                    out: 'types',
+                    entryDocument: 'data-service.md',
+                    sidebar: {
+                        categoryLabel: 'Types reference',
+                        indexLabel: 'DataService'
+                    },
+                    readme: 'none',
+                    readmeTitle: 'DataService'
+                }
+            ]
+        ]
     ]
 }
 
