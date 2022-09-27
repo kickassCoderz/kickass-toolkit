@@ -44,6 +44,9 @@ const config = {
     themeConfig:
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
+            themeConfig: {
+                respectPrefersColorScheme: false
+            },
             navbar: {
                 title: 'Kickass Toolkit',
                 logo: {
