@@ -30,7 +30,7 @@ const onCreate = (image: { title: string; blob: File }) => {
 Nice and easy, but it is important to note another cool thing about this hook. As DataService knows how the records and relations operate in context of CRUD operations cache is managed automatically under the hood.
 
 For example after the above `onCreate` function resolves, two things happen:
-- all cache for `useGetList` calls that was valid for `images` resources is cleared - this is to make sure that when that data is needed again the DataService goes to API for the fresh data eg. list should now contain the newly created image
+- all cache for `useGetList` calls that was valid for `images` resources is invalidated - this is to make sure that when that data is needed again the DataService goes to API for the fresh data eg. list should now contain the newly created image
 - cache for `useGetOne` hook is automatically prefilled with result of `createOne` - there will be no additional API call as the result is cached automatically
 
 ## Updating record
@@ -52,9 +52,9 @@ const onUpdate = (image: { id: number; title: string; blob: File }) => {
 ```
 
 Same as for `useCreateOne` hook the cache is also managed automatically so after `onUpdate` function above resolves these things will happen:
-- all cache for `useGetList` calls that was valid for `images` resources is cleared - this is to make sure that when that data is needed again the DataService goes to API for the fresh data eg. list should now show updated image
+- all cache for `useGetList` calls that was valid for `images` resources is invalidated - this is to make sure that when that data is needed again the DataService goes to API for the fresh data eg. list should now show updated image
 - cache for `useGetOne` hook is automatically prefilled with result of `updateOne` - there will be no additional API call as the result is cached automatically
-- all cache for `useGetMany` calls that was valid for `images` resources is cleared - this is to make sure that when that data is needed again the DataService goes to API for the fresh data (you can read more in our [Fetching multiple resources](/docs/data-service/fetching-multiple-resources) guide)
+- all cache for `useGetMany` calls that was valid for `images` resources is invalidated - this is to make sure that when that data is needed again the DataService goes to API for the fresh data (you can read more in our [Fetching multiple resources](/docs/data-service/fetching-multiple-resources) guide)
 
 ## Deleting record
 
@@ -74,6 +74,6 @@ const onDelete = (images: { id: number; title: string; blob: File }) => {
 ```
 
 `useDeleteOne` hook also automatically manages cache so after `onDelete` function above resolves these things will happen:
-- all cache for `useGetList` calls that was valid for `images` resources is cleared - this is to make sure that when that data is needed again the DataService goes to API for the fresh data eg. list should not show deleted image
-- cache for `useGetOne` hook is automatically cleared eg. that hook should now show no data and optionally (depending on your API) return HTTP `404` status
-- all cache for `useGetMany` calls that was valid for `images` resources is cleared - this is to make sure that when that data is needed again the DataService goes to API for the fresh data (you can read more in our [Fetching multiple resources](/docs/data-service/fetching-multiple-resources) guide)
+- all cache for `useGetList` calls that was valid for `images` resources is invalidated - this is to make sure that when that data is needed again the DataService goes to API for the fresh data eg. list should not show deleted image
+- cache for `useGetOne` hook is automatically invalidated eg. that hook should now show no data and optionally (depending on your API) return HTTP `404` status
+- all cache for `useGetMany` calls that was valid for `images` resources is invalidated - this is to make sure that when that data is needed again the DataService goes to API for the fresh data (you can read more in our [Fetching multiple resources](/docs/data-service/fetching-multiple-resources) guide)
