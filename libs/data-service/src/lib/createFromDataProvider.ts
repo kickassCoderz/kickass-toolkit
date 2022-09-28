@@ -33,12 +33,26 @@ const createFromDataProvider = (dataProvider: IGenericDataProvider): IDataServic
     }
 
     class DataServiceFromDataProvider implements IDataService {
+        private extractData<T>(payload: { data?: T }): T {
+            if (!payload?.data) {
+                throw new Error('dataProvider returned invalid response, data property is missing')
+            }
+
+            return payload.data
+        }
+
+        private async extractDataPromise<T>(promise: Promise<{ data: T }>): Promise<T> {
+            const payload = await promise
+
+            return this.extractData(payload)
+        }
+
         getOne<T extends TBaseResponse>(
             resource: string,
             params: TGetOneParams,
             context?: TQueryContext | undefined
         ): Promise<T> {
-            return dataProvider.getOne(resource, params)
+            return this.extractDataPromise(dataProvider.getOne(resource, params))
         }
         async getMany<T extends TBaseResponse>(
             resource: string,
@@ -46,7 +60,7 @@ const createFromDataProvider = (dataProvider: IGenericDataProvider): IDataServic
             context?: TQueryContext | undefined
         ): Promise<T[]> {
             if (typeof dataProvider.getMany === 'function') {
-                return dataProvider.getMany(resource, params)
+                return this.extractDataPromise(dataProvider.getMany(resource, params))
             }
 
             const results = await Promise.all(params.ids.map(id => this.getOne<T>(resource, { id })))
@@ -58,10 +72,14 @@ const createFromDataProvider = (dataProvider: IGenericDataProvider): IDataServic
             params?: TGetListParams | undefined,
             context?: TQueryContext | undefined
         ): Promise<TGetListResponse<T[]>> {
-            return dataProvider.getList(resource, params)
+            return dataProvider.getList(resource, {
+                pagination: params?.pagination,
+                sort: params?.sort?.[0], // dataProvider supports single sort property
+                filter: params?.filter
+            })
         }
         createOne<T extends TBaseResponse>(resource: string, params: TCreateOneParams): Promise<T> {
-            return dataProvider.create(resource, params)
+            return this.extractDataPromise(dataProvider.create(resource, { data: params.payload }))
         }
         async createMany<T extends TBaseResponse>(resource: string, params: TCreateManyParams): Promise<T[]> {
             const results = await Promise.all(params.payload.map(payload => this.createOne<T>(resource, { payload })))
@@ -69,13 +87,11 @@ const createFromDataProvider = (dataProvider: IGenericDataProvider): IDataServic
             return results
         }
         updateOne<T extends TBaseResponse>(resource: string, params: TUpdateOneParams): Promise<T> {
-            return dataProvider.update(resource, params)
+            return this.extractDataPromise(dataProvider.update(resource, { id: params.id, data: params.payload }))
         }
         async updateMany<T extends TBaseResponse>(resource: string, params: TUpdateManyParams): Promise<T[]> {
-            if (typeof dataProvider.updateMany === 'function') {
-                return dataProvider.updateMany(resource, params)
-            }
-
+            // we use updateOne implementation because dataProvider expects the same payload for all resources
+            // that are updated and DataService supports different payloads for each resource
             const results = await Promise.all(
                 params.ids.map((id, index) => this.updateOne<T>(resource, { id, payload: params.payload[index] }))
             )
@@ -83,11 +99,15 @@ const createFromDataProvider = (dataProvider: IGenericDataProvider): IDataServic
             return results
         }
         deleteOne<T extends Partial<TBaseResponse>>(resource: string, params: TDeleteOneParams): Promise<T> {
-            return dataProvider.delete(resource, params)
+            return this.extractDataPromise(dataProvider.delete(resource, params))
         }
         async deleteMany<T extends Partial<TBaseResponse>>(resource: string, params: TDeleteManyParams): Promise<T[]> {
             if (typeof dataProvider.deleteMany === 'function') {
-                return dataProvider.deleteMany(resource, params)
+                const data = await this.extractDataPromise<TBaseResponse['id'][]>(
+                    dataProvider.deleteMany(resource, params)
+                )
+
+                return data.map(item => ({ id: item } as T))
             }
 
             const results = await Promise.all(params.ids.map(id => this.deleteOne<T>(resource, { id })))

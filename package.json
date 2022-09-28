@@ -52,6 +52,7 @@
         "nx": "14.1.4",
         "patch-package": "^6.4.7",
         "prettier": "^2.5.1",
+        "ra-data-fakerest": "^4.3.4",
         "react-test-renderer": "18.1.0",
         "ts-jest": "27.1.4",
         "ts-node": "9.1.1",
