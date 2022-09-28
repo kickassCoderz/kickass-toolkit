@@ -55,6 +55,8 @@ const dataProvider = supabaseDataProvider(supabase, resources);
 export default dataProvider
 ```
 
+For other data providers you should check their Docs/README to see the necessary parameters.
+
 ### Create the DataService
 
 ```js
@@ -71,7 +73,6 @@ const supabaseDataService = createFromDataProvider(supabaseDataProvider)
 import { DataServiceProvider } from '@kickass-coderz/data-service'
 import supabaseDataProvider from './dataProvider'
 
-// this will create a DataService intance from exiting data provider
 const supabaseDataService = createFromDataProvider(supabaseDataProvider)
 
 const App = () => {
