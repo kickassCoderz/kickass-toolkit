@@ -1,4 +1,5 @@
 import type {
+    QueryClient,
     QueryKey as TQueryKey,
     QueryMeta as TQueryMeta,
     UseMutationOptions as TUseMutationOptions,
@@ -74,7 +75,7 @@ export type TUpdateOneParams = {
 
 export type TUpdateManyParams = {
     ids: string[] | number[]
-    payload: Record<string, unknown>
+    payload: Record<string, unknown>[]
 }
 
 export type TDeleteOneParams = {
@@ -99,23 +100,24 @@ export type TGetListResponse<T> = {
 
 export interface IDataService {
     getOne<T extends TBaseResponse>(resource: string, params: TGetOneParams, context?: TQueryContext): Promise<T>
-    getMany<T extends TBaseResponse[]>(resource: string, params: TGetManyParams, context?: TQueryContext): Promise<T>
-    getList<T extends TBaseResponse[]>(
+    getMany<T extends TBaseResponse>(resource: string, params: TGetManyParams, context?: TQueryContext): Promise<T[]>
+    getList<T extends TBaseResponse>(
         resource: string,
-        params: TGetListParams,
+        params?: TGetListParams,
         context?: TQueryContext
-    ): Promise<TGetListResponse<T>>
+    ): Promise<TGetListResponse<T[]>>
     createOne<T extends TBaseResponse>(resource: string, params: TCreateOneParams): Promise<T>
-    createMany<T extends TBaseResponse[]>(resource: string, params: TCreateManyParams): Promise<T>
+    createMany<T extends TBaseResponse>(resource: string, params: TCreateManyParams): Promise<T[]>
     updateOne<T extends TBaseResponse>(resource: string, params: TUpdateOneParams): Promise<T>
-    updateMany<T extends TBaseResponse[]>(resource: string, params: TUpdateManyParams): Promise<T>
+    updateMany<T extends TBaseResponse>(resource: string, params: TUpdateManyParams): Promise<T[]>
     deleteOne<T extends Partial<TBaseResponse>>(resource: string, params: TDeleteOneParams): Promise<T>
-    deleteMany<T extends Partial<TBaseResponse[]>>(resource: string, params: TDeleteManyParams): Promise<T>
+    deleteMany<T extends Partial<TBaseResponse>>(resource: string, params: TDeleteManyParams): Promise<T[]>
 }
 
 export interface IDataServiceProvider {
     children?: React.ReactNode
     dataService?: IDataService
+    queryClient?: QueryClient
 }
 
 //QUERY KEYS
@@ -145,13 +147,17 @@ export type TUseGetManyResult<TData, TError> = TUseQueryResult<TData, TError>
 
 export type TUseGetListVariables = {
     resource: string
-    params: TGetListParams
+    params?: TGetListParams
 }
 
 export type TUseGetListResult<TData, TError> = TUseQueryResult<TGetListResponse<TData>, TError>
 
 export type TUseCreateOneVariables = {
     resource: string
+}
+
+export type TUseCreateOnePayload<T extends Record<string, unknown>> = {
+    payload: T
 }
 
 export type TUseCreateOneResult<TData, TError, TPayload, TContext> = TUseMutationResult<
@@ -168,6 +174,10 @@ export type TMutationOptions<TData, TError, TVariables = unknown, TContext = unk
 
 export type TUseCreateManyVariables = {
     resource: string
+}
+
+export type TUseCreateManyPayload<T extends Record<string, unknown>> = {
+    payload: T[]
 }
 
 export type TUseCreateManyResult<TData, TError, TPayload, TContext> = TUseMutationResult<
@@ -199,7 +209,7 @@ export type TUseUpdateManyVariables = {
 
 export type TUseUpdateManyPayload<T extends Record<string, unknown>> = {
     ids: string[] | number[]
-    payload: T
+    payload: T[]
 }
 
 export type TUseUpdateManyResult<TData, TError, TPayload, TContext> = TUseMutationResult<

@@ -37,6 +37,16 @@
                 "jestConfig": "libs/hooks/jest.config.ts",
                 "passWithNoTests": true
             }
+        },
+        "tsc": {
+            "executor": "nx:run-commands",
+                "options": {
+                "commands": [
+                    {
+                        "command": "cd libs/hooks && tsc -b"
+                    }
+                ]
+            }
         }
     }
 }

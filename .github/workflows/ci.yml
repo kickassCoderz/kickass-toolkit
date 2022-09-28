@@ -26,6 +26,7 @@ jobs:
             - run: npm ci
             - run: npx nx workspace-lint
             - run: npx nx affected --target=lint --parallel=3
+            - run: npx nx affected --target=tsc --parallel=3 # type errors check
 
     test_affected:
         name: Test affected

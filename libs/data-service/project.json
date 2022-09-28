@@ -37,6 +37,16 @@
                 "jestConfig": "libs/data-service/jest.config.ts",
                 "passWithNoTests": true
             }
+        },
+        "tsc": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    {
+                        "command": "cd libs/data-service && tsc -b"
+                    }
+                ]
+            }
         }
     }
 }
