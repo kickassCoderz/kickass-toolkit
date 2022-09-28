@@ -158,8 +158,7 @@ const config = {
                         categoryLabel: 'Types reference',
                         indexLabel: 'DataService'
                     },
-                    readme: 'none',
-                    readmeTitle: 'DataService'
+                    readme: 'none'
                 }
             ]
         ]
