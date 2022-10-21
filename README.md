@@ -1,94 +1,73 @@
+# Turborepo starter
 
+This is an official npm starter turborepo.
 
-# KickassToolkit
+## What's inside?
 
-This project was generated using [Nx](https://nx.dev).
+This turborepo uses [npm](https://www.npmjs.com/) as a package manager. It includes the following packages/apps:
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+### Apps and Packages
 
-🔎 **Smart, Fast and Extensible Build System**
+- `docs`: a [Next.js](https://nextjs.org) app
+- `web`: another [Next.js](https://nextjs.org) app
+- `ui`: a stub React component library shared by both `web` and `docs` applications
+- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
-## Adding capabilities to your workspace
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+### Utilities
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+This turborepo has some additional tools already setup for you:
 
-Below are our core plugins:
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+### Build
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+To build all apps and packages, run the following command:
 
-## Generate an application
+```
+cd my-turborepo
+npm run build
+```
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+### Develop
 
-> You can use any of the plugins above to generate applications as well.
+To develop all apps and packages, run the following command:
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+```
+cd my-turborepo
+npm run dev
+```
 
-## Generate a library
+### Remote Caching
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+Turborepo can use a technique known as [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
 
-> You can also use any of the plugins above to generate libraries as well.
+By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
-Libraries are shareable across libraries and applications. They can be imported from `@kickass-toolkit/mylib`.
+```
+cd my-turborepo
+npx turbo login
+```
 
-## Development server
+This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
 
-## Code scaffolding
+```
+npx turbo link
+```
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+## Useful Links
 
-## Build
+Learn more about the power of Turborepo:
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `nx e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
+- [Caching](https://turborepo.org/docs/core-concepts/caching)
+- [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching)
+- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
+- [Configuration Options](https://turborepo.org/docs/reference/configuration)
+- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
