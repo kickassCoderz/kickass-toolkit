@@ -1,7 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react-hooks'
 import { useRef } from 'react'
 
 import { useCombineRefs } from './useCombineRefs'

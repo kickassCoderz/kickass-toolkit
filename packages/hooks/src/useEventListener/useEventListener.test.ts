@@ -1,5 +1,4 @@
-/* eslint-disable func-names */
-import { renderHook } from '@testing-library/react'
+import { renderHook } from '@testing-library/react-hooks'
 
 import { useEventListener } from './useEventListener'
 

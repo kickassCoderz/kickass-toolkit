@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react-hooks'
 import { useState } from 'react'
 
 import { usePreviousValue } from './usePreviousValue'
