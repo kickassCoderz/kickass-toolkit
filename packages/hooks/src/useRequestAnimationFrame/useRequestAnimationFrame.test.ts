@@ -33,7 +33,7 @@ describe('useRequestAnimationFrame', () => {
 
         expect(result.current[1]).toBeInstanceOf(Function)
 
-        expect(spyFn).toBeCalledTimes(0)
+        expect(spyFn).toHaveBeenCalledTimes(0)
     })
 
     it('should call passed callback only on next raf', () => {
