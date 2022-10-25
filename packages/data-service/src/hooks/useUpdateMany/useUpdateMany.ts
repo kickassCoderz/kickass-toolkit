@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { useDataService } from './hooks/useDataService/useDataService'
 import type {
     TBaseResponse,
     TMutationOptions,
     TUseUpdateManyPayload,
     TUseUpdateManyResult,
     TUseUpdateManyVariables
-} from './types'
-import { createBaseQueryKey, createGetOneQueryKey } from './utils/queryKeys'
+} from '../../types'
+import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
+import { useDataService } from '../useDataService'
 
 const useUpdateMany = <
     TData extends TBaseResponse = TBaseResponse,

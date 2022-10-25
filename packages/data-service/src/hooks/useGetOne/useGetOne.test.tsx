@@ -1,64 +1,34 @@
-import { renderHook, waitFor } from '@testing-library/react'
-import { createServer } from 'miragejs'
-import type { ReactNode } from 'react'
+import { renderHook } from '@testing-library/react-hooks'
 
-import { DataServiceProvider } from '../../providers'
-import { RestDataService } from '../../services'
+import { TestWrapper } from '../../mocks'
+import { BEERS_MOCK_DATA } from '../../mocks/consts'
 import { useGetOne } from './useGetOne'
 
 describe('useGetOne', () => {
-    let server: ReturnType<typeof createServer>
-
-    beforeEach(() => {
-        server = createServer({
-            environment: 'test',
-            urlPrefix: 'http://localhost'
-        })
-    })
-
-    afterEach(() => {
-        server.shutdown()
-    })
-
-    const dataService = new RestDataService('http://localhost/api')
-    const App = ({ children }: { children?: ReactNode }) => (
-        <DataServiceProvider dataService={dataService}>{children}</DataServiceProvider>
-    )
-
     it('should be defined', () => {
         expect(useGetOne).toBeDefined()
     })
 
     it('should render', async () => {
-        server.get('/api/beers/:id', () => {
-            return { id: 1, name: 'Ožujsko' }
-        })
-        const dataServiceSpy = jest.spyOn(dataService, 'getOne')
+        const id = BEERS_MOCK_DATA[0].id
 
-        const { result } = renderHook(
+        const { result, waitFor } = renderHook(
             () =>
                 useGetOne({
                     resource: 'beers',
                     params: {
-                        id: 1
+                        id
                     }
                 }),
             {
-                wrapper: App
+                wrapper: TestWrapper
             }
         )
 
-        await waitFor(() => expect(result.current.data).toBeDefined())
+        await waitFor(() => result.current.isSuccess)
 
-        expect(result.current.data).toMatchObject({ id: 1, name: 'Ožujsko' })
-        expect(dataServiceSpy).toHaveBeenCalledTimes(1)
-        expect(dataServiceSpy).toHaveBeenCalledWith(
-            'beers',
-            { id: 1 },
-            expect.objectContaining({
-                meta: undefined,
-                signal: expect.any(AbortSignal)
-            })
-        )
+        expect(result.current.data).toBeDefined()
+
+        expect(result.current.data).toMatchObject(BEERS_MOCK_DATA[0])
     })
 })

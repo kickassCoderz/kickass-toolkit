@@ -1,101 +1,50 @@
-import { createServer, Response } from 'miragejs'
-
+import { BEERS_MOCK_DATA, MOCK_API_BASE_URL } from '../../mocks/consts'
 import { RestDataService } from './RestDataService'
 
 describe('RestDataService', () => {
-    let server: ReturnType<typeof createServer>
-
-    beforeEach(() => {
-        server = createServer({
-            environment: 'test',
-            urlPrefix: 'http://localhost'
-        })
-    })
-
-    afterEach(() => {
-        server.shutdown()
-    })
-
-    const dataService = new RestDataService('http://localhost/api')
+    const dataService = new RestDataService(MOCK_API_BASE_URL)
 
     it('should be defined', () => {
         expect(RestDataService).toBeDefined()
     })
 
     it('should getOne', async () => {
-        server.get('/api/beers/:id', () => {
-            return { id: 1, name: 'Ožujsko' }
-        })
+        const result = await dataService.getOne('beers', { id: BEERS_MOCK_DATA[0].id })
 
-        const result = await dataService.getOne('beers', { id: 1 })
+        expect(result).toBeDefined()
 
-        expect(result).toMatchObject({ id: 1, name: 'Ožujsko' })
+        expect(result).toMatchObject(BEERS_MOCK_DATA[0])
     })
 
     it('getOne should throw on id containing slashes', async () => {
-        server.get('/api/beers/:id', () => {
-            return { id: 1, name: 'Ožujsko' }
-        })
-
-        expect(dataService.getOne('beers', { id: '/id/1' })).rejects.toThrowError()
+        await expect(dataService.getOne('beers', { id: '/id/1' })).rejects.toThrow()
     })
 
     it('should getMany', async () => {
-        server.get('/api/beers/:id', (_, request) => {
-            const beers = [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' }
-            ]
-            const beer = beers.find(item => item.id === +request.params['id'])
+        const result = await dataService.getMany('beers', { ids: [BEERS_MOCK_DATA[0].id, BEERS_MOCK_DATA[1].id] })
 
-            if (!beer) {
-                throw new Error('not found')
-            }
+        expect(result).toBeDefined()
 
-            return beer
-        })
-
-        const result = await dataService.getMany('beers', { ids: [1, 2] })
-
-        expect(result).toMatchObject([
-            { id: 1, name: 'Ožujsko' },
-            { id: 2, name: 'Pan' }
-        ])
+        expect(result).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining(BEERS_MOCK_DATA[0]),
+                expect.objectContaining(BEERS_MOCK_DATA[1])
+            ])
+        )
     })
 
     it('should getList', async () => {
-        server.get('/api/beers', () => {
-            return [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' }
-            ]
-        })
-
         const result = await dataService.getList('beers')
 
+        expect(result).toBeDefined()
+
         expect(result).toMatchObject({
-            data: [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' }
-            ],
-            total: 2
+            data: BEERS_MOCK_DATA,
+            total: 4
         })
     })
 
     it('should getList with page pagination', async () => {
-        server.get('/api/beers', (_, request) => {
-            const beers = [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' },
-                { id: 3, name: 'Karlovačko' },
-                { id: 4, name: 'Laško' }
-            ]
-            const page = +request.queryParams?.['page'] || 1
-            const perPage = +request.queryParams?.['perPage'] || 2
-
-            return beers.slice((page - 1) * perPage, page * perPage)
-        })
-
         const result = await dataService.getList('beers')
         const result2 = await dataService.getList('beers', {
             pagination: {
@@ -105,224 +54,189 @@ describe('RestDataService', () => {
         const result3 = await dataService.getList('beers', {
             pagination: {
                 page: 1,
-                perPage: 4
+                perPage: 2
             }
         })
 
+        expect(result).toBeDefined()
+
+        expect(result2).toBeDefined()
+
+        expect(result3).toBeDefined()
+
         expect(result).toMatchObject({
-            data: [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' }
-            ],
-            total: 2
+            data: BEERS_MOCK_DATA,
+            total: 4
         })
         expect(result2).toMatchObject({
-            data: [
-                { id: 3, name: 'Karlovačko' },
-                { id: 4, name: 'Laško' }
-            ],
-            total: 2
+            data: BEERS_MOCK_DATA,
+            total: 4
         })
         expect(result3).toMatchObject({
-            data: [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' },
-                { id: 3, name: 'Karlovačko' },
-                { id: 4, name: 'Laško' }
-            ],
-            total: 4
+            data: [BEERS_MOCK_DATA[0], BEERS_MOCK_DATA[1]],
+            total: 2
         })
     })
 
     it('should getList with cursor pagination', async () => {
-        server.get('/api/beers', (_, request) => {
-            const beers = [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' },
-                { id: 3, name: 'Karlovačko' },
-                { id: 4, name: 'Laško' }
-            ]
-            const nextCursor = +request.queryParams?.['nextCursor'] || 1
-            const previousCursor = +request.queryParams?.['previousCursor']
-            const perPage = +request.queryParams?.['perPage'] || 2
-
-            if (previousCursor) {
-                return beers.slice((previousCursor - 1) * perPage, previousCursor * perPage)
-            }
-
-            return beers.slice((nextCursor - 1) * perPage, nextCursor * perPage)
-        })
-
         const result = await dataService.getList('beers')
         const result2 = await dataService.getList('beers', {
             pagination: {
-                nextCursor: 2
+                nextCursor: BEERS_MOCK_DATA[1].id
             }
         })
         const result3 = await dataService.getList('beers', {
             pagination: {
-                previousCursor: 1,
-                perPage: 3
+                nextCursor: BEERS_MOCK_DATA[1].id,
+                perPage: 1
             }
         })
 
+        expect(result).toBeDefined()
+
+        expect(result2).toBeDefined()
+
+        expect(result3).toBeDefined()
+
         expect(result).toMatchObject({
-            data: [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' }
-            ],
-            total: 2
+            data: BEERS_MOCK_DATA,
+            total: 4
         })
         expect(result2).toMatchObject({
-            data: [
-                { id: 3, name: 'Karlovačko' },
-                { id: 4, name: 'Laško' }
-            ],
+            data: [BEERS_MOCK_DATA[2], BEERS_MOCK_DATA[3]],
             total: 2
         })
         expect(result3).toMatchObject({
-            data: [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' },
-                { id: 3, name: 'Karlovačko' }
-            ],
-            total: 3
+            data: [BEERS_MOCK_DATA[2]],
+            total: 1
         })
     })
 
     it('should createOne', async () => {
-        server.post('/api/beers', (_, request) => {
-            const beer = JSON.parse(request.requestBody)
+        const payload = { name: 'Vukovarsko' }
 
-            return {
-                id: 1,
-                ...beer
-            }
-        })
+        const result = await dataService.createOne('beers', { payload })
 
-        const result = await dataService.createOne('beers', { payload: { name: 'Ožujsko' } })
+        expect(result).toBeDefined()
 
-        expect(result).toMatchObject({ id: 1, name: 'Ožujsko' })
-    })
-
-    it('should createOne', async () => {
-        let id = 0
-
-        server.post('/api/beers', (_, request) => {
-            const beer = JSON.parse(request.requestBody)
-            id += 1
-
-            return {
-                id,
-                ...beer
-            }
-        })
-
-        const result = await dataService.createOne('beers', { payload: { name: 'Ožujsko' } })
-
-        expect(result).toMatchObject({ id: 1, name: 'Ožujsko' })
+        expect(result).toEqual(
+            expect.objectContaining({
+                id: expect.any(String),
+                name: expect.stringContaining(payload.name)
+            })
+        )
     })
 
     it('should createMany', async () => {
-        let id = 0
+        const payload = [{ name: 'Vukovarsko' }, { name: 'Kozel' }]
 
-        server.post('/api/beers', (_, request) => {
-            const beer = JSON.parse(request.requestBody)
-            id += 1
+        const result = await dataService.createMany('beers', { payload })
 
-            return {
-                id,
-                ...beer
-            }
-        })
+        expect(result).toBeDefined()
 
-        const result = await dataService.createMany('beers', { payload: [{ name: 'Ožujsko' }, { name: 'Pan' }] })
-
-        expect(result).toMatchObject([
-            { id: 1, name: 'Ožujsko' },
-            { id: 2, name: 'Pan' }
-        ])
+        expect(result).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    id: expect.any(String),
+                    name: expect.stringContaining(payload[0].name)
+                }),
+                expect.objectContaining({
+                    id: expect.any(String),
+                    name: expect.stringContaining(payload[1].name)
+                })
+            ])
+        )
     })
 
     it('should updateOne', async () => {
-        server.put('/api/beers/:id', (_, request) => {
-            const beer = JSON.parse(request.requestBody)
+        const payload = { name: 'Imperial Stout' }
 
-            return beer
+        const result = await dataService.updateOne('beers', {
+            id: BEERS_MOCK_DATA[0].id,
+            payload
         })
 
-        const result = await dataService.updateOne('beers', { id: 1, payload: { id: 1, name: 'Ožujsko' } })
+        expect(result).toBeDefined()
 
-        expect(result).toMatchObject({ id: 1, name: 'Ožujsko' })
+        expect(result).toEqual(
+            expect.objectContaining({
+                id: BEERS_MOCK_DATA[0].id,
+                name: expect.stringContaining(payload.name)
+            })
+        )
     })
 
     it('updateOne should throw on id containing slashes', async () => {
-        server.put('/api/beers/:id', (_, request) => {
-            const beer = JSON.parse(request.requestBody)
-
-            return beer
-        })
-
-        expect(
-            dataService.updateOne('beers', { id: '/id/1', payload: { id: '/id/1', name: 'Ožujsko' } })
-        ).rejects.toThrowError()
+        await expect(dataService.updateOne('beers', { id: '/id/1', payload: { name: 'Ožujsko' } })).rejects.toThrow()
     })
 
     it('should updateMany', async () => {
-        server.put('/api/beers/:id', (_, request) => {
-            const beer = JSON.parse(request.requestBody)
-
-            return beer
-        })
+        const ids = [BEERS_MOCK_DATA[0].id, BEERS_MOCK_DATA[1].id]
+        const payload = [{ name: 'Velebitsko' }, { name: 'Daruvarsko' }]
 
         const result = await dataService.updateMany('beers', {
-            ids: [1, 2],
-            payload: [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' }
-            ]
+            ids,
+            payload
         })
 
-        expect(result).toMatchObject([
-            { id: 1, name: 'Ožujsko' },
-            { id: 2, name: 'Pan' }
-        ])
+        expect(result).toBeDefined()
+
+        expect(result).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    id: expect.stringContaining(ids[0]),
+                    name: expect.stringContaining(payload[0].name)
+                }),
+                expect.objectContaining({
+                    id: expect.stringContaining(ids[1]),
+                    name: expect.stringContaining(payload[1].name)
+                })
+            ])
+        )
     })
 
     it('should deleteOne', async () => {
-        server.del('/api/beers/:id', () => {
-            return new Response(204, {}, '')
-        })
+        const id = BEERS_MOCK_DATA[0].id
 
-        const result = await dataService.deleteOne('beers', { id: 1 })
+        const result = await dataService.deleteOne('beers', { id })
 
-        expect(result).toMatchObject({ id: 1 })
+        expect(result).toBeDefined()
+
+        expect(result).toEqual(
+            expect.objectContaining({
+                id: expect.stringContaining(BEERS_MOCK_DATA[0].id),
+                name: expect.stringContaining(BEERS_MOCK_DATA[0].name)
+            })
+        )
     })
 
     it('deleteOne should throw on id containing slashes', async () => {
-        server.del('/api/beers/:id', () => {
-            return new Response(204, {}, '')
-        })
-
-        expect(dataService.deleteOne('beers', { id: '/id/1' })).rejects.toThrowError()
+        await expect(dataService.deleteOne('beers', { id: '/id/1' })).rejects.toThrow()
     })
 
     it('should deleteMany', async () => {
-        server.del('/api/beers/:id', () => {
-            return new Response(204, {}, '')
-        })
+        const ids = [BEERS_MOCK_DATA[0].id, BEERS_MOCK_DATA[1].id]
 
-        const result = await dataService.deleteMany('beers', { ids: [1, 2] })
+        const result = await dataService.deleteMany('beers', { ids })
 
-        expect(result).toMatchObject([{ id: 1 }, { id: 2 }])
+        expect(result).toBeDefined()
+
+        expect(result).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    id: expect.stringContaining(ids[0]),
+                    name: expect.stringContaining(BEERS_MOCK_DATA[0].name)
+                }),
+                expect.objectContaining({
+                    id: expect.stringContaining(ids[1]),
+                    name: expect.stringContaining(BEERS_MOCK_DATA[1].name)
+                })
+            ])
+        )
     })
 
     it('should throw if id is invalid type', async () => {
-        server.get('/api/beers/:id', () => {
-            return { id: 1, name: 'Ožujsko' }
-        })
-
         // force invalid id type for this test
-        expect(dataService.getOne('beers', { id: { id: 1 } as unknown as string })).rejects.toThrowError()
+        await expect(dataService.getOne('beers', { id: { id: 1 } as unknown as string })).rejects.toThrow()
     })
 })

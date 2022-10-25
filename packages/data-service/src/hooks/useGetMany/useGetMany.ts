@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { useDataService } from './hooks/useDataService/useDataService'
-import type { TBaseResponse, TQueryOptions, TUseGetManyResult, TUseGetManyVariables } from './types'
-import { createGetManyQueryKey } from './utils/queryKeys'
+import type { TBaseResponse, TQueryOptions, TUseGetManyResult, TUseGetManyVariables } from '../../types'
+import { createGetManyQueryKey } from '../../utils'
+import { useDataService } from '../useDataService'
 
 const useGetMany = <TData extends TBaseResponse = TBaseResponse, TError = unknown>(
     variables: TUseGetManyVariables,

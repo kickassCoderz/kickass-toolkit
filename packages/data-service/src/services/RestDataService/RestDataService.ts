@@ -12,7 +12,7 @@ import {
     TQueryContext,
     TUpdateManyParams,
     TUpdateOneParams
-} from './types'
+} from '../../types'
 
 class RestDataService implements IDataService {
     readonly fetch: typeof fetch
@@ -81,19 +81,16 @@ class RestDataService implements IDataService {
         const url = new URL(`${this.baseUrl}/${resource}`)
 
         if (params?.pagination?.page) {
-            url.searchParams.append('page', params.pagination.page.toString())
+            const skip = params?.pagination?.perPage ? (params.pagination.page - 1) * params.pagination.perPage : 0
+            url.searchParams.append('skip', skip.toString())
         } else {
             if (params?.pagination?.nextCursor) {
-                url.searchParams.append('nextCursor', params.pagination.nextCursor.toString())
-            }
-
-            if (params?.pagination?.previousCursor) {
-                url.searchParams.append('previousCursor', params.pagination.previousCursor.toString())
+                url.searchParams.append('cursor', params.pagination.nextCursor.toString())
             }
         }
 
         if (params?.pagination?.perPage) {
-            url.searchParams.append('perPage', params.pagination.perPage.toString())
+            url.searchParams.append('take', params.pagination.perPage.toString())
         }
 
         const response = await this.fetch(url.toString(), {

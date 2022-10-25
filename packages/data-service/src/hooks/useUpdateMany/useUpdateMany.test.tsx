@@ -1,76 +1,50 @@
-import { renderHook, waitFor } from '@testing-library/react'
-import { createServer } from 'miragejs'
-import type { ReactNode } from 'react'
-import { act } from 'react-dom/test-utils'
+import { act, renderHook } from '@testing-library/react-hooks'
 
-import { DataServiceProvider } from '../../providers'
-import { RestDataService } from '../../services'
+import { TestWrapper } from '../../mocks'
+import { BEERS_MOCK_DATA } from '../../mocks/consts'
 import { useUpdateMany } from './useUpdateMany'
 
 describe('useUpdateMany', () => {
-    let server: ReturnType<typeof createServer>
-
-    beforeEach(() => {
-        server = createServer({
-            environment: 'test',
-            urlPrefix: 'http://localhost'
-        })
-    })
-
-    afterEach(() => {
-        server.shutdown()
-    })
-
-    const dataService = new RestDataService('http://localhost/api')
-    const App = ({ children }: { children?: ReactNode }) => (
-        <DataServiceProvider dataService={dataService}>{children}</DataServiceProvider>
-    )
-
     it('should be defined', () => {
         expect(useUpdateMany).toBeDefined()
     })
 
     it('should render', async () => {
-        server.put('/api/beers/:id', (_, request) => {
-            const beer = JSON.parse(request.requestBody)
+        const ids = [BEERS_MOCK_DATA[0].id, BEERS_MOCK_DATA[1].id]
+        const payload = [{ name: 'Velebitsko' }, { name: 'Daruvarsko' }]
 
-            return beer
-        })
-        const dataServiceSpy = jest.spyOn(dataService, 'updateMany')
-
-        const { result } = renderHook(
+        const { result, waitFor } = renderHook(
             () =>
                 useUpdateMany({
                     resource: 'beers'
                 }),
             {
-                wrapper: App
+                wrapper: TestWrapper
             }
         )
 
         act(() => {
             result.current.mutate({
-                ids: [1, 2],
-                payload: [
-                    { id: 1, name: 'Ožujsko' },
-                    { id: 2, name: 'Pan' }
-                ]
+                ids,
+                payload
             })
         })
 
-        await waitFor(() => expect(result.current.data).toBeDefined())
+        await waitFor(() => result.current.isSuccess)
 
-        expect(result.current.data).toMatchObject([
-            { id: 1, name: 'Ožujsko' },
-            { id: 2, name: 'Pan' }
-        ])
-        expect(dataServiceSpy).toHaveBeenCalledTimes(1)
-        expect(dataServiceSpy).toHaveBeenCalledWith('beers', {
-            ids: [1, 2],
-            payload: [
-                { id: 1, name: 'Ožujsko' },
-                { id: 2, name: 'Pan' }
-            ]
-        })
+        expect(result.current.data).toBeDefined()
+
+        expect(result.current.data).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    id: expect.stringContaining(ids[0]),
+                    name: expect.stringContaining(payload[0].name)
+                }),
+                expect.objectContaining({
+                    id: expect.stringContaining(ids[1]),
+                    name: expect.stringContaining(payload[1].name)
+                })
+            ])
+        )
     })
 })

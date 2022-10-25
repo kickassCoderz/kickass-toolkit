@@ -7,5 +7,6 @@ module.exports = {
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     // coverageDirectory: '../../coverage/packages/hooks',
-    coveragePathIgnorePatterns: ['index.ts']
+    coveragePathIgnorePatterns: ['index.ts'],
+    setupFilesAfterEnv: ['./jest.setup.js']
 }

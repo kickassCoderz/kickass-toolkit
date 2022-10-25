@@ -1,60 +1,40 @@
-import { renderHook, waitFor } from '@testing-library/react'
-import { createServer, Response } from 'miragejs'
-import type { ReactNode } from 'react'
-import { act } from 'react-dom/test-utils'
+import { act, renderHook } from '@testing-library/react-hooks'
 
-import { DataServiceProvider } from '../../providers'
-import { RestDataService } from '../../services'
+import { TestWrapper } from '../../mocks'
+import { BEERS_MOCK_DATA } from '../../mocks/consts'
 import { useDeleteOne } from './useDeleteOne'
 
 describe('useDeleteOne', () => {
-    let server: ReturnType<typeof createServer>
-
-    beforeEach(() => {
-        server = createServer({
-            environment: 'test',
-            urlPrefix: 'http://localhost'
-        })
-    })
-
-    afterEach(() => {
-        server.shutdown()
-    })
-
-    const dataService = new RestDataService('http://localhost/api')
-    const App = ({ children }: { children?: ReactNode }) => (
-        <DataServiceProvider dataService={dataService}>{children}</DataServiceProvider>
-    )
-
     it('should be defined', () => {
         expect(useDeleteOne).toBeDefined()
     })
 
     it('should render', async () => {
-        server.del('/api/beers/:id', () => {
-            return new Response(204, {}, '')
-        })
+        const id = BEERS_MOCK_DATA[0].id
 
-        const dataServiceSpy = jest.spyOn(dataService, 'deleteOne')
-
-        const { result } = renderHook(
+        const { result, waitFor } = renderHook(
             () =>
                 useDeleteOne({
                     resource: 'beers'
                 }),
             {
-                wrapper: App
+                wrapper: TestWrapper
             }
         )
 
         act(() => {
-            result.current.mutate({ id: 1 })
+            result.current.mutate({ id })
         })
 
-        await waitFor(() => expect(result.current.data).toBeDefined())
+        await waitFor(() => result.current.isSuccess)
 
-        expect(result.current.data).toMatchObject({ id: 1 })
-        expect(dataServiceSpy).toHaveBeenCalledTimes(1)
-        expect(dataServiceSpy).toHaveBeenCalledWith('beers', { id: 1 })
+        expect(result.current.data).toEqual(
+            expect.objectContaining({
+                id: expect.stringContaining(id),
+                name: expect.stringContaining(BEERS_MOCK_DATA[0].name)
+            })
+        )
+
+        expect(result.current.data).toBeDefined()
     })
 })

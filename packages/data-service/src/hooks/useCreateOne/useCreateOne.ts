@@ -6,9 +6,9 @@ import type {
     TUseCreateOnePayload,
     TUseCreateOneResult,
     TUseCreateOneVariables
-} from './types'
-import { useDataService } from './useDataService'
-import { createBaseQueryKey, createGetOneQueryKey } from './utils/queryKeys'
+} from '../../types'
+import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
+import { useDataService } from '../useDataService'
 
 const useCreateOne = <
     TData extends TBaseResponse = TBaseResponse,
