@@ -11,9 +11,9 @@
         "dev": "turbo run dev --parallel",
         "lint": "turbo run lint",
         "clean": "turbo run clean && rm -rf node_modules",
-        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
         "test": "turbo run test",
-        "test:watch": "turbo run test:watch"
+        "test:watch": "turbo run test:watch",
+        "postinstall": "patch-package"
     },
     "devDependencies": {
         "@commitlint/cli": "^17.1.2",
@@ -23,7 +23,8 @@
         "husky": "^8.0.1",
         "prettier": "latest",
         "turbo": "latest",
-        "typescript": "^4.8.4"
+        "typescript": "^4.8.4",
+        "patch-package": "^6.4.7"
     },
     "engines": {
         "node": ">=16.0.0"

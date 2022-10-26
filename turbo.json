@@ -6,8 +6,8 @@
             "outputs": ["dist/**", ".next/**"]
         },
         "test": {
-            "outputs": ["coverage/**"],
-            "dependsOn": []
+            "dependsOn": [],
+            "outputs": ["coverage/**"]
         },
         "test:watch": {
             "cache": false

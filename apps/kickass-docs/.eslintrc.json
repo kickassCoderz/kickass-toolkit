@@ -1,4 +1,5 @@
 {
     "root": true,
+    "plugins": ["@docusaurus"],
     "extends": ["plugin:@docusaurus/recommended", "custom"]
 }
