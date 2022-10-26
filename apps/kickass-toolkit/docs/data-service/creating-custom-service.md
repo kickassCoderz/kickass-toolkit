@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7.1
+sidebar_position: 3
 ---
 
 # Creating custom DataService 

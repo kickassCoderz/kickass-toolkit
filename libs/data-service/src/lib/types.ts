@@ -250,16 +250,3 @@ export type TUseDeleteManyResult<TData, TError, TPayload, TContext> = TUseMutati
     TPayload,
     TContext
 >
-
-export interface IGenericDataProvider {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    getOne(resource: string, params: any): Promise<any>
-    getMany?(resource: string, params: any): Promise<any>
-    getList(resource: string, params?: any): Promise<any>
-    create(resource: string, params: any): Promise<any>
-    update(resource: string, params: any): Promise<any>
-    updateMany?(resource: string, params: any): Promise<any>
-    delete(resource: string, params: any): Promise<any>
-    deleteMany?(resource: string, params: any): Promise<any>
-    /* eslint-enable @typescript-eslint/no-explicit-any */
-}

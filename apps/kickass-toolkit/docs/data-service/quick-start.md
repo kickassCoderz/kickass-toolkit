@@ -25,7 +25,7 @@ We provide following data services as part of the library:
 import { RestDataService } from '@kickass-coderz/data-service'
 ```
 
-To implement your own DataService you can check out the [following example](/docs/data-service/creating-custom-service) or you can use [existing DataServices from this list](/docs/data-service/existing-data-service-list).
+To implement your own DataService you can check out the [following example](/docs/data-service/creating-custom-service).
 
 ## Adding a provider to your app
 
@@ -48,9 +48,11 @@ const root = ReactDOM.createRoot(
 const dataService = new RestDataService('https://api.punkapi.com/v2')
 
 root.render(
-    <DataServiceProvider dataService={dataService}>
-        <App />
-    </DataServiceProvider>
+    <React.StrictMode>
+        <DataServiceProvider dataService={dataService}>
+          <App />
+        </DataServiceProvider>
+    </React.StrictMode>
 )
 ```
 
