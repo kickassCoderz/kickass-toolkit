@@ -1,4 +1,3 @@
-export * from './createFromDataProvider'
 export { DataServiceProvider } from './DataServiceProvider'
 export * from './queryKeys'
 export { RestDataService } from './RestDataService'
