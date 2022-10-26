@@ -8,7 +8,8 @@
         "test": "jest --coverage",
         "test:watch": "jest --watch",
         "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
-        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf coverage"
+        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf coverage",
+        "typecheck": "tsc --noEmit --pretty"
     },
     "peerDependencies": {
         "react": ">=17.0.0",
