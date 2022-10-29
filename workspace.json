@@ -1,9 +1,0 @@
-{
-    "version": 2,
-    "projects": {
-        "data-service": "libs/data-service",
-        "hooks": "libs/hooks",
-        "kickass-toolkit": "apps/kickass-toolkit",
-        "primitives": "libs/primitives"
-    }
-}

@@ -1,5 +1,5 @@
 diff --git a/node_modules/docusaurus-plugin-typedoc/dist/theme.js b/node_modules/docusaurus-plugin-typedoc/dist/theme.js
-index f73b985..08c12c0 100644
+index f73b985..cef0eb2 100644
 --- a/node_modules/docusaurus-plugin-typedoc/dist/theme.js
 +++ b/node_modules/docusaurus-plugin-typedoc/dist/theme.js
 @@ -141,6 +141,11 @@ class DocusaurusTheme extends theme_1.MarkdownTheme {
@@ -7,8 +7,8 @@ index f73b985..08c12c0 100644
      getTitle(page) {
          const readmeTitle = this.readmeTitle || page.project.name;
 +
-+        if (this.readmeTitle) {
-+          return readmeTitle
++        if(this.readmeTitle){
++            return readmeTitle;
 +        }
 +
          if (page.url === this.entryDocument && page.url !== page.project.url) {
