@@ -72,50 +72,50 @@ const config = {
                 ]
             },
             footer: {
-                style: 'dark',
-                links: [
-                    {
-                        title: 'Docs',
-                        items: [
-                            {
-                                label: 'Introduction',
-                                to: '/docs/intro'
-                            },
-                            {
-                                label: 'Quick Start',
-                                to: '/docs/quick-start'
-                            },
-                            {
-                                label: 'Hooks',
-                                to: '/docs/hooks/overview'
-                            },
-                            {
-                                label: 'Data service',
-                                to: '/docs/data-service/overview'
-                            },
-                            {
-                                label: 'Auth service',
-                                to: '/docs/auth-service/overview'
-                            },
-                            {
-                                label: 'Subscription service',
-                                to: '/docs/subscription-service/overview'
-                            }
-                        ]
-                    },
-                    {
-                        title: 'Community',
-                        items: [
-                            // TODO add links
-                        ]
-                    },
-                    {
-                        title: 'More',
-                        items: [
-                            // TODO add more
-                        ]
-                    }
-                ],
+                // style: 'dark',
+                // links: [
+                //     {
+                //         title: 'Docs',
+                //         items: [
+                //             {
+                //                 label: 'Introduction',
+                //                 to: '/docs/intro'
+                //             },
+                //             {
+                //                 label: 'Quick Start',
+                //                 to: '/docs/quick-start'
+                //             },
+                //             {
+                //                 label: 'Hooks',
+                //                 to: '/docs/hooks/overview'
+                //             },
+                //             {
+                //                 label: 'Data service',
+                //                 to: '/docs/data-service/overview'
+                //             },
+                //             {
+                //                 label: 'Auth service',
+                //                 to: '/docs/auth-service/overview'
+                //             },
+                //             {
+                //                 label: 'Subscription service',
+                //                 to: '/docs/subscription-service/overview'
+                //             }
+                //         ]
+                //     },
+                //     {
+                //         title: 'Community',
+                //         items: [
+                //             // TODO add links
+                //         ]
+                //     },
+                //     {
+                //         title: 'More',
+                //         items: [
+                //             // TODO add more
+                //         ]
+                //     }
+                // ],
                 copyright: `Copyright © ${new Date().getFullYear()} Kickass Toolkit.`
             },
             prism: {
