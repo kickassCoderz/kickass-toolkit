@@ -16,8 +16,8 @@ const FeatureList: FeatureItem[] = [
         Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
         description: (
             <>
-                Docusaurus was designed from the ground up to be easily installed and used to get your website up and
-                running quickly.
+                <strong>Kickass Toolkit</strong> was designed from the ground up to be easily installed and used to get
+                your app up and running quickly.
             </>
         )
     },
@@ -26,9 +26,14 @@ const FeatureList: FeatureItem[] = [
         Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
         description: (
             <>
-                Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your docs into
-                the <code>docs</code> directory.
+                We have created <strong>Kickass Toolkit</strong> because we are scratching our own itch. Let's be real,
+                developers are lazy. Starting a new project is a boring and repetitive task which always has to be done.
+                This is where <strong>Kickass Toolkit</strong> kicks in.
             </>
+            // <>
+            //     Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your docs into
+            //     the <code>docs</code> directory.
+            // </>
         )
     },
     {
