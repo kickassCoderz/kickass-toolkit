@@ -66,8 +66,9 @@ const config = {
                     // { to: '/blog', label: 'Blog', position: 'left' }, // enable if we use the blog
                     {
                         href: 'https://github.com/kickassCoderz/kickass-toolkit',
-                        label: 'GitHub',
-                        position: 'right'
+                        position: 'right',
+                        className: 'header-github-link',
+                        'aria-label': 'GitHub repository'
                     }
                 ]
             },
