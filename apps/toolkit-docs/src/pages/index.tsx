@@ -7,7 +7,7 @@ import React from 'react'
 
 import styles from './index.module.css'
 
-function HomepageHeader() {
+const HomepageHeroHeader = () => {
     const { siteConfig } = useDocusaurusContext()
     return (
         <header className={clsx('hero hero--primary', styles.heroBanner)}>
@@ -16,7 +16,7 @@ function HomepageHeader() {
                 <p className="hero__subtitle">{siteConfig.tagline}</p>
                 <div className={styles.buttons}>
                     <Link className="button button--secondary button--lg" to="/docs/intro">
-                        Docusaurus Tutorial - 5min ⏱️
+                        Go to docs 👀
                     </Link>
                 </div>
             </div>
@@ -27,8 +27,9 @@ function HomepageHeader() {
 export default function Home(): JSX.Element {
     const { siteConfig } = useDocusaurusContext()
     return (
-        <Layout title={`Hello from ${siteConfig.title}`} description="Description will go into a meta tag in <head />">
-            <HomepageHeader />
+        <Layout description={siteConfig.tagline}>
+            <HomepageHeroHeader />
+
             <main>
                 <HomepageFeatures />
             </main>
