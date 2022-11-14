@@ -37,12 +37,12 @@ const FeatureList: FeatureItem[] = [
         )
     },
     {
-        title: 'Powered by React',
+        title: 'Typed and tested',
         Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
         description: (
             <>
-                Extend or customize your website layout by reusing React. Docusaurus can be extended while reusing the
-                same header and footer.
+                <strong>Kickass Toolkit</strong> is thoroughly tested and typed. We use <strong>Typescript</strong> and{' '}
+                <strong>Jest</strong> to provide great dev experience and performant code.
             </>
         )
     }
