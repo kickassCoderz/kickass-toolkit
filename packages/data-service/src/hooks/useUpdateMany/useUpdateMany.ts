@@ -10,6 +10,14 @@ import type {
 import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
+/**
+ * useUpdateMany is a hook which enables updating any number of entities from the same resource based on their respective ids.
+ * It uses `dataService.updateMany` under the hood.
+ *
+ * @param variables
+ * @param mutationOptions
+ * @returns data and mutation state
+ */
 const useUpdateMany = <
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,

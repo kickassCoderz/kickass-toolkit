@@ -10,6 +10,14 @@ import type {
 import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
+/**
+ * useCreateMany is a hook which enables creating many new entities in the same resource.
+ * It uses `dataService.createMany` under the hood.
+ *
+ * @param variables
+ * @param mutationOptions
+ * @returns newly created data and mutation state
+ */
 const useCreateMany = <
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,

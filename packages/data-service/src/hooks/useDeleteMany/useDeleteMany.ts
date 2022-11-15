@@ -10,6 +10,14 @@ import type {
 import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
+/**
+ * useDeleteMany is a hook which enables deleting many entities in the same resource based on their respective ids.
+ * It uses `dataService.deleteMany` under the hood.
+ *
+ * @param variables
+ * @param mutationOptions
+ * @returns deleted data and mutation state
+ */
 const useDeleteMany = <
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,

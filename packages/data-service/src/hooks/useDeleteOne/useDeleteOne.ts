@@ -10,6 +10,14 @@ import type {
 import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
+/**
+ * useDeleteOne is a hook which enables deleting single entity in resource based on its id.
+ * It uses `dataService.deleteOne` under the hood.
+ *
+ * @param variables
+ * @param mutationOptions
+ * @return deleted data and mutation state
+ */
 const useDeleteOne = <
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,
