@@ -4,7 +4,7 @@ import { useEvent } from '../useEvent'
 import { getIsBrowser } from '../useIsBrowser'
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
 
-type TResizeObserverInstance = {
+export type TResizeObserverInstance = {
     observer: ResizeObserver
     subscribe: (target: Element, onResizeCallback: ResizeObserverCallback) => void
     unsubscribe: (target: Element, onResizeCallback: ResizeObserverCallback) => void
@@ -74,17 +74,22 @@ const getResizeObserverInstance = () => {
     return resizeObserverInstance
 }
 
+export type TUseResizeObserverTarget<T extends Element> = RefObject<T> | T | null
+
 /**
- * Drop in replacement for ResizeObserver.
+ * useResizeObserver is an drop in replacement for ResizeObserver.
  *
- * @template T
- * @param {(RefObject<T> | T | null)} target
- * @param {ResizeObserverCallback} callback
+ *
+ * @param target An element to observe
+ * @param callbackFn A callback to execute on resize
  */
-const useResizeObserver = <T extends Element>(target: RefObject<T> | T | null, callback: ResizeObserverCallback) => {
+const useResizeObserver = <T extends Element>(
+    target: TUseResizeObserverTarget<T>,
+    callbackFn: ResizeObserverCallback
+) => {
     const resizeObserver = getResizeObserverInstance()
     const targetElement = target && 'current' in target ? target.current : target
-    const onResizeCallback = useEvent(callback)
+    const onResizeCallback = useEvent(callbackFn)
 
     useIsomorphicLayoutEffect(() => {
         if (resizeObserver && targetElement) {

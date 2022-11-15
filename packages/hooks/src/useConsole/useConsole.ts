@@ -33,8 +33,8 @@ export type TConsoleLevel =
  *
  * It also automatically silences all logs if NODE_ENV is set to production.
  *
- * @param {TConsoleLevel} level log level like log, error, warn and others
- * @param {...unknown[]} args any arguments to watch and log on changes
+ * @param level log level like log, error, warn and others
+ * @param args any arguments to watch and log on changes
  */
 const useConsole = (level: TConsoleLevel, ...args: unknown[]): void => {
     const consoleInstance = console as unknown as Record<string, (...args: unknown[]) => void> // fuck typescript

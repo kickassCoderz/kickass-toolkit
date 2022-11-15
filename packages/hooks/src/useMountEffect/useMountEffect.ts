@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 /**
  * Same as useEffect but runs only once on component mount,
  *
- * @param {CallableFunction} callbackFn
+ * @param callbackFn a function which will be invoked on component mount
  */
 const useMountEffect = (callbackFn: CallableFunction) => {
     useEffect(() => {

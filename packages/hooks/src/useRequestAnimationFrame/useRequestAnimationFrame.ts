@@ -5,9 +5,9 @@ import { useIsBrowser } from '../useIsBrowser'
 import { useUnmountEffect } from '../useUnmountEffect'
 
 /**
- * Drop in replacement for requestAnimationFrame as a React hook
+ * useRequestAnimationFrame is drop in replacement for requestAnimationFrame as a React hook.
  *
- * @return {*}
+ * @returns a tuple of execute and clear functions
  */
 const useRequestAnimationFrame = () => {
     const isBrowser = useIsBrowser()
@@ -23,11 +23,11 @@ const useRequestAnimationFrame = () => {
 
     useUnmountEffect(clear)
 
-    const execute = useEvent((callback: FrameRequestCallback) => {
+    const execute = useEvent((callbackFn: FrameRequestCallback) => {
         if (isBrowser) {
             clear()
 
-            animationFrameRef.current = requestAnimationFrame(callback)
+            animationFrameRef.current = requestAnimationFrame(callbackFn)
         }
     })
 

@@ -1,11 +1,10 @@
 /**
  * Returns global object for current environment.
- *
+ * @remarks
  * For browser it will return Window.
- *
  * For node it will return Global object.
  *
- * @return {*}
+ * @returns globalObject depending on an enviroment
  */
 const useGlobalObject = () => {
     if (typeof window !== 'undefined') {

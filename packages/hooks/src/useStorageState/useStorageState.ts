@@ -2,12 +2,22 @@ import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useState } from 'react'
 
 import { useEvent } from '../useEvent'
-import { useGlobalObject } from '../useGlobalObject'
 
+export type TUseStorageStateInitalState = string | null | (() => string | null)
+
+/**
+ * useStorageState is a hook which helps persist data in chosen storage API to keep state between page
+ * reloads.
+ *
+ * @param key A string under witch data will be saved in Storage
+ * @param storage A chosen {@link Storage} API
+ * @param initialState A initial state for chosen storage. Default value is null.
+ * @returns a tuple of value and setterFn
+ */
 const useStorageState = (
     key: string,
     storage: Storage,
-    initialState: string | null | (() => string | null) = null
+    initialState: TUseStorageStateInitalState = null
 ): [string | null, Dispatch<SetStateAction<string | null>>] => {
     const mountedRef = useRef(false)
 
@@ -46,22 +56,4 @@ const useStorageState = (
     return [value, setStorageValue]
 }
 
-/**
- * Just like React's useState but persits into browser local storage API to keep state between page reloads.
- *
- * @param {string} key
- * @param {(string | null | (() => string | null))} [initialState=null]
- */
-const useLocalStorageState = (key: string, initialState: string | null | (() => string | null) = null) =>
-    useStorageState(key, useGlobalObject().localStorage, initialState)
-
-/**
- * Just like React's useState but persits into browser session storage API to keep state between page reloads.
- *
- * @param {string} key
- * @param {(string | null | (() => string | null))} [initialState=null]
- */
-const useSessionStorageState = (key: string, initialState: string | null | (() => string | null) = null) =>
-    useStorageState(key, useGlobalObject().sessionStorage, initialState)
-
-export { useLocalStorageState, useSessionStorageState, useStorageState }
+export { useStorageState }
