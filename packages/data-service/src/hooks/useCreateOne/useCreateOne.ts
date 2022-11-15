@@ -10,6 +10,14 @@ import type {
 import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
+/**
+ * useCreateOne is a hook which enables creating a single entity in resource.
+ * It uses `dataService.createOne` under the hood.
+ *
+ * @param variables
+ * @param mutationOptions
+ * @returns newly created data and mutation state
+ */
 const useCreateOne = <
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,

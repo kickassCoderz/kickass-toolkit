@@ -10,6 +10,14 @@ import type {
 import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
+/**
+ * useUpdateOne is a hook which enables updating a single entity in a resource based on its id.
+ * It uses `dataService.updateOne` under the hood.
+ *
+ * @param variables
+ * @param mutationOptions
+ * @returns data and mutation state
+ */
 const useUpdateOne = <
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,

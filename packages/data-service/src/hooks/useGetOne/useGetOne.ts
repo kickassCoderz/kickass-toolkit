@@ -4,6 +4,14 @@ import type { TBaseResponse, TQueryOptions, TUseGetOneResult, TUseGetOneVariable
 import { createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
+/**
+ * useGetOne is a hook which enables getting a single entity from resource based on id.
+ * It uses `dataService.getOne` under the hood.
+ *
+ * @param variables
+ * @param queryOptions
+ * @returns data and query state
+ */
 const useGetOne = <TData extends TBaseResponse = TBaseResponse, TError = unknown>(
     variables: TUseGetOneVariables,
     queryOptions?: TQueryOptions<TData, TError>

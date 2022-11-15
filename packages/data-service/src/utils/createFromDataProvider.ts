@@ -18,8 +18,8 @@ import {
 /**
  * Create DataService from dataProvider instance.
  *
- * @param {IGenericDataProvider} dataProvider
- * @return {*}  {IDataService}
+ * @param dataProvider
+ * @returns dataService
  */
 const createFromDataProvider = (dataProvider: IGenericDataProvider): IDataService => {
     if (typeof dataProvider == 'function') {
