@@ -5,7 +5,7 @@ const getIsBrowser = () => {
 /**
  * Check if current environment is browser.
  *
- * @return {*}
+ * @returns boolean flag
  */
 const useIsBrowser = () => {
     return getIsBrowser()

@@ -2,27 +2,26 @@ import { useEffect, useRef } from 'react'
 
 import { useEvent } from '../useEvent'
 
-type ClearTimeoutFn = () => void
+export type TOnClearTimeout = () => void
 
 /**
- * Drop in hook replacement for setTimeout
+ * Drop in hook replacement for setTimeout. It automatically clears any running timeout on unmount.
  *
- * @template TArgs
- * @param {(...args: TArgs) => void} callback callback to call on timeout
- * @param {number} ms timeout in milliseconds
- * @param {...TArgs} args arguments to pass to callback
- * @return {*}  {ClearTimeoutFn}
+ * @param callbackFn callback to call on timeout
+ * @param ms timeout in milliseconds
+ * @param args arguments to pass to callback
+ * @returns A function to clear timeout
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useTimeout = <TArgs extends any[]>(
-    callback: (...args: TArgs) => void,
+    callbackFn: (...args: TArgs) => void,
     ms: number,
     ...args: TArgs
-): ClearTimeoutFn => {
+): TOnClearTimeout => {
     const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
 
     const onTimeout = useEvent(() => {
-        callback(...args)
+        callbackFn(...args)
     })
 
     const onClearTimeout = useEvent(() => {

@@ -3,7 +3,7 @@ import { RefObject, useEffect, useMemo } from 'react'
 import { useEvent } from '../useEvent/useEvent'
 
 // List all `EventMap` types here.
-type DOMEventMapDefinitions = [
+export type DOMEventMapDefinitions = [
     [AbortSignal, AbortSignalEventMap],
     [AbstractWorker, AbstractWorkerEventMap],
     [Animation, AnimationEventMap],
@@ -81,16 +81,15 @@ interface GenericEventListenerObject<T> {
 
 type GenericEventListenerOrEventListenerObject<T> = GenericEventListener<T> | GenericEventListenerObject<T>
 
+export type TUseEventListenerOptions = boolean | AddEventListenerOptions | undefined
+
 /**
  * Drop in replacement for addEventListener as a React hook
  *
- * @template T
- * @template K
- * @template M
- * @param {(RefObject<T> | T | null | undefined)} target
- * @param {K} eventType
- * @param {GenericEventListenerOrEventListenerObject<MapEventMapsToEvent<M, K>[number]>} listener
- * @param {(boolean | AddEventListenerOptions | undefined)} [options]
+ * @param target an EventTarget on which listener will be attached
+ * @param eventType a type of event, for example "click"
+ * @param listener an object which recieves notification when event occures. It can be a function or EventListenerObject.
+ * @param options an event listener options. {@link https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#parameters See on MDN}
  */
 const useEventListener = <
     T extends EventTarget,
@@ -100,7 +99,7 @@ const useEventListener = <
     target: RefObject<T> | T | null | undefined,
     eventType: K,
     listener: GenericEventListenerOrEventListenerObject<MapEventMapsToEvent<M, K>[number]>,
-    options?: boolean | AddEventListenerOptions | undefined
+    options?: TUseEventListenerOptions
 ) => {
     const eventHandler = useEvent(function (this: T, ...args) {
         if (typeof listener === 'function') {

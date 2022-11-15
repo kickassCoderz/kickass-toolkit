@@ -2,8 +2,6 @@ import { useMemo, useRef } from 'react'
 
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
 
-//@NOTE: useEvent updates the callback it's using after an "effective-time". So make sure to use it as a callback or in a useEffect which is placed after useEvent
-
 type TUseEventCallback = (...args: any[]) => any
 
 interface IEventCallbackHook {
@@ -12,20 +10,18 @@ interface IEventCallbackHook {
 
 /**
  * A Hook to define an event handler with an always-stable function identity.
+ * useEvent updates the callback it's using after an "effective-time". So make sure to use it as a callback or in a useEffect which is placed after useEvent.
+ * @remarks
+ * Based on {@link https://github.com/reactjs/rfcs/blob/useevent/text/0000-useevent.md useEvent RFC}.
  *
- * Based on RFC https://github.com/reactjs/rfcs/blob/useevent/text/0000-useevent.md
- *
- * useEvent updates the callback it's using after an "effective-time". So make sure to use it as a callback or in a useEffect which is placed after useEvent
- *
- * @template F
- * @param {F} [callback] function to use for event handler
- * @return {*} event handler
+ * @param callbackFn function to use for event handler
+ * @returns an event handler
  */
-const useEvent: IEventCallbackHook = <F extends TUseEventCallback>(callback?: F) => {
-    const callbackRef = useRef(callback)
+const useEvent: IEventCallbackHook = <F extends TUseEventCallback>(callbackFn?: F) => {
+    const callbackRef = useRef(callbackFn)
 
     useIsomorphicLayoutEffect(() => {
-        callbackRef.current = callback
+        callbackRef.current = callbackFn
     })
 
     return useMemo(

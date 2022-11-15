@@ -18,9 +18,9 @@ const combineRefs = <T>(...refs: React.Ref<T>[]): React.RefCallback<T> => {
  *
  * Each ref provided to this hook will be passed the ref prop on the target element.
  *
- * @template T
- * @param {...React.Ref<T>[]} refs
- * @return {*} ref callback
+ *
+ * @param refs A refs to combine
+ * @returns ref callback
  */
 const useCombineRefs = <T>(...refs: React.Ref<T>[]): React.RefCallback<T> => {
     return useEvent(combineRefs<T>(...refs))

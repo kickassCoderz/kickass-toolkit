@@ -2,27 +2,27 @@ import { useEffect, useRef } from 'react'
 
 import { useEvent } from '../useEvent'
 
-type ClearIntervalFn = () => void
+export type TOnClearIntervalFn = () => void
 
 /**
- * Drop in hook replacement for setInterval
+ * Drop in hook replacement for setInterval. It automatically clears any running interval on unmount.
  *
- * @template TArgs
- * @param {(...args: TArgs) => void} callback callback to call on interval
- * @param {number} ms interval in milliseconds
- * @param {...TArgs} args arguments to pass to callback
- * @return {*}  {ClearIntervalFn} function to call to clear the interval
+ *
+ * @param callbackFn callback to call on interval
+ * @param ms interval in milliseconds
+ * @param args arguments to pass to callback
+ * @returns a function to clear interval
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const useInterval = <TArgs extends any[]>(
-    callback: (...args: TArgs) => void,
+    callbackFn: (...args: TArgs) => void,
     ms: number,
     ...args: TArgs
-): ClearIntervalFn => {
+): TOnClearIntervalFn => {
     const intervalRef = useRef<ReturnType<typeof setInterval>>()
 
     const onInterval = useEvent(() => {
-        callback(...args)
+        callbackFn(...args)
     })
 
     const onClearInterval = useEvent(() => {
