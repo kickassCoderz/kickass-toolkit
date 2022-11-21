@@ -6,8 +6,7 @@
     "scripts": {
         "build": "vite build",
         "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-        "dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false",
-        "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts*\""
+        "dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false"
     },
     "dependencies": {
         "@kickass-coderz/react-widgets": "*",
