@@ -1,0 +1,27 @@
+{
+    "name": "widget-playground",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+        "dev": "vite --host 0.0.0.0 --port 3000 --clearScreen false",
+        "lint": "tsc --noEmit && TIMING=1 eslint \"src/**/*.ts*\""
+    },
+    "dependencies": {
+        "@kickass-coderz/react-widgets": "*",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "@vanilla-extract/css": "^1.9.2"
+    },
+    "devDependencies": {
+        "@vanilla-extract/vite-plugin": "^3.7.0",
+        "@types/react": "^18.0.25",
+        "@types/react-dom": "^18.0.8",
+        "eslint-config-custom": "*",
+        "tsconfig": "*",
+        "vite": "^3.2.4",
+        "@vitejs/plugin-react": "^2.2.0"
+    }
+}
