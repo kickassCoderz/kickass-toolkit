@@ -2,19 +2,29 @@ import { useEffect, useRef, useState } from 'react'
 
 import { useEvent } from '../useEvent'
 
-type TUseCombinedControlParams<T> = {
-    state?: T
-    defaultState: T | (() => T)
-    handler?: (state: T) => void
+// @NOTE: this is here until this is fixed https://github.com/microsoft/TypeScript/issues/37663
+declare type AnyFunction = (...args: unknown[]) => unknown
+
+function isFunction<T extends AnyFunction>(value: unknown): value is T {
+    return typeof value === 'function'
 }
 
-type TUseUncontrolledStateParams<T> = Omit<TUseCombinedControlParams<T>, 'value'>
+export type TSetCombinedStateNextStateOrSetter<T> = ((prevState: T) => T) | T
 
-const useUncontrolledState = <T>({ defaultState, handler }: TUseUncontrolledStateParams<T>) => {
-    const uncontrolledState = useState<T>(defaultState)
+export type TUseUncontrolledStateParams<T> = {
+    initialState: T | (() => T)
+    handlerFn?: (state: T) => void
+}
+
+export type TUseCombinedControlStateParams<T> = TUseUncontrolledStateParams<T> & {
+    state?: T
+}
+
+const useUncontrolledState = <T>({ initialState, handlerFn }: TUseUncontrolledStateParams<T>) => {
+    const uncontrolledState = useState(initialState)
     const [uncontrolledStateValue] = uncontrolledState
     const prevUncontroledValueRef = useRef(uncontrolledStateValue)
-    const handleChange = useEvent(handler)
+    const handleChange = useEvent(handlerFn)
 
     useEffect(() => {
         if (prevUncontroledValueRef.current !== uncontrolledStateValue) {
@@ -26,20 +36,17 @@ const useUncontrolledState = <T>({ defaultState, handler }: TUseUncontrolledStat
     return uncontrolledState
 }
 
-type TSetStateFn<T> = (prevState?: T) => T
-
-const useCombinedControlState = <T>({ state, defaultState, handler }: TUseCombinedControlParams<T>) => {
-    const [uncontrolledState, setUncontrolledState] = useUncontrolledState({ defaultState, handler })
-    const isControlled = state !== undefined && handler !== undefined
+const useCombinedControlState = <T>({ state, initialState, handlerFn }: TUseCombinedControlStateParams<T>) => {
+    const [uncontrolledState, setUncontrolledState] = useUncontrolledState({ initialState, handlerFn })
+    const isControlled = state !== undefined && handlerFn !== undefined
     const combinedState = isControlled ? state : uncontrolledState
 
-    const setCombinedState = useEvent((nextStateOrSetter: T | TSetStateFn<T>) => {
+    const setCombinedState = useEvent((nextStateOrSetter: TSetCombinedStateNextStateOrSetter<T>) => {
         if (isControlled) {
-            const setter = nextStateOrSetter as TSetStateFn<T>
-            const nextState = typeof nextStateOrSetter === 'function' ? setter(combinedState) : nextStateOrSetter
+            const nextState = isFunction(nextStateOrSetter) ? nextStateOrSetter(combinedState) : nextStateOrSetter
 
             if (nextState !== combinedState) {
-                handler(nextState as T)
+                handlerFn(nextState as T)
             }
         } else {
             setUncontrolledState(nextStateOrSetter)
@@ -48,7 +55,5 @@ const useCombinedControlState = <T>({ state, defaultState, handler }: TUseCombin
 
     return [combinedState, setCombinedState] as const
 }
-
-export type { TSetStateFn, TUseCombinedControlParams }
 
 export { useCombinedControlState }
