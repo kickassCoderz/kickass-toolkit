@@ -22,6 +22,10 @@ const config = {
     favicon: 'img/favicon.ico',
     organizationName: 'kickassCoderz', // Usually your GitHub org/user name.
     projectName: 'kickass-toolkit', // Usually your repo name.
+    // i18n: {
+    //     defaultLocale: 'en',
+    //     locales: ['en']
+    // },
 
     presets: [
         [
