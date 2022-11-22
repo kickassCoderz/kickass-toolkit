@@ -1,7 +1,7 @@
 # useStorageState
 
 useStorageState is a hook which helps persist data in chosen storage API to keep state between page
-reloads. Both [useSessionStorageState](/docs/use-session-storage-state) and [useLocalStorageState](/docs/use-local-storage-state) use it internally.
+reloads. Both [useSessionStorageState](/docs/hooks/use-session-storage-state) and [useLocalStorageState](/docs/hooks/use-local-storage-state) use it internally.
 
 ## Features
 
@@ -12,7 +12,7 @@ reloads. Both [useSessionStorageState](/docs/use-session-storage-state) and [use
 
 ## Example usage
 
-Let's recreate [useLocalStorageState]("/docs/use-local-storage-state") with help of [useGlobalObject](/docs/use-global-object):
+Let's recreate [useLocalStorageState](/docs/hooks/use-local-storage-state) with help of [useGlobalObject](/docs/hooks/use-global-object):
 
 ```jsx
 import { useGlobalObject } from '@kickass-coderz/hooks'
