@@ -12,7 +12,7 @@ import {
     TQueryContext,
     TUpdateManyParams,
     TUpdateOneParams
-} from '../../types'
+} from '@kickass-coderz/data-service'
 
 class RestDataService implements IDataService {
     readonly fetch: typeof fetch

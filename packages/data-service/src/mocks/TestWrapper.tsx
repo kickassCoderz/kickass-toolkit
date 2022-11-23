@@ -1,7 +1,7 @@
+import { RestDataService } from '@kickass-coderz/rest-data-service'
 import { QueryClient } from '@tanstack/react-query'
 
 import { DataServiceProvider } from '../providers'
-import { RestDataService } from '../services'
 import { MOCK_API_BASE_URL } from './consts'
 
 const TestWrapper = ({ children }: { children?: React.ReactNode }) => {
