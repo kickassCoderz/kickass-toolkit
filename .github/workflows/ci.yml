@@ -51,7 +51,14 @@ jobs:
                   cache: 'pnpm'
 
             - name: Install dependencies
+              if: steps.cache-node-modules.outputs.cache-hit != 'true'
               run: pnpm install
+
+            - name: "Build code"
+              run: npm run build -- --filter rest-data-service # build libs for testing
+
+            - name: Typecheck
+              run: npm run typecheck
 
             - name: Test code
               run: pnpm run test
