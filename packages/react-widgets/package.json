@@ -6,7 +6,7 @@
     "main": "src/index.ts",
     "types": "src/index.ts",
     "scripts": {
-        "test": "jest --coverage",
+        "test": "jest --coverage --passWithNoTests",
         "test:watch": "jest --watch",
         "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
         "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf coverage",
