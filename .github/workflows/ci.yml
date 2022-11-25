@@ -36,6 +36,9 @@ jobs:
               if: steps.cache-node-modules.outputs.cache-hit != 'true'
               run: npm ci
 
+            - name: List node_modules
+              run: ls -al packages/data-service/node_modules
+
             - name: Lint code
               run: npm run lint
 
@@ -65,6 +68,9 @@ jobs:
             - name: Install dependencies
               if: steps.cache-node-modules.outputs.cache-hit != 'true'
               run: npm ci
+
+            - name: List node_modules
+              run: ls -al packages/data-service/node_modules
 
             - name: Typecheck
               run: npm run typecheck
