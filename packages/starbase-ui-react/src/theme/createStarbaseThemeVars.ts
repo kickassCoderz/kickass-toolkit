@@ -3,7 +3,7 @@ import { createGlobalThemeContract } from '@vanilla-extract/css'
 import type { TStarbaseUIThemeTokens } from './types'
 
 const createStarbaseThemeVars = () => {
-    const vars = createGlobalThemeContract<TStarbaseUIThemeTokens>({
+    const defaultContract: TStarbaseUIThemeTokens = {
         colors: {
             neutral50: 'colors-neutral-50',
             neutral100: 'colors-neutral-100',
@@ -196,6 +196,245 @@ const createStarbaseThemeVars = () => {
             md: 'zIndices-md',
             lg: 'zIndices-lg',
             xl: 'zIndices-xl'
+        }
+    }
+    const vars = createGlobalThemeContract({
+        ...defaultContract,
+        colors: {
+            ...defaultContract.colors,
+            appBackground: 'colors-appBg',
+            surfaceBackground: 'colors-surfaceBg',
+            separatorColor: 'colors-separator',
+            //neutral
+            //solid
+            neutralSolidColor: 'colors-neutral-solidColor',
+            neutralSolidColorDisabled: 'colors-neutral-solidColorDisabled',
+            neutralSolidBgColor: 'colors-neutral-solidBgColor',
+            neutralSolidBgColorHover: 'colors-neutral-solidBgColorHover',
+            neutralSolidBgColorActive: 'colors-neutral-solidBgColorActive',
+            neutralSolidBgColorDisabled: 'colors-neutral-solidBgColorDisabled',
+            //soft
+            neutralSoftColor: 'colors-neutral-softColor',
+            neutralSoftColorDisabled: 'colors-neutral-softColorDisabled',
+            neutralSoftBgColor: 'colors-neutral-softBgColor',
+            neutralSoftBgColorHover: 'colors-neutral-softBgColorHover',
+            neutralSoftBgColorActive: 'colors-neutral-softBgColorActive',
+            neutralSoftBgColorDisabled: 'colors-neutral-softBgColorDisabled',
+            //outlined
+            neutralOutlinedColor: 'colors-neutral-outlinedColor',
+            neutralOutlinedColorDisabled: 'colors-neutral-outlinedColorDisabled',
+
+            neutralOutlinedBgColorHover: 'colors-neutral-outlinedBgColorHover',
+            neutralOutlinedBgColorActive: 'colors-neutral-outlinedBgColorActive',
+
+            neutralOutlinedBorderColor: 'colors-neutral-outlinedBorderColor',
+            neutralOutlinedBorderColorHover: 'colors-neutral-outlinedBorderColorHover',
+            neutralOutlinedBorderColorActive: 'colors-neutral-outlinedBorderColorActive',
+            neutralOutlinedBorderColorDisabled: 'colors-neutral-outlinedBorderColorDisabled',
+            //subtle
+            neutralSubtleColor: 'colors-neutral-subtleColor',
+            neutralSubtleColorDisabled: 'colors-neutral-subtleColorDisabled',
+
+            neutralSubtleBgColorHover: 'colors-neutral-subtleBgColorHover',
+            neutralSubtleBgColorActive: 'colors-neutral-subtleBgColorActive',
+
+            //primary
+            //solid
+            primarySolidColor: 'colors-primary-solidColor',
+            primarySolidColorDisabled: 'colors-primary-solidColorDisabled',
+            primarySolidBgColor: 'colors-primary-solidBgColor',
+            primarySolidBgColorHover: 'colors-primary-solidBgColorHover',
+            primarySolidBgColorActive: 'colors-primary-solidBgColorActive',
+            primarySolidBgColorDisabled: 'colors-primary-solidBgColorDisabled',
+            //soft
+            primarySoftColor: 'colors-primary-softColor',
+            primarySoftColorDisabled: 'colors-primary-softColorDisabled',
+            primarySoftBgColor: 'colors-primary-softBgColor',
+            primarySoftBgColorHover: 'colors-primary-softBgColorHover',
+            primarySoftBgColorActive: 'colors-primary-softBgColorActive',
+            primarySoftBgColorDisabled: 'colors-primary-softBgColorDisabled',
+            //outlined
+            primaryOutlinedColor: 'colors-primary-outlinedColor',
+            primaryOutlinedColorDisabled: 'colors-primary-outlinedColorDisabled',
+
+            primaryOutlinedBgColorHover: 'colors-primary-outlinedBgColorHover',
+            primaryOutlinedBgColorActive: 'colors-primary-outlinedBgColorActive',
+
+            primaryOutlinedBorderColor: 'colors-primary-outlinedBorderColor',
+            primaryOutlinedBorderColorHover: 'colors-primary-outlinedBorderColorHover',
+            primaryOutlinedBorderColorActive: 'colors-primary-outlinedBorderColorActive',
+            primaryOutlinedBorderColorDisabled: 'colors-primary-outlinedBorderColorDisabled',
+            //subtle
+            primarySubtleColor: 'colors-primary-subtleColor',
+            primarySubtleColorDisabled: 'colors-primary-subtleColorDisabled',
+
+            primarySubtleBgColorHover: 'colors-primary-subtleBgColorHover',
+            primarySubtleBgColorActive: 'colors-primary-subtleBgColorActive',
+
+            //secondary
+            //solid
+            secondarySolidColor: 'colors-secondary-solidColor',
+            secondarySolidColorDisabled: 'colors-secondary-solidColorDisabled',
+            secondarySolidBgColor: 'colors-secondary-solidBgColor',
+            secondarySolidBgColorHover: 'colors-secondary-solidBgColorHover',
+            secondarySolidBgColorActive: 'colors-secondary-solidBgColorActive',
+            secondarySolidBgColorDisabled: 'colors-secondary-solidBgColorDisabled',
+            //soft
+            secondarySoftColor: 'colors-secondary-softColor',
+            secondarySoftColorDisabled: 'colors-secondary-softColorDisabled',
+            secondarySoftBgColor: 'colors-secondary-softBgColor',
+            secondarySoftBgColorHover: 'colors-secondary-softBgColorHover',
+            secondarySoftBgColorActive: 'colors-secondary-softBgColorActive',
+            secondarySoftBgColorDisabled: 'colors-secondary-softBgColorDisabled',
+            //outlined
+            secondaryOutlinedColor: 'colors-secondary-outlinedColor',
+            secondaryOutlinedColorDisabled: 'colors-secondary-outlinedColorDisabled',
+
+            secondaryOutlinedBgColorHover: 'colors-secondary-outlinedBgColorHover',
+            secondaryOutlinedBgColorActive: 'colors-secondary-outlinedBgColorActive',
+
+            secondaryOutlinedBorderColor: 'colors-secondary-outlinedBorderColor',
+            secondaryOutlinedBorderColorHover: 'colors-secondary-outlinedBorderColorHover',
+            secondaryOutlinedBorderColorActive: 'colors-secondary-outlinedBorderColorActive',
+            secondaryOutlinedBorderColorDisabled: 'colors-secondary-outlinedBorderColorDisabled',
+            //subtle
+            secondarySubtleColor: 'colors-secondary-subtleColor',
+            secondarySubtleColorDisabled: 'colors-secondary-subtleColorDisabled',
+
+            secondarySubtleBgColorHover: 'colors-secondary-subtleBgColorHover',
+            secondarySubtleBgColorActive: 'colors-secondary-subtleBgColorActive',
+
+            //success
+            //solid
+            successSolidColor: 'colors-success-solidColor',
+            successSolidColorDisabled: 'colors-success-solidColorDisabled',
+            successSolidBgColor: 'colors-success-solidBgColor',
+            successSolidBgColorHover: 'colors-success-solidBgColorHover',
+            successSolidBgColorActive: 'colors-success-solidBgColorActive',
+            successSolidBgColorDisabled: 'colors-success-solidBgColorDisabled',
+            //soft
+            successSoftColor: 'colors-success-softColor',
+            successSoftColorDisabled: 'colors-success-softColorDisabled',
+            successSoftBgColor: 'colors-success-softBgColor',
+            successSoftBgColorHover: 'colors-success-softBgColorHover',
+            successSoftBgColorActive: 'colors-success-softBgColorActive',
+            successSoftBgColorDisabled: 'colors-success-softBgColorDisabled',
+            //outlined
+            successOutlinedColor: 'colors-success-outlinedColor',
+            successOutlinedColorDisabled: 'colors-success-outlinedColorDisabled',
+
+            successOutlinedBgColorHover: 'colors-success-outlinedBgColorHover',
+            successOutlinedBgColorActive: 'colors-success-outlinedBgColorActive',
+
+            successOutlinedBorderColor: 'colors-success-outlinedBorderColor',
+            successOutlinedBorderColorHover: 'colors-success-outlinedBorderColorHover',
+            successOutlinedBorderColorActive: 'colors-success-outlinedBorderColorActive',
+            successOutlinedBorderColorDisabled: 'colors-success-outlinedBorderColorDisabled',
+            //subtle
+            successSubtleColor: 'colors-success-subtleColor',
+            successSubtleColorDisabled: 'colors-success-subtleColorDisabled',
+
+            successSubtleBgColorHover: 'colors-success-subtleBgColorHover',
+            successSubtleBgColorActive: 'colors-success-subtleBgColorActive',
+
+            //danger
+            //solid
+            dangerSolidColor: 'colors-danger-solidColor',
+            dangerSolidColorDisabled: 'colors-danger-solidColorDisabled',
+            dangerSolidBgColor: 'colors-danger-solidBgColor',
+            dangerSolidBgColorHover: 'colors-danger-solidBgColorHover',
+            dangerSolidBgColorActive: 'colors-danger-solidBgColorActive',
+            dangerSolidBgColorDisabled: 'colors-danger-solidBgColorDisabled',
+            //soft
+            dangerSoftColor: 'colors-danger-softColor',
+            dangerSoftColorDisabled: 'colors-danger-softColorDisabled',
+            dangerSoftBgColor: 'colors-danger-softBgColor',
+            dangerSoftBgColorHover: 'colors-danger-softBgColorHover',
+            dangerSoftBgColorActive: 'colors-danger-softBgColorActive',
+            dangerSoftBgColorDisabled: 'colors-danger-softBgColorDisabled',
+            //outlined
+            dangerOutlinedColor: 'colors-danger-outlinedColor',
+            dangerOutlinedColorDisabled: 'colors-danger-outlinedColorDisabled',
+
+            dangerOutlinedBgColorHover: 'colors-danger-outlinedBgColorHover',
+            dangerOutlinedBgColorActive: 'colors-danger-outlinedBgColorActive',
+
+            dangerOutlinedBorderColor: 'colors-danger-outlinedBorderColor',
+            dangerOutlinedBorderColorHover: 'colors-danger-outlinedBorderColorHover',
+            dangerOutlinedBorderColorActive: 'colors-danger-outlinedBorderColorActive',
+            dangerOutlinedBorderColorDisabled: 'colors-danger-outlinedBorderColorDisabled',
+            //subtle
+            dangerSubtleColor: 'colors-danger-subtleColor',
+            dangerSubtleColorDisabled: 'colors-danger-subtleColorDisabled',
+
+            dangerSubtleBgColorHover: 'colors-danger-subtleBgColorHover',
+            dangerSubtleBgColorActive: 'colors-danger-subtleBgColorActive',
+
+            //warning
+            //solid
+            warningSolidColor: 'colors-warning-solidColor',
+            warningSolidColorDisabled: 'colors-warning-solidColorDisabled',
+            warningSolidBgColor: 'colors-warning-solidBgColor',
+            warningSolidBgColorHover: 'colors-warning-solidBgColorHover',
+            warningSolidBgColorActive: 'colors-warning-solidBgColorActive',
+            warningSolidBgColorDisabled: 'colors-warning-solidBgColorDisabled',
+            //soft
+            warningSoftColor: 'colors-warning-softColor',
+            warningSoftColorDisabled: 'colors-warning-softColorDisabled',
+            warningSoftBgColor: 'colors-warning-softBgColor',
+            warningSoftBgColorHover: 'colors-warning-softBgColorHover',
+            warningSoftBgColorActive: 'colors-warning-softBgColorActive',
+            warningSoftBgColorDisabled: 'colors-warning-softBgColorDisabled',
+            //outlined
+            warningOutlinedColor: 'colors-warning-outlinedColor',
+            warningOutlinedColorDisabled: 'colors-warning-outlinedColorDisabled',
+
+            warningOutlinedBgColorHover: 'colors-warning-outlinedBgColorHover',
+            warningOutlinedBgColorActive: 'colors-warning-outlinedBgColorActive',
+
+            warningOutlinedBorderColor: 'colors-warning-outlinedBorderColor',
+            warningOutlinedBorderColorHover: 'colors-warning-outlinedBorderColorHover',
+            warningOutlinedBorderColorActive: 'colors-warning-outlinedBorderColorActive',
+            warningOutlinedBorderColorDisabled: 'colors-warning-outlinedBorderColorDisabled',
+            //subtle
+            warningSubtleColor: 'colors-warning-subtleColor',
+            warningSubtleColorDisabled: 'colors-warning-subtleColorDisabled',
+
+            warningSubtleBgColorHover: 'colors-warning-subtleBgColorHover',
+            warningSubtleBgColorActive: 'colors-warning-subtleBgColorActive',
+
+            //info
+            //solid
+            infoSolidColor: 'colors-info-solidColor',
+            infoSolidColorDisabled: 'colors-info-solidColorDisabled',
+            infoSolidBgColor: 'colors-info-solidBgColor',
+            infoSolidBgColorHover: 'colors-info-solidBgColorHover',
+            infoSolidBgColorActive: 'colors-info-solidBgColorActive',
+            infoSolidBgColorDisabled: 'colors-info-solidBgColorDisabled',
+            //soft
+            infoSoftColor: 'colors-info-softColor',
+            infoSoftColorDisabled: 'colors-info-softColorDisabled',
+            infoSoftBgColor: 'colors-info-softBgColor',
+            infoSoftBgColorHover: 'colors-info-softBgColorHover',
+            infoSoftBgColorActive: 'colors-info-softBgColorActive',
+            infoSoftBgColorDisabled: 'colors-info-softBgColorDisabled',
+            //outlined
+            infoOutlinedColor: 'colors-info-outlinedColor',
+            infoOutlinedColorDisabled: 'colors-info-outlinedColorDisabled',
+
+            infoOutlinedBgColorHover: 'colors-info-outlinedBgColorHover',
+            infoOutlinedBgColorActive: 'colors-info-outlinedBgColorActive',
+
+            infoOutlinedBorderColor: 'colors-info-outlinedBorderColor',
+            infoOutlinedBorderColorHover: 'colors-info-outlinedBorderColorHover',
+            infoOutlinedBorderColorActive: 'colors-info-outlinedBorderColorActive',
+            infoOutlinedBorderColorDisabled: 'colors-info-outlinedBorderColorDisabled',
+            //subtle
+            infoSubtleColor: 'colors-info-subtleColor',
+            infoSubtleColorDisabled: 'colors-info-subtleColorDisabled',
+
+            infoSubtleBgColorHover: 'colors-info-subtleBgColorHover',
+            infoSubtleBgColorActive: 'colors-info-subtleBgColorActive'
         }
     })
 
