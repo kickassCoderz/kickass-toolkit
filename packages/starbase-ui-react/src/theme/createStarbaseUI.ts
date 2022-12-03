@@ -29,9 +29,9 @@ const createStarbaseUI = () => {
     const externalConfig = loadStarbaseUIConfig()
     const mergedConfig = mergeConfigs(themeFactoryTokens, externalConfig)
 
-    const { sprinkles, themeVars } = createStarbaseUIModules(mergedConfig)
+    const { stardust, themeVars } = createStarbaseUIModules(mergedConfig)
 
-    return { sprinkles, themeVars }
+    return { stardust, themeVars }
 }
 
 export { createStarbaseUI }

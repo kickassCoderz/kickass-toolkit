@@ -22,6 +22,7 @@ const createStarbaseGlobalStyles = (themeVars: TStarbaseUIThemeVars, darkThemeCo
     globalStyle('body', {
         MozOsxFontSmoothing: 'grayscale',
         WebkitFontSmoothing: 'antialiased',
+        overscrollBehavior: 'none',
         fontFamily: themeVars.fonts.body,
         fontSize: themeVars.fontSizes.body,
         backgroundColor: themeVars.colors.appBackground
@@ -29,7 +30,8 @@ const createStarbaseGlobalStyles = (themeVars: TStarbaseUIThemeVars, darkThemeCo
 
     globalStyle('#root, #__next', {
         isolation: 'isolate',
-        height: '100%'
+        height: '100%',
+        position: 'relative'
     })
 
     globalStyle(THEME_ATTR_SELECTOR_LIGHT, {

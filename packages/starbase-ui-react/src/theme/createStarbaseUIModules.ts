@@ -1,5 +1,5 @@
 import { createStarbaseGlobalStyles } from './createStarbaseGlobalStyles'
-import { createStarbaseSprinkles } from './createStarbaseSprinkles'
+import { createStarbaseStardust } from './createStarbaseStardust'
 import { createStarbaseTheme } from './createStarbaseTheme'
 import { createStarbaseThemeVars } from './createStarbaseThemeVars'
 import { TCreateStarbaseUIConfigTokens } from './types'
@@ -13,9 +13,9 @@ const createStarbaseUIModules = (themeTokens: TCreateStarbaseUIConfigTokens) => 
 
     createStarbaseGlobalStyles(themeVars, darkThemeColors)
 
-    const sprinkles = createStarbaseSprinkles(themeVars, breakpoints)
+    const stardust = createStarbaseStardust(themeVars, breakpoints)
 
-    return { themeVars, sprinkles }
+    return { themeVars, stardust }
 }
 
 export { createStarbaseUIModules }

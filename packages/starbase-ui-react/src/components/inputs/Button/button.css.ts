@@ -1,13 +1,13 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 
-import { sprinkles } from '../../../theme'
+import { stardust } from '../../../theme'
 
 const buttonBlueprint = recipe({
     base: [
         { minWidth: '6rem', transitionProperty: 'border-color,color,background-color' },
-
-        sprinkles({
+        stardust({
             appearance: 'none',
+            userSelect: 'none',
             boxSizing: 'border-box',
             display: 'inline-flex',
             alignItems: 'center',
@@ -22,20 +22,23 @@ const buttonBlueprint = recipe({
     ],
 
     variants: {
+        fullWidth: {
+            true: stardust({ width: 'full' })
+        },
         size: {
-            sm: sprinkles({
+            sm: stardust({
                 paddingInline: 'sm',
                 paddingBlock: 'xs6',
                 minHeight: 'xl4',
                 fontSize: 'sm'
             }),
-            md: sprinkles({
+            md: stardust({
                 paddingInline: 'md',
                 paddingBlock: 'xs5',
                 minHeight: 'xl5',
                 fontSize: 'sm'
             }),
-            lg: sprinkles({
+            lg: stardust({
                 paddingInline: 'xl2',
                 paddingBlock: 'xs4',
                 minHeight: 'xl6',
@@ -43,28 +46,28 @@ const buttonBlueprint = recipe({
             })
         },
         shape: {
-            square: sprinkles({
+            square: stardust({
                 borderRadius: 'none'
             }),
-            rounded: sprinkles({
+            rounded: stardust({
                 borderRadius: 'sm'
             }),
-            circular: sprinkles({
+            circular: stardust({
                 borderRadius: 'circular'
             })
         },
         variant: {
-            solid: sprinkles({
+            solid: stardust({
                 borderStyle: 'none'
             }),
-            soft: sprinkles({
+            soft: stardust({
                 borderStyle: 'none'
             }),
-            outlined: sprinkles({
+            outlined: stardust({
                 borderStyle: 'solid',
                 borderWidth: 'sm'
             }),
-            subtle: sprinkles({
+            subtle: stardust({
                 borderStyle: 'none'
             })
         },
@@ -84,7 +87,7 @@ const buttonBlueprint = recipe({
                 variant: 'solid',
                 color: 'neutral'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'neutralSolidColor',
                 backgroundColor: {
                     default: 'neutralSolidBgColor',
@@ -98,7 +101,7 @@ const buttonBlueprint = recipe({
                 variant: 'solid',
                 color: 'primary'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'primarySolidColor',
                 backgroundColor: {
                     default: 'primarySolidBgColor',
@@ -112,7 +115,7 @@ const buttonBlueprint = recipe({
                 variant: 'solid',
                 color: 'secondary'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'secondarySolidColor',
                 backgroundColor: {
                     default: 'secondarySolidBgColor',
@@ -126,7 +129,7 @@ const buttonBlueprint = recipe({
                 variant: 'solid',
                 color: 'success'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'successSolidColor',
                 backgroundColor: {
                     default: 'successSolidBgColor',
@@ -140,7 +143,7 @@ const buttonBlueprint = recipe({
                 variant: 'solid',
                 color: 'danger'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'dangerSolidColor',
                 backgroundColor: {
                     default: 'dangerSolidBgColor',
@@ -154,7 +157,7 @@ const buttonBlueprint = recipe({
                 variant: 'solid',
                 color: 'warning'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'warningSolidColor',
                 backgroundColor: {
                     default: 'warningSolidBgColor',
@@ -168,7 +171,7 @@ const buttonBlueprint = recipe({
                 variant: 'solid',
                 color: 'info'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'infoSolidColor',
                 backgroundColor: {
                     default: 'infoSolidBgColor',
@@ -183,7 +186,7 @@ const buttonBlueprint = recipe({
                 variant: 'soft',
                 color: 'neutral'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'neutralSoftColor',
                 backgroundColor: {
                     default: 'neutralSoftBgColor',
@@ -197,7 +200,7 @@ const buttonBlueprint = recipe({
                 variant: 'soft',
                 color: 'primary'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'primarySoftColor',
                 backgroundColor: {
                     default: 'primarySoftBgColor',
@@ -211,7 +214,7 @@ const buttonBlueprint = recipe({
                 variant: 'soft',
                 color: 'secondary'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'secondarySoftColor',
                 backgroundColor: {
                     default: 'secondarySoftBgColor',
@@ -225,7 +228,7 @@ const buttonBlueprint = recipe({
                 variant: 'soft',
                 color: 'success'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'successSoftColor',
                 backgroundColor: {
                     default: 'successSoftBgColor',
@@ -239,7 +242,7 @@ const buttonBlueprint = recipe({
                 variant: 'soft',
                 color: 'danger'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'dangerSoftColor',
                 backgroundColor: {
                     default: 'dangerSoftBgColor',
@@ -253,7 +256,7 @@ const buttonBlueprint = recipe({
                 variant: 'soft',
                 color: 'warning'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'warningSoftColor',
                 backgroundColor: {
                     default: 'warningSoftBgColor',
@@ -267,7 +270,7 @@ const buttonBlueprint = recipe({
                 variant: 'soft',
                 color: 'info'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'infoSoftColor',
                 backgroundColor: {
                     default: 'infoSoftBgColor',
@@ -282,7 +285,7 @@ const buttonBlueprint = recipe({
                 variant: 'outlined',
                 color: 'neutral'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'neutralOutlinedColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -301,7 +304,7 @@ const buttonBlueprint = recipe({
                 variant: 'outlined',
                 color: 'primary'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'primaryOutlinedColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -320,7 +323,7 @@ const buttonBlueprint = recipe({
                 variant: 'outlined',
                 color: 'secondary'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'secondaryOutlinedColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -339,7 +342,7 @@ const buttonBlueprint = recipe({
                 variant: 'outlined',
                 color: 'success'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'successOutlinedColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -358,7 +361,7 @@ const buttonBlueprint = recipe({
                 variant: 'outlined',
                 color: 'danger'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'dangerOutlinedColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -377,7 +380,7 @@ const buttonBlueprint = recipe({
                 variant: 'outlined',
                 color: 'warning'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'warningOutlinedColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -396,7 +399,7 @@ const buttonBlueprint = recipe({
                 variant: 'outlined',
                 color: 'info'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'infoOutlinedColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -416,7 +419,7 @@ const buttonBlueprint = recipe({
                 variant: 'subtle',
                 color: 'neutral'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'neutralSubtleColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -430,7 +433,7 @@ const buttonBlueprint = recipe({
                 variant: 'subtle',
                 color: 'primary'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'primarySubtleColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -444,7 +447,7 @@ const buttonBlueprint = recipe({
                 variant: 'subtle',
                 color: 'secondary'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'secondarySubtleColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -458,7 +461,7 @@ const buttonBlueprint = recipe({
                 variant: 'subtle',
                 color: 'success'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'successSubtleColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -472,7 +475,7 @@ const buttonBlueprint = recipe({
                 variant: 'subtle',
                 color: 'danger'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'dangerSubtleColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -486,7 +489,7 @@ const buttonBlueprint = recipe({
                 variant: 'subtle',
                 color: 'warning'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'warningSubtleColor',
                 backgroundColor: {
                     default: 'transparent',
@@ -500,7 +503,7 @@ const buttonBlueprint = recipe({
                 variant: 'subtle',
                 color: 'info'
             },
-            style: sprinkles({
+            style: stardust({
                 color: 'infoSubtleColor',
                 backgroundColor: {
                     default: 'transparent',

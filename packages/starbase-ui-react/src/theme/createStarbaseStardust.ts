@@ -3,7 +3,7 @@ import { createSprinkles, defineProperties } from '@vanilla-extract/sprinkles'
 import type { TStarbaseUIThemeVars } from './createStarbaseThemeVars'
 import type { TStarbaseUIThemeBreakpointTokens } from './types'
 
-const createStarbaseSprinkles = (themeVars: TStarbaseUIThemeVars, breakpoints: TStarbaseUIThemeBreakpointTokens) => {
+const createStarbaseStardust = (themeVars: TStarbaseUIThemeVars, breakpoints: TStarbaseUIThemeBreakpointTokens) => {
     const commonColors = {
         currentColor: 'currentColor',
         inherit: 'inherit',
@@ -772,9 +772,9 @@ const createStarbaseSprinkles = (themeVars: TStarbaseUIThemeVars, breakpoints: T
         }
     })
 
-    const sprinkles = createSprinkles(responsiveProperties, colorProperties, staticProperties, effectsProperties)
+    const stardust = createSprinkles(responsiveProperties, colorProperties, staticProperties, effectsProperties)
 
-    return sprinkles
+    return stardust
 }
 
-export { createStarbaseSprinkles }
+export { createStarbaseStardust }

@@ -1,5 +1,5 @@
 import { createStarbaseUI } from './createStarbaseUI'
 
-const { sprinkles, themeVars } = createStarbaseUI()
+const { stardust, themeVars } = createStarbaseUI()
 
-export { sprinkles, themeVars }
+export { stardust, themeVars }
