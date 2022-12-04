@@ -5,7 +5,7 @@ import type { TAccordionItemPanelProps } from './accordion-types'
 import { EAccordionItemState } from './accordion-types'
 import { useAccordionItemContext } from './AccordionItemProvider'
 
-const AccordionPanel = forwardRef<HTMLDivElement, TAccordionItemPanelProps>(({ children, ...rest }, ref) => {
+const AccordionPanel = forwardRef<HTMLElement, TAccordionItemPanelProps>(({ children, ...rest }, ref) => {
     const { isExpanded, panelId, isDisabled, buttonId } = useAccordionItemContext('AccordionPanel')
 
     return (
