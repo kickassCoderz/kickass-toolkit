@@ -1,0 +1,5 @@
+{
+    "extends": "tsconfig/es-library.json",
+    "include": ["."],
+    "exclude": ["dist", "build", "node_modules", "**/mocks", "**/*.test.*"]
+}

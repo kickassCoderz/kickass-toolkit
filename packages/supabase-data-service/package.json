@@ -1,0 +1,30 @@
+{
+    "name": "@kickass-coderz/supabase-data-service",
+    "version": "0.0.0",
+    "license": "MIT",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "scripts": {
+        "test": "jest --coverage",
+        "test:watch": "jest --watch",
+        "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
+        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist && rm -rf coverage",
+        "typecheck": "tsc --noEmit --pretty",
+        "build": "rm -rf dist && npm run build:cjs && npm run build:esm",
+        "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+        "build:esm": "tsc --module esnext --outDir dist/esm"
+    },
+    "devDependencies": {
+        "@swc/core": "^1.3.10",
+        "@swc/jest": "^0.2.23",
+        "@types/jest": "^29.2.0",
+        "eslint-config-custom": "*",
+        "jest": "^29.2.1",
+        "jest-environment-jsdom": "^29.2.1",
+        "tsconfig": "*"
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.1.1",
+        "ra-supabase": "^1.2.1"
+    }
+}
