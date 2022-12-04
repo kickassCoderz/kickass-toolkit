@@ -55,7 +55,7 @@ jobs:
               run: pnpm install
 
             - name: "Build code"
-              run: npm run build -- --filter rest-data-service # build libs for testing
+              run: npm run build -- --filter="./packages/*" # build libs for testing
 
             - name: Typecheck
               run: npm run typecheck
