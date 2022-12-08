@@ -1,73 +1,41 @@
-# Turborepo starter
+# Kickass toolkit
 
-This is an official npm starter turborepo.
+A set of kickass tools for rapid development.
 
 ## What's inside?
 
-This turborepo uses [npm](https://www.npmjs.com/) as a package manager. It includes the following packages/apps:
+This repository is set up as monorepo and it uses follwing tools:
+
+-   [Turborepo](https://turborepo.org) for monorepo management
+-   [PNPM](https://pnpm.io) as package manager and workspace manager
+-   [Volta](https://volta.sh) as tool and node version manager
+-   [TypeScript](https://www.typescriptlang.org/) for static type checking
+-   [ESLint](https://eslint.org/) for code linting
+-   [Prettier](https://prettier.io) for code formatting
+-   [Husky](https://typicode.github.io/husky) for git hooks
+-   [Commitlint](https://commitlint.js.org) and [ConfigConventional](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional#type-enum) for commit messages check
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org) app
-- `web`: another [Next.js](https://nextjs.org) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+By default this monorepo is split in two types of workspaces:
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+-   `apps`: which consists of docs website and various playgrounds
+-   `packages`: which consists of various libraries and shared configs
 
-### Utilities
+#### Apps
 
-This turborepo has some additional tools already setup for you:
+Current apps are:
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+-   `toolkit-docs`: A [Docusaurus](https://docusaurus.io/) app which holds the docs for publishable libraries
+-   `next-playground`: A [Next](https://nextjs.org/) app which is used as playground for libraries and various ideas.
 
-### Build
+#### Packages
 
-To build all apps and packages, run the following command:
+Current packages are:
 
-```
-cd my-turborepo
-npm run build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-npm run dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Pipelines](https://turborepo.org/docs/core-concepts/pipelines)
-- [Caching](https://turborepo.org/docs/core-concepts/caching)
-- [Remote Caching](https://turborepo.org/docs/core-concepts/remote-caching)
-- [Scoped Tasks](https://turborepo.org/docs/core-concepts/scopes)
-- [Configuration Options](https://turborepo.org/docs/reference/configuration)
-- [CLI Usage](https://turborepo.org/docs/reference/command-line-reference)
+-   `data-service`: A publishable library for data fetching
+-   `hooks`: A publishable library with set of utility hooks
+-   `react-widgets`: A publishable lib with unstyled ui widgets
+-   `starbase-ui-react`: A publishable library with kickass design system which utilizes both hooks and widgets
+-   `eslint-config-custom`: A collection of `eslint` configs used in `packages` and `apps`
+-   `tsconfig`: A collection of `tsconfigs` which are used across workspaces
