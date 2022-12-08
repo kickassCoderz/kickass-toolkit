@@ -1,3 +1,4 @@
+import type * as React from 'react'
 import { useEffect, useRef } from 'react'
 
 import { useEvent } from '../useEvent'

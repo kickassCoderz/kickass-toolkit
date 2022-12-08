@@ -119,7 +119,7 @@ const useStorage = <T extends TUseStorageValue>(
     })
 
     //we listen for a custom event and set state accordingly
-    useEventListener(window, customEventKey, event => {
+    useEventListener(typeof window !== 'undefined' ? window : null, customEventKey, event => {
         if (!event.detail.key || event.detail.key !== key) {
             return
         }
@@ -134,7 +134,7 @@ const useStorage = <T extends TUseStorageValue>(
     })
 
     //storage event fires a custom event which then sets the data
-    useEventListener(window, 'storage', event => {
+    useEventListener(typeof window !== 'undefined' ? window : null, 'storage', event => {
         if (!event.key || event.key !== key) {
             return
         }

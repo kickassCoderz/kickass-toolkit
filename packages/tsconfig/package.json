@@ -1,13 +1,16 @@
 {
-  "name": "tsconfig",
-  "version": "0.0.0",
-  "private": true,
-  "files": [
-    "base.json",
-    "nextjs.json",
-    "react-library.json"
-  ],
-  "volta": {
-    "extends": "../../package.json"
-  }
+    "name": "tsconfig",
+    "version": "0.0.0",
+    "private": true,
+    "files": [
+        "base.json",
+        "nextjs.json",
+        "react-library.json"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "volta": {
+        "extends": "../../package.json"
+    }
 }
