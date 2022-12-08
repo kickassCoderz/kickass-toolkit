@@ -1,11 +1,6 @@
 {
     "name": "kickass-toolkit",
-    "version": "0.0.0",
     "private": true,
-    "workspaces": [
-        "apps/*",
-        "packages/*"
-    ],
     "scripts": {
         "build": "turbo run build",
         "dev": "turbo run dev --parallel",
@@ -20,7 +15,7 @@
         "@commitlint/cli": "^17.3.0",
         "@commitlint/config-conventional": "^17.3.0",
         "eslint": "^8.29.0",
-        "eslint-config-custom": "*",
+        "eslint-config-custom": "workspace:*",
         "husky": "^8.0.2",
         "prettier": "latest",
         "turbo": "latest",
@@ -28,11 +23,12 @@
         "patch-package": "^6.5.0"
     },
     "engines": {
-        "node": ">=16.0.0"
+        "node": ">=16.0.0",
+        "pnpm": ">=7.0.0"
     },
-    "packageManager": "npm@9.1.3",
     "volta": {
         "node": "18.12.1",
         "npm": "9.1.3"
-    }
+    },
+    "packageManager": "pnpm@7.18.0"
 }

@@ -1,16 +1,16 @@
-import { useMediaQuery } from '@kickass-coderz/hooks'
-import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
+import { useIsomorphicLayoutEffect, useMediaQuery } from '@kickass-coderz/hooks'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef } from 'react'
 
 import {
-    COLOR_SCHEME_STORAGE_KEY,
     DARK_THEME_VALUE,
     DISABLE_CSS_TRANSITION,
     LIGHT_THEME_VALUE,
-    THEME_ATTR_NAME
+    THEME_ATTR_NAME,
+    THEME_STORAGE_KEY
 } from '../consts'
 import { useLocalStorage } from '../internal'
 
-type TStarbaseThemeMode = 'light' | 'dark'
+export type TStarbaseThemeMode = 'light' | 'dark'
 
 type TStarbaseThemeContext = {
     theme: TStarbaseThemeMode
@@ -37,7 +37,7 @@ const useDisableThemeTransition = (theme: TStarbaseThemeMode, enabled?: boolean)
         }
     }, [])
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         let timerId: ReturnType<typeof setTimeout> | undefined
         const documentNode = typeof document === 'undefined' ? undefined : document
 
@@ -61,7 +61,7 @@ const useDisableThemeTransition = (theme: TStarbaseThemeMode, enabled?: boolean)
 
 const useThemeResolver = (mode?: TStarbaseThemeMode, disableTransitionOnChange?: boolean) => {
     const systemTheme = useSystemTheme()
-    const [storageState, setStorageState] = useLocalStorage(COLOR_SCHEME_STORAGE_KEY, mode || systemTheme)
+    const [storageState, setStorageState] = useLocalStorage(THEME_STORAGE_KEY, mode || systemTheme)
 
     useDisableThemeTransition(storageState, disableTransitionOnChange)
 
@@ -76,10 +76,12 @@ const useThemeResolver = (mode?: TStarbaseThemeMode, disableTransitionOnChange?:
         [setStorageState]
     )
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         const documentElement = typeof document === 'undefined' ? undefined : document.documentElement
 
-        documentElement?.setAttribute(THEME_ATTR_NAME, storageState)
+        if (documentElement) {
+            documentElement.setAttribute(THEME_ATTR_NAME, storageState)
+        }
     }, [storageState])
 
     const context = useMemo(

@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
-import { useEvent } from '../useEvent'
-
-//@TODO: find out why TS doesnt return valid tuple when calling useCallbackRef
-
+/**
+ * Set a ref via callback and provides ractive state.
+ * @see {@link https://reactjs.org/docs/refs-and-the-dom.html#callback-refs| Official docs}
+ *
+ */
 const useCallbackRef = <T extends Element>() => {
     const [ref, setRef] = useState<T | null>(null)
 
-    const refCallback = useEvent((node: T | null) => {
+    const refCallback = useCallback<React.RefCallback<T>>(node => {
         setRef(node)
-    })
+    }, [])
 
     return [ref, refCallback] as const
 }

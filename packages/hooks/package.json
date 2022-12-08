@@ -12,7 +12,7 @@
         "typecheck": "tsc --noEmit --pretty"
     },
     "peerDependencies": {
-          "react": "^17.0.0 || ^18.0.0",
+        "react": "^17.0.0 || ^18.0.0",
         "react-dom": "^17.0.0 || ^18.0.0"
     },
     "devDependencies": {
@@ -20,17 +20,17 @@
         "@swc/jest": "^0.2.23",
         "@testing-library/react-hooks": "^8.0.1",
         "@types/jest": "^29.2.0",
-        "@types/react": "^17.0.0",
-        "@types/react-dom": "^17.0.0",
-        "eslint-config-custom": "*",
+        "@types/react": "^17.0.52",
+        "@types/react-dom": "^17.0.18",
+        "eslint-config-custom": "workspace:*",
         "jest": "^29.2.1",
         "jest-environment-jsdom": "^29.2.1",
-        "react": "^17.0.0",
-        "react-dom":"^17.0.0",
-        "react-test-renderer": "^17.0.0",
-        "tsconfig": "*"
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-test-renderer": "^17.0.2",
+        "tsconfig": "workspace:*"
     },
     "volta": {
-    "extends": "../../package.json"
-  }
+        "extends": "../../package.json"
+    }
 }
