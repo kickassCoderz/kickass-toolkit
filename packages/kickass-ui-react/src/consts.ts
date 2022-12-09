@@ -1,7 +1,7 @@
-const THEME_STORAGE_KEY = 'starbase_ui_color_scheme'
+const THEME_STORAGE_KEY = 'kickass_ui_color_scheme'
 const LIGHT_THEME_VALUE = 'light'
 const DARK_THEME_VALUE = 'dark'
-const THEME_ATTR_NAME = 'data-starbase-ui-theme'
+const THEME_ATTR_NAME = 'data-kickass-ui-theme'
 const THEME_ATTR_SELECTOR_LIGHT = `[${THEME_ATTR_NAME}=${LIGHT_THEME_VALUE}]`
 const THEME_ATTR_SELECTOR_DARK = `[${THEME_ATTR_NAME}=${DARK_THEME_VALUE}]`
 const DISABLE_CSS_TRANSITION =

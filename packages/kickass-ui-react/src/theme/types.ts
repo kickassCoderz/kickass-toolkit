@@ -1,6 +1,6 @@
 // type MakeOptional<Type, Key extends keyof Type> = Omit<Type, Key> & Partial<Pick<Type, Key>>
 
-export type TStarbaseUIThemeBreakpointTokens = {
+export type TKickassUIThemeBreakpointTokens = {
     xs: number
     sm: number
     md: number
@@ -8,7 +8,7 @@ export type TStarbaseUIThemeBreakpointTokens = {
     xl: number
 }
 
-export type TStarbaseUIThemeColorTokens = {
+export type TKickassUIThemeColorTokens = {
     neutral50: string
     neutral100: string
     neutral200: string
@@ -29,16 +29,6 @@ export type TStarbaseUIThemeColorTokens = {
     primary700: string
     primary800: string
     primary900: string
-    secondary50: string
-    secondary100: string
-    secondary200: string
-    secondary300: string
-    secondary400: string
-    secondary500: string
-    secondary600: string
-    secondary700: string
-    secondary800: string
-    secondary900: string
     success50: string
     success100: string
     success200: string
@@ -81,13 +71,13 @@ export type TStarbaseUIThemeColorTokens = {
     info900: string
 }
 
-export type TStarbaseUIThemeFontTokens = {
+export type TKickassUIThemeFontTokens = {
     heading: string
     body: string
     code: string
 }
 
-export type TStarbaseUIThemeFontSizeTokens = {
+export type TKickassUIThemeFontSizeTokens = {
     html: string
     body: string
     xs3: string
@@ -104,14 +94,14 @@ export type TStarbaseUIThemeFontSizeTokens = {
     xl6: string
 }
 
-export type TStarbaseUIThemeFontWeightTokens = {
+export type TKickassUIThemeFontWeightTokens = {
     regular: string
     medium: string
     semiBold: string
     bold: string
 }
 
-export type TStarbaseUIThemeLineHeightTokens = {
+export type TKickassUIThemeLineHeightTokens = {
     xs: string
     sm: string
     md: string
@@ -119,7 +109,7 @@ export type TStarbaseUIThemeLineHeightTokens = {
     xl: string
 }
 
-export type TStarbaseUIThemeLetterSpacingTokens = {
+export type TKickassUIThemeLetterSpacingTokens = {
     xs: string
     sm: string
     md: string
@@ -127,7 +117,7 @@ export type TStarbaseUIThemeLetterSpacingTokens = {
     xl: string
 }
 
-export type TStarbaseUIThemeRadiiTokens = {
+export type TKickassUIThemeRadiiTokens = {
     xs: string
     sm: string
     md: string
@@ -136,13 +126,13 @@ export type TStarbaseUIThemeRadiiTokens = {
     circular: string
 }
 
-export type TStarbaseUIThemeStrokeWidthTokens = {
+export type TKickassUIThemeStrokeWidthTokens = {
     sm: string
     md: string
     lg: string
 }
 
-export type TStarbaseUIThemeSizeTokens = {
+export type TKickassUIThemeSizeTokens = {
     xs6: string
     xs5: string
     xs4: string
@@ -159,7 +149,7 @@ export type TStarbaseUIThemeSizeTokens = {
     xl5: string
     xl6: string
 }
-export type TStarbaseUIThemeSpaceTokens = {
+export type TKickassUIThemeSpaceTokens = {
     xs6: string
     xs5: string
     xs4: string
@@ -177,7 +167,7 @@ export type TStarbaseUIThemeSpaceTokens = {
     xl6: string
 }
 
-export type TStarbaseUIThemeShadowTokens = {
+export type TKickassUIThemeShadowTokens = {
     xs: string
     sm: string
     md: string
@@ -186,7 +176,7 @@ export type TStarbaseUIThemeShadowTokens = {
     xl2: string
 }
 
-export type TStarbaseUIThemeTransitionTokens = {
+export type TKickassUIThemeTransitionTokens = {
     timingAccelerateMax: string
     timingAccelerateMid: string
     timingAccelerateMin: string
@@ -205,7 +195,7 @@ export type TStarbaseUIThemeTransitionTokens = {
     durationSlowest: string
 }
 
-export type TStarbaseUIThemeZIndexTokens = {
+export type TKickassUIThemeZIndexTokens = {
     xs: string
     sm: string
     md: string
@@ -213,24 +203,24 @@ export type TStarbaseUIThemeZIndexTokens = {
     xl: string
 }
 
-export type TStarbaseUIThemeTokens = {
-    colors: TStarbaseUIThemeColorTokens
-    fonts: TStarbaseUIThemeFontTokens
-    fontSizes: TStarbaseUIThemeFontSizeTokens
-    fontWeights: TStarbaseUIThemeFontWeightTokens
-    lineHeights: TStarbaseUIThemeLineHeightTokens
-    letterSpacings: TStarbaseUIThemeLetterSpacingTokens
-    radii: TStarbaseUIThemeRadiiTokens
-    strokeWidths: TStarbaseUIThemeStrokeWidthTokens
-    sizes: TStarbaseUIThemeSizeTokens
-    space: TStarbaseUIThemeSpaceTokens
-    shadows: TStarbaseUIThemeShadowTokens
-    transitions: TStarbaseUIThemeTransitionTokens
-    zIndices: TStarbaseUIThemeZIndexTokens
+export type TKickassUIThemeTokens = {
+    colors: TKickassUIThemeColorTokens
+    fonts: TKickassUIThemeFontTokens
+    fontSizes: TKickassUIThemeFontSizeTokens
+    fontWeights: TKickassUIThemeFontWeightTokens
+    lineHeights: TKickassUIThemeLineHeightTokens
+    letterSpacings: TKickassUIThemeLetterSpacingTokens
+    radii: TKickassUIThemeRadiiTokens
+    strokeWidths: TKickassUIThemeStrokeWidthTokens
+    sizes: TKickassUIThemeSizeTokens
+    space: TKickassUIThemeSpaceTokens
+    shadows: TKickassUIThemeShadowTokens
+    transitions: TKickassUIThemeTransitionTokens
+    zIndices: TKickassUIThemeZIndexTokens
 }
 
-export type TCreateStarbaseUIConfigTokens = Omit<TStarbaseUIThemeTokens, 'colors'> & {
-    lightThemeColors: TStarbaseUIThemeColorTokens
-    darkThemeColors: TStarbaseUIThemeColorTokens
-    breakpoints: TStarbaseUIThemeBreakpointTokens
+export type TCreateKickassUIConfigTokens = Omit<TKickassUIThemeTokens, 'colors'> & {
+    lightThemeColors: TKickassUIThemeColorTokens
+    darkThemeColors: TKickassUIThemeColorTokens
+    breakpoints: TKickassUIThemeBreakpointTokens
 }

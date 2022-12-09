@@ -1,22 +1,22 @@
 import type {
-    TCreateStarbaseUIConfigTokens,
-    TStarbaseUIThemeBreakpointTokens,
-    TStarbaseUIThemeColorTokens,
-    TStarbaseUIThemeFontSizeTokens,
-    TStarbaseUIThemeFontTokens,
-    TStarbaseUIThemeFontWeightTokens,
-    TStarbaseUIThemeLetterSpacingTokens,
-    TStarbaseUIThemeLineHeightTokens,
-    TStarbaseUIThemeRadiiTokens,
-    TStarbaseUIThemeShadowTokens,
-    TStarbaseUIThemeSizeTokens,
-    TStarbaseUIThemeSpaceTokens,
-    TStarbaseUIThemeStrokeWidthTokens,
-    TStarbaseUIThemeTransitionTokens,
-    TStarbaseUIThemeZIndexTokens
+    TCreateKickassUIConfigTokens,
+    TKickassUIThemeBreakpointTokens,
+    TKickassUIThemeColorTokens,
+    TKickassUIThemeFontSizeTokens,
+    TKickassUIThemeFontTokens,
+    TKickassUIThemeFontWeightTokens,
+    TKickassUIThemeLetterSpacingTokens,
+    TKickassUIThemeLineHeightTokens,
+    TKickassUIThemeRadiiTokens,
+    TKickassUIThemeShadowTokens,
+    TKickassUIThemeSizeTokens,
+    TKickassUIThemeSpaceTokens,
+    TKickassUIThemeStrokeWidthTokens,
+    TKickassUIThemeTransitionTokens,
+    TKickassUIThemeZIndexTokens
 } from './types'
 
-const defaultBreakpoints: TStarbaseUIThemeBreakpointTokens = {
+const defaultBreakpoints: TKickassUIThemeBreakpointTokens = {
     xs: 640,
     sm: 768,
     md: 1024,
@@ -24,17 +24,17 @@ const defaultBreakpoints: TStarbaseUIThemeBreakpointTokens = {
     xl: 1536
 }
 
-const defaultLightThemeColors: TStarbaseUIThemeColorTokens = {
-    neutral50: '#f9fafb',
-    neutral100: '#f3f4f6',
-    neutral200: '#e5e7eb',
-    neutral300: '#d1d5db',
-    neutral400: '#9ca3af',
-    neutral500: '#6b7280',
-    neutral600: '#4b5563',
-    neutral700: '#374151',
-    neutral800: '#1f2937',
-    neutral900: '#111827',
+const defaultLightThemeColors: TKickassUIThemeColorTokens = {
+    neutral50: '#f8fafc',
+    neutral100: '#f1f5f9',
+    neutral200: '#e2e8f0',
+    neutral300: '#cbd5e1',
+    neutral400: '#94a3b8',
+    neutral500: '#64748b',
+    neutral600: '#475569',
+    neutral700: '#334155',
+    neutral800: '#1e293b',
+    neutral900: '#0f172a',
     primary50: '#eef2ff',
     primary100: '#e0e7ff',
     primary200: '#c7d2fe',
@@ -45,16 +45,6 @@ const defaultLightThemeColors: TStarbaseUIThemeColorTokens = {
     primary700: '#4338ca',
     primary800: '#3730a3',
     primary900: '#312e81',
-    secondary50: '#fdf4ff',
-    secondary100: '#fae8ff',
-    secondary200: '#f5d0fe',
-    secondary300: '#f0abfc',
-    secondary400: '#e879f9',
-    secondary500: '#d946ef',
-    secondary600: '#c026d3',
-    secondary700: '#a21caf',
-    secondary800: '#86198f',
-    secondary900: '#701a75',
     success50: '#f0fdf4',
     success100: '#dcfce7',
     success200: '#bbf7d0',
@@ -96,7 +86,7 @@ const defaultLightThemeColors: TStarbaseUIThemeColorTokens = {
     info800: '#075985',
     info900: '#0c4a6e'
 }
-const defaultDarkThemeColors: TStarbaseUIThemeColorTokens = {
+const defaultDarkThemeColors: TKickassUIThemeColorTokens = {
     neutral50: '#fafafa',
     neutral100: '#f5f5f5',
     neutral200: '#e5e5e5',
@@ -117,16 +107,6 @@ const defaultDarkThemeColors: TStarbaseUIThemeColorTokens = {
     primary700: '#4338ca',
     primary800: '#3730a3',
     primary900: '#312e81',
-    secondary50: '#fdf4ff',
-    secondary100: '#fae8ff',
-    secondary200: '#f5d0fe',
-    secondary300: '#f0abfc',
-    secondary400: '#e879f9',
-    secondary500: '#d946ef',
-    secondary600: '#c026d3',
-    secondary700: '#a21caf',
-    secondary800: '#86198f',
-    secondary900: '#701a75',
     success50: '#f0fdf4',
     success100: '#dcfce7',
     success200: '#bbf7d0',
@@ -169,14 +149,14 @@ const defaultDarkThemeColors: TStarbaseUIThemeColorTokens = {
     info900: '#0c4a6e'
 }
 
-const defaultFonts: TStarbaseUIThemeFontTokens = {
+const defaultFonts: TKickassUIThemeFontTokens = {
     heading:
         'ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"',
     body: 'ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"',
     code: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
 }
 
-const defaultFontSizes: TStarbaseUIThemeFontSizeTokens = {
+const defaultFontSizes: TKickassUIThemeFontSizeTokens = {
     html: '16px',
     body: '1rem',
     xs3: '0.5rem', //8px
@@ -193,14 +173,14 @@ const defaultFontSizes: TStarbaseUIThemeFontSizeTokens = {
     xl6: '3rem' //48px
 }
 
-const defaultFontWeights: TStarbaseUIThemeFontWeightTokens = {
+const defaultFontWeights: TKickassUIThemeFontWeightTokens = {
     regular: '400',
     medium: '500',
     semiBold: '600',
     bold: '700'
 }
 
-const defaultLineHeights: TStarbaseUIThemeLineHeightTokens = {
+const defaultLineHeights: TKickassUIThemeLineHeightTokens = {
     xs: '1.25',
     sm: '1.375',
     md: '1.5',
@@ -208,7 +188,7 @@ const defaultLineHeights: TStarbaseUIThemeLineHeightTokens = {
     xl: '2'
 }
 
-const defaultLetterSpacings: TStarbaseUIThemeLetterSpacingTokens = {
+const defaultLetterSpacings: TKickassUIThemeLetterSpacingTokens = {
     xs: '-0.05em',
     sm: '-0.025em',
     md: '0.025em',
@@ -216,7 +196,7 @@ const defaultLetterSpacings: TStarbaseUIThemeLetterSpacingTokens = {
     xl: '0.1em'
 }
 
-const defaultRadii: TStarbaseUIThemeRadiiTokens = {
+const defaultRadii: TKickassUIThemeRadiiTokens = {
     xs: '2px',
     sm: '6px',
     md: '10px',
@@ -225,13 +205,13 @@ const defaultRadii: TStarbaseUIThemeRadiiTokens = {
     circular: '10000px'
 }
 
-const defaultStrokeWidths: TStarbaseUIThemeStrokeWidthTokens = {
+const defaultStrokeWidths: TKickassUIThemeStrokeWidthTokens = {
     sm: '1px',
     md: '2px',
     lg: '4px'
 }
 
-const defaultSizes: TStarbaseUIThemeSizeTokens = {
+const defaultSizes: TKickassUIThemeSizeTokens = {
     xs6: '0.125rem', //2px
     xs5: '0.25rem', //4px
     xs4: '0.375rem', //6px
@@ -249,11 +229,11 @@ const defaultSizes: TStarbaseUIThemeSizeTokens = {
     xl6: '3rem' //48px
 }
 
-const defaultSpaces: TStarbaseUIThemeSpaceTokens = {
+const defaultSpaces: TKickassUIThemeSpaceTokens = {
     ...defaultSizes
 }
 
-const defaultShadows: TStarbaseUIThemeShadowTokens = {
+const defaultShadows: TKickassUIThemeShadowTokens = {
     xs: '0 0 2px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.14)',
     sm: '0 0 2px rgba(0,0,0,0.12),0 2px 4px rgba(0,0,0,0.14)',
     md: '0 0 2px rgba(0,0,0,0.12),0 4px 8px rgba(0,0,0,0.14)',
@@ -262,7 +242,7 @@ const defaultShadows: TStarbaseUIThemeShadowTokens = {
     xl2: '0 0 8px rgba(0,0,0,0.12),0 32px 64px rgba(0,0,0,0.14)'
 }
 
-const defaultTransitions: TStarbaseUIThemeTransitionTokens = {
+const defaultTransitions: TKickassUIThemeTransitionTokens = {
     timingAccelerateMax: 'cubic-bezier(1,0,1,1)',
     timingAccelerateMid: 'cubic-bezier(0.7,0,1,0.5)',
     timingAccelerateMin: 'cubic-bezier(0.8,0,1,1)',
@@ -281,7 +261,7 @@ const defaultTransitions: TStarbaseUIThemeTransitionTokens = {
     durationSlowest: '500ms'
 }
 
-const defaultZindices: TStarbaseUIThemeZIndexTokens = {
+const defaultZindices: TKickassUIThemeZIndexTokens = {
     xs: '10',
     sm: '20',
     md: '30',
@@ -289,7 +269,7 @@ const defaultZindices: TStarbaseUIThemeZIndexTokens = {
     xl: '50'
 }
 
-const themeFactoryTokens: TCreateStarbaseUIConfigTokens = {
+const themeFactoryTokens: TCreateKickassUIConfigTokens = {
     lightThemeColors: defaultLightThemeColors,
     darkThemeColors: defaultDarkThemeColors,
     breakpoints: defaultBreakpoints,

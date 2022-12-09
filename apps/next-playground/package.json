@@ -15,7 +15,7 @@
         "typecheck": "tsc --noEmit --pretty"
     },
     "dependencies": {
-        "@kickass-coderz/starbase-ui-react": "workspace:*",
+        "@kickass-coderz/kickass-ui-react": "workspace:*",
         "next": "^13.0.6",
         "react": "^18.2.0",
         "@vanilla-extract/css": "^1.9.2",

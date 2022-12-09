@@ -23,8 +23,8 @@ const Button = forwardRef<HTMLButtonElement, TButtonProps>(
         return (
             <button
                 ref={ref}
-                className={mergeClasses(buttonBlueprint({ shape, size, variant, color, fullWidth }), className)}
                 {...rest}
+                className={mergeClasses(buttonBlueprint({ shape, size, variant, color, fullWidth }), className)}
             >
                 {children}
             </button>

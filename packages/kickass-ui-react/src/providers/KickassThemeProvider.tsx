@@ -10,16 +10,7 @@ import {
 } from '../consts'
 import { useLocalStorage } from '../internal'
 
-export type TStarbaseThemeMode = 'light' | 'dark'
-
-type TStarbaseThemeContext = {
-    theme: TStarbaseThemeMode
-    isDark: boolean
-    isLight: boolean
-    toggleTheme: () => void
-}
-
-const StarbaseThemeContext = createContext<TStarbaseThemeContext | undefined>(undefined)
+export type TKickassThemeMode = 'light' | 'dark'
 
 const useSystemTheme = () => {
     const { matches } = useMediaQuery('(prefers-color-scheme: dark)')
@@ -27,7 +18,7 @@ const useSystemTheme = () => {
     return matches ? DARK_THEME_VALUE : LIGHT_THEME_VALUE
 }
 
-const useDisableThemeTransition = (theme: TStarbaseThemeMode, enabled?: boolean) => {
+const useDisableThemeTransition = (theme: TKickassThemeMode, enabled?: boolean) => {
     const mountedRef = useRef(false)
 
     useEffect(() => {
@@ -59,19 +50,19 @@ const useDisableThemeTransition = (theme: TStarbaseThemeMode, enabled?: boolean)
     }, [enabled, theme])
 }
 
-const useThemeResolver = (mode?: TStarbaseThemeMode, disableTransitionOnChange?: boolean) => {
+const useThemeResolver = (mode?: TKickassThemeMode, disableTransitionOnChange?: boolean) => {
     const systemTheme = useSystemTheme()
     const [storageState, setStorageState] = useLocalStorage(THEME_STORAGE_KEY, mode || systemTheme)
 
     useDisableThemeTransition(storageState, disableTransitionOnChange)
 
-    const toggleTheme = useCallback(
-        (colorMode?: TStarbaseThemeMode) => {
-            if (colorMode) {
-                setStorageState(colorMode)
-            }
+    const toggleTheme = useCallback(() => {
+        setStorageState(currentTheme => (currentTheme === LIGHT_THEME_VALUE ? DARK_THEME_VALUE : LIGHT_THEME_VALUE))
+    }, [setStorageState])
 
-            setStorageState(currentTheme => (currentTheme === LIGHT_THEME_VALUE ? DARK_THEME_VALUE : LIGHT_THEME_VALUE))
+    const setTheme = useCallback(
+        (colorMode: TKickassThemeMode) => {
+            setStorageState(colorMode)
         },
         [setStorageState]
     )
@@ -89,28 +80,39 @@ const useThemeResolver = (mode?: TStarbaseThemeMode, disableTransitionOnChange?:
             theme: storageState,
             isDark: storageState === DARK_THEME_VALUE,
             isLight: storageState === LIGHT_THEME_VALUE,
-            toggleTheme
+            toggleTheme,
+            setTheme
         }),
-        [storageState, toggleTheme]
+        [storageState, toggleTheme, setTheme]
     )
 
     return context
 }
 
-type TStarbaseThemeProviderProps = {
+type TKickassThemeContext = {
+    theme: TKickassThemeMode
+    isDark: boolean
+    isLight: boolean
+    setTheme: (colorMode: TKickassThemeMode) => void
+    toggleTheme: () => void
+}
+
+const KickassThemeContext = createContext<TKickassThemeContext | undefined>(undefined)
+
+type TKickassThemeProviderProps = {
     children: React.ReactNode
     disableTransitionOnChange?: boolean
-    mode?: TStarbaseThemeMode
+    mode?: TKickassThemeMode
 }
 
-const StarbaseThemeProvider = ({ children, mode, disableTransitionOnChange = true }: TStarbaseThemeProviderProps) => {
+const KickassThemeProvider = ({ children, mode, disableTransitionOnChange = true }: TKickassThemeProviderProps) => {
     const context = useThemeResolver(mode, disableTransitionOnChange)
 
-    return <StarbaseThemeContext.Provider value={context}>{children}</StarbaseThemeContext.Provider>
+    return <KickassThemeContext.Provider value={context}>{children}</KickassThemeContext.Provider>
 }
 
-const useStarbaseTheme = () => {
-    const context = useContext(StarbaseThemeContext)
+const useKickassTheme = () => {
+    const context = useContext(KickassThemeContext)
 
     if (context === undefined) {
         throw new Error('[StarbaseUI]: `useStarbaseTheme` must be used within a `StarbaseThemeProvider`!')
@@ -119,4 +121,4 @@ const useStarbaseTheme = () => {
     return context
 }
 
-export { StarbaseThemeProvider, useStarbaseTheme }
+export { KickassThemeProvider, useKickassTheme }

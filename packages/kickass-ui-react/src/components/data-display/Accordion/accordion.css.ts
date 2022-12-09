@@ -1,33 +1,33 @@
 import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 
-import { stardust } from '../../../theme'
+import { sprinkles } from '../../../theme'
 
 const accordionRootBlueprint = recipe({
-    base: stardust({
+    base: sprinkles({
         boxSizing: 'border-box'
     })
 })
 
 const accordionItemBlueprint = recipe({
-    base: stardust({
+    base: sprinkles({
         boxSizing: 'border-box'
     })
 })
 
 const accordionHeaderBlueprint = recipe({
-    base: stardust({
+    base: sprinkles({
         boxSizing: 'border-box'
     })
 })
 
 const accordionButtonBlueprint = recipe({
-    base: stardust({
+    base: sprinkles({
         boxSizing: 'border-box'
     })
 })
 
 const accordionPanelBlueprint = recipe({
-    base: stardust({
+    base: sprinkles({
         boxSizing: 'border-box'
     })
 })

@@ -1,17 +1,18 @@
-import { createStarbaseSSRColorSchemeScript } from '@kickass-coderz/starbase-ui-react'
+import { createKickassUISSRColorSchemeScript } from '@kickass-coderz/kickass-ui-react'
 import { Head, Html, Main, NextScript } from 'next/document'
 import Script from 'next/script'
 
 const Document = () => {
     return (
-        <Html>
+        <Html lang="en">
             <Head />
             <body>
+                {/* This script is required for KickassUI to work properly. */}
                 <Script
-                    id="starbase-ssr"
+                    id="kickass-ui-ssr"
                     strategy="beforeInteractive"
                     dangerouslySetInnerHTML={{
-                        __html: createStarbaseSSRColorSchemeScript({ defaultMode: 'dark' })
+                        __html: createKickassUISSRColorSchemeScript({ defaultMode: 'dark' })
                     }}
                 />
                 <Main />

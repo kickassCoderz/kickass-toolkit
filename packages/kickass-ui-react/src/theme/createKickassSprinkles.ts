@@ -1,9 +1,9 @@
 import { createSprinkles, defineProperties } from '@vanilla-extract/sprinkles'
 
-import type { TStarbaseUIThemeVars } from './createStarbaseThemeVars'
-import type { TStarbaseUIThemeBreakpointTokens } from './types'
+import type { TKickassUIThemeVars } from './createKickassThemeVars'
+import type { TKickassUIThemeBreakpointTokens } from './types'
 
-const createStarbaseStardust = (themeVars: TStarbaseUIThemeVars, breakpoints: TStarbaseUIThemeBreakpointTokens) => {
+const createKickassSprinkles = (themeVars: TKickassUIThemeVars, breakpoints: TKickassUIThemeBreakpointTokens) => {
     const commonColors = {
         currentColor: 'currentColor',
         inherit: 'inherit',
@@ -32,16 +32,6 @@ const createStarbaseStardust = (themeVars: TStarbaseUIThemeVars, breakpoints: TS
         primary700: themeVars.colors.primary700,
         primary800: themeVars.colors.primary800,
         primary900: themeVars.colors.primary900,
-        secondary50: themeVars.colors.secondary50,
-        secondary100: themeVars.colors.secondary100,
-        secondary200: themeVars.colors.secondary200,
-        secondary300: themeVars.colors.secondary300,
-        secondary400: themeVars.colors.secondary400,
-        secondary500: themeVars.colors.secondary500,
-        secondary600: themeVars.colors.secondary600,
-        secondary700: themeVars.colors.secondary700,
-        secondary800: themeVars.colors.secondary800,
-        secondary900: themeVars.colors.secondary900,
         success50: themeVars.colors.success50,
         success100: themeVars.colors.success100,
         success200: themeVars.colors.success200,
@@ -103,14 +93,6 @@ const createStarbaseStardust = (themeVars: TStarbaseUIThemeVars, breakpoints: TS
         primaryOutlinedColorDisabled: themeVars.colors.primaryOutlinedColorDisabled,
         primarySubtleColor: themeVars.colors.primarySubtleColor,
         primarySubtleColorDisabled: themeVars.colors.primarySubtleColorDisabled,
-        secondarySolidColor: themeVars.colors.secondarySolidColor,
-        secondarySolidColorDisabled: themeVars.colors.secondarySolidColorDisabled,
-        secondarySoftColor: themeVars.colors.secondarySoftColor,
-        secondarySoftColorDisabled: themeVars.colors.secondarySoftColorDisabled,
-        secondaryOutlinedColor: themeVars.colors.secondaryOutlinedColor,
-        secondaryOutlinedColorDisabled: themeVars.colors.secondaryOutlinedColorDisabled,
-        secondarySubtleColor: themeVars.colors.secondarySubtleColor,
-        secondarySubtleColorDisabled: themeVars.colors.secondarySubtleColorDisabled,
         successSolidColor: themeVars.colors.successSolidColor,
         successSolidColorDisabled: themeVars.colors.successSolidColorDisabled,
         successSoftColor: themeVars.colors.successSoftColor,
@@ -174,18 +156,6 @@ const createStarbaseStardust = (themeVars: TStarbaseUIThemeVars, breakpoints: TS
         primaryOutlinedBgColorActive: themeVars.colors.primaryOutlinedBgColorActive,
         primarySubtleBgColorHover: themeVars.colors.primarySubtleBgColorHover,
         primarySubtleBgColorActive: themeVars.colors.primarySubtleBgColorActive,
-        secondarySolidBgColor: themeVars.colors.secondarySolidBgColor,
-        secondarySolidBgColorHover: themeVars.colors.secondarySolidBgColorHover,
-        secondarySolidBgColorActive: themeVars.colors.secondarySolidBgColorActive,
-        secondarySolidBgColorDisabled: themeVars.colors.secondarySolidBgColorDisabled,
-        secondarySoftBgColor: themeVars.colors.secondarySoftBgColor,
-        secondarySoftBgColorHover: themeVars.colors.secondarySoftBgColorHover,
-        secondarySoftBgColorActive: themeVars.colors.secondarySoftBgColorActive,
-        secondarySoftBgColorDisabled: themeVars.colors.secondarySoftBgColorDisabled,
-        secondaryOutlinedBgColorHover: themeVars.colors.secondaryOutlinedBgColorHover,
-        secondaryOutlinedBgColorActive: themeVars.colors.secondaryOutlinedBgColorActive,
-        secondarySubtleBgColorHover: themeVars.colors.secondarySubtleBgColorHover,
-        secondarySubtleBgColorActive: themeVars.colors.secondarySubtleBgColorActive,
         successSolidBgColor: themeVars.colors.successSolidBgColor,
         successSolidBgColorHover: themeVars.colors.successSolidBgColorHover,
         successSolidBgColorActive: themeVars.colors.successSolidBgColorActive,
@@ -248,10 +218,6 @@ const createStarbaseStardust = (themeVars: TStarbaseUIThemeVars, breakpoints: TS
         primaryOutlinedBorderColorHover: themeVars.colors.primaryOutlinedBorderColorHover,
         primaryOutlinedBorderColorActive: themeVars.colors.primaryOutlinedBorderColorActive,
         primaryOutlinedBorderColorDisabled: themeVars.colors.primaryOutlinedBorderColorDisabled,
-        secondaryOutlinedBorderColor: themeVars.colors.secondaryOutlinedBorderColor,
-        secondaryOutlinedBorderColorHover: themeVars.colors.secondaryOutlinedBorderColorHover,
-        secondaryOutlinedBorderColorActive: themeVars.colors.secondaryOutlinedBorderColorActive,
-        secondaryOutlinedBorderColorDisabled: themeVars.colors.secondaryOutlinedBorderColorDisabled,
         successOutlinedBorderColor: themeVars.colors.successOutlinedBorderColor,
         successOutlinedBorderColorHover: themeVars.colors.successOutlinedBorderColorHover,
         successOutlinedBorderColorActive: themeVars.colors.successOutlinedBorderColorActive,
@@ -772,9 +738,9 @@ const createStarbaseStardust = (themeVars: TStarbaseUIThemeVars, breakpoints: TS
         }
     })
 
-    const stardust = createSprinkles(responsiveProperties, colorProperties, staticProperties, effectsProperties)
+    const sprinkles = createSprinkles(responsiveProperties, colorProperties, staticProperties, effectsProperties)
 
-    return stardust
+    return sprinkles
 }
 
-export { createStarbaseStardust }
+export { createKickassSprinkles }

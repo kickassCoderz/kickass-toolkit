@@ -5,7 +5,7 @@ type TCreateStarbaseSSRColorSchemeScriptParams = {
     defaultMode?: TStarbaseThemeMode
 }
 
-const createStarbaseSSRColorSchemeScript = ({ defaultMode }: TCreateStarbaseSSRColorSchemeScriptParams) => {
+const createKickassUISSRColorSchemeScript = ({ defaultMode }: TCreateStarbaseSSRColorSchemeScriptParams) => {
     return `(function () {
         try {
             var theme =JSON.parse(localStorage.getItem("${THEME_STORAGE_KEY}"));
@@ -28,9 +28,9 @@ const createStarbaseSSRColorSchemeScript = ({ defaultMode }: TCreateStarbaseSSRC
             }
             document.documentElement.setAttribute("${THEME_ATTR_NAME}", theme);
         } catch (e) {
-            console.warn("[StarbaseUI-SSRScript]:",e);
+            console.warn("[KickassUI-SSRScript]:",e);
         }
     })();`
 }
 
-export { createStarbaseSSRColorSchemeScript }
+export { createKickassUISSRColorSchemeScript }
