@@ -1,11 +1,12 @@
-import { NextPage } from 'next'
+import { LandingHero, LandingLayout } from '../components/landing'
+import type { TNextPageWithLayout } from '../types'
 
-const HomePage: NextPage = () => {
-    return (
-        <div>
-            <h1>Home Page</h1>
-        </div>
-    )
+const HomePage: TNextPageWithLayout = () => {
+    return <LandingHero />
+}
+
+HomePage.getLayout = function getLayout(page: React.ReactElement) {
+    return <LandingLayout>{page}</LandingLayout>
 }
 
 export default HomePage

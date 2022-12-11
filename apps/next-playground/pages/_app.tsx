@@ -1,12 +1,17 @@
-import { StarbaseThemeProvider } from '@kickass-coderz/starbase-ui-react'
-import type { AppProps } from 'next/app'
+import { KickassThemeProvider } from '@kickass-coderz/kickass-ui-react'
+import Head from 'next/head'
 
-const App = ({ Component, pageProps }: AppProps) => {
+import type { TNextAppPropsWithLayout } from '../types'
+
+const App = ({ Component, pageProps }: TNextAppPropsWithLayout) => {
+    const getLayout = Component.getLayout ?? (page => page)
+
     return (
         <>
-            <StarbaseThemeProvider mode="dark">
-                <Component {...pageProps} />
-            </StarbaseThemeProvider>
+            <Head>
+                <title>Next playground</title>
+            </Head>
+            <KickassThemeProvider mode="dark">{getLayout(<Component {...pageProps} />)}</KickassThemeProvider>
         </>
     )
 }

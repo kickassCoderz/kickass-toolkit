@@ -6,7 +6,7 @@ const withVanillaExtract = createVanillaExtractPlugin({ identifiers: 'short' })
 const nextConfig = {
     reactStrictMode: true,
     experimental: {
-        transpilePackages: ['@kickass-coderz/starbase-ui-react']
+        transpilePackages: ['@kickass-coderz/kickass-ui-react']
     }
 }
 
