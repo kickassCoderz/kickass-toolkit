@@ -1,19 +1,12 @@
-import { Button, useKickassTheme } from '@kickass-coderz/kickass-ui-react'
-import { NextPage } from 'next'
+import { LandingHero, LandingLayout } from '../components/landing'
+import type { TNextPageWithLayout } from '../types'
 
-const ToggleThemeButton = () => {
-    const { toggleTheme } = useKickassTheme()
-
-    return <Button onClick={toggleTheme}>Toggle theme</Button>
+const HomePage: TNextPageWithLayout = () => {
+    return <LandingHero />
 }
 
-const HomePage: NextPage = () => {
-    return (
-        <div>
-            <h1>Home Page</h1>
-            <ToggleThemeButton />
-        </div>
-    )
+HomePage.getLayout = function getLayout(page: React.ReactElement) {
+    return <LandingLayout>{page}</LandingLayout>
 }
 
 export default HomePage

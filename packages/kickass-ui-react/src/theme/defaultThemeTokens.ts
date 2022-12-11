@@ -35,6 +35,7 @@ const defaultLightThemeColors: TKickassUIThemeColorTokens = {
     neutral700: '#334155',
     neutral800: '#1e293b',
     neutral900: '#0f172a',
+
     primary50: '#eef2ff',
     primary100: '#e0e7ff',
     primary200: '#c7d2fe',
@@ -45,6 +46,7 @@ const defaultLightThemeColors: TKickassUIThemeColorTokens = {
     primary700: '#4338ca',
     primary800: '#3730a3',
     primary900: '#312e81',
+
     success50: '#f0fdf4',
     success100: '#dcfce7',
     success200: '#bbf7d0',
@@ -55,6 +57,7 @@ const defaultLightThemeColors: TKickassUIThemeColorTokens = {
     success700: '#15803d',
     success800: '#166534',
     success900: '#14532d',
+
     danger50: '#fff1f2',
     danger100: '#ffe4e6',
     danger200: '#fecdd3',
@@ -65,6 +68,7 @@ const defaultLightThemeColors: TKickassUIThemeColorTokens = {
     danger700: '#be123c',
     danger800: '#9f1239',
     danger900: '#881337',
+
     warning50: '#fffbeb',
     warning100: '#fef3c7',
     warning200: '#fde68a',
@@ -75,6 +79,7 @@ const defaultLightThemeColors: TKickassUIThemeColorTokens = {
     warning700: '#b45309',
     warning800: '#92400e',
     warning900: '#78350f',
+
     info50: '#f0f9ff',
     info100: '#e0f2fe',
     info200: '#bae6fd',
@@ -87,16 +92,17 @@ const defaultLightThemeColors: TKickassUIThemeColorTokens = {
     info900: '#0c4a6e'
 }
 const defaultDarkThemeColors: TKickassUIThemeColorTokens = {
-    neutral50: '#fafafa',
-    neutral100: '#f5f5f5',
-    neutral200: '#e5e5e5',
-    neutral300: '#d4d4d4',
-    neutral400: '#a3a3a3',
-    neutral500: '#737373',
-    neutral600: '#525252',
-    neutral700: '#404040',
-    neutral800: '#262626',
-    neutral900: '#171717',
+    neutral50: '#f8fafc',
+    neutral100: '#f1f5f9',
+    neutral200: '#e2e8f0',
+    neutral300: '#cbd5e1',
+    neutral400: '#94a3b8',
+    neutral500: '#64748b',
+    neutral600: '#475569',
+    neutral700: '#334155',
+    neutral800: '#1e293b',
+    neutral900: '#0f172a',
+
     primary50: '#eef2ff',
     primary100: '#e0e7ff',
     primary200: '#c7d2fe',
@@ -107,6 +113,7 @@ const defaultDarkThemeColors: TKickassUIThemeColorTokens = {
     primary700: '#4338ca',
     primary800: '#3730a3',
     primary900: '#312e81',
+
     success50: '#f0fdf4',
     success100: '#dcfce7',
     success200: '#bbf7d0',
@@ -117,6 +124,7 @@ const defaultDarkThemeColors: TKickassUIThemeColorTokens = {
     success700: '#15803d',
     success800: '#166534',
     success900: '#14532d',
+
     danger50: '#fff1f2',
     danger100: '#ffe4e6',
     danger200: '#fecdd3',
@@ -127,6 +135,7 @@ const defaultDarkThemeColors: TKickassUIThemeColorTokens = {
     danger700: '#be123c',
     danger800: '#9f1239',
     danger900: '#881337',
+
     warning50: '#fffbeb',
     warning100: '#fef3c7',
     warning200: '#fde68a',
@@ -137,6 +146,7 @@ const defaultDarkThemeColors: TKickassUIThemeColorTokens = {
     warning700: '#b45309',
     warning800: '#92400e',
     warning900: '#78350f',
+
     info50: '#f0f9ff',
     info100: '#e0f2fe',
     info200: '#bae6fd',
@@ -226,7 +236,8 @@ const defaultSizes: TKickassUIThemeSizeTokens = {
     xl3: '1.75rem', //28px
     xl4: '2rem', //32px
     xl5: '2.5rem', //40px
-    xl6: '3rem' //48px
+    xl6: '3rem', //48px
+    xl7: '4rem' //64px
 }
 
 const defaultSpaces: TKickassUIThemeSpaceTokens = {

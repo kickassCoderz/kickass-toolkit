@@ -17,7 +17,8 @@ const buttonBlueprint = recipe({
             fontFamily: 'body',
             fontWeight: 'bold',
             transitionTimingFunction: 'ease',
-            transitionDuration: 'faster'
+            transitionDuration: 'faster',
+            lineHeight: 'none'
         })
     ],
 

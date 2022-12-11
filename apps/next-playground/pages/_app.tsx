@@ -1,12 +1,17 @@
 import { KickassThemeProvider } from '@kickass-coderz/kickass-ui-react'
-import type { AppProps } from 'next/app'
+import Head from 'next/head'
 
-const App = ({ Component, pageProps }: AppProps) => {
+import type { TNextAppPropsWithLayout } from '../types'
+
+const App = ({ Component, pageProps }: TNextAppPropsWithLayout) => {
+    const getLayout = Component.getLayout ?? (page => page)
+
     return (
         <>
-            <KickassThemeProvider mode="dark">
-                <Component {...pageProps} />
-            </KickassThemeProvider>
+            <Head>
+                <title>Next playground</title>
+            </Head>
+            <KickassThemeProvider mode="dark">{getLayout(<Component {...pageProps} />)}</KickassThemeProvider>
         </>
     )
 }

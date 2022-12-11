@@ -16,7 +16,7 @@ importers:
       husky: ^8.0.2
       prettier: latest
       turbo: latest
-      typescript: ^4.9.3
+      typescript: ^4.9.4
     devDependencies:
       '@commitlint/cli': 17.3.0
       '@commitlint/config-conventional': 17.3.0
@@ -137,36 +137,33 @@ importers:
 
   packages/eslint-config-custom:
     specifiers:
-      '@typescript-eslint/eslint-plugin': ^5.40.1
-      '@typescript-eslint/parser': ^5.40.1
+      '@typescript-eslint/eslint-plugin': ^5.46.0
+      '@typescript-eslint/parser': ^5.46.0
       eslint-config-next: ^13.0.6
       eslint-config-prettier: ^8.5.0
       eslint-config-turbo: latest
-      eslint-plugin-jest: 27.1.3
-      eslint-plugin-jest-dom: 4.0.2
+      eslint-plugin-jest: 27.1.6
+      eslint-plugin-jest-dom: 4.0.3
       eslint-plugin-jsx-a11y: ^6.6.1
       eslint-plugin-prettier: ^4.2.1
-      eslint-plugin-react: ^7.31.10
+      eslint-plugin-react: ^7.31.11
       eslint-plugin-react-hooks: ^4.6.0
       eslint-plugin-simple-import-sort: 8.0.0
       eslint-plugin-testing-library: 5.9.1
-      typescript: ^4.9.3
     dependencies:
       '@typescript-eslint/eslint-plugin': 5.46.0_5mle7isnkfgjmrghnnczirv6iy
       '@typescript-eslint/parser': 5.46.0_ha6vam6werchizxrnqvarmz2zu
       eslint-config-next: 13.0.6_ha6vam6werchizxrnqvarmz2zu
       eslint-config-prettier: 8.5.0_eslint@8.29.0
       eslint-config-turbo: 0.0.7_eslint@8.29.0
-      eslint-plugin-jest: 27.1.3_tjvinx5bdnfpg7kkz6ii3mf2ym
-      eslint-plugin-jest-dom: 4.0.2_eslint@8.29.0
+      eslint-plugin-jest: 27.1.6_tjvinx5bdnfpg7kkz6ii3mf2ym
+      eslint-plugin-jest-dom: 4.0.3_eslint@8.29.0
       eslint-plugin-jsx-a11y: 6.6.1_eslint@8.29.0
       eslint-plugin-prettier: 4.2.1_5dgjrgoi64tgrv3zzn3walur3u
       eslint-plugin-react: 7.31.11_eslint@8.29.0
       eslint-plugin-react-hooks: 4.6.0_eslint@8.29.0
       eslint-plugin-simple-import-sort: 8.0.0_eslint@8.29.0
       eslint-plugin-testing-library: 5.9.1_ha6vam6werchizxrnqvarmz2zu
-    devDependencies:
-      typescript: 4.9.4
 
   packages/hooks:
     specifiers:
@@ -6626,8 +6623,8 @@ packages:
       - supports-color
     dev: false
 
-  /eslint-plugin-jest-dom/4.0.2_eslint@8.29.0:
-    resolution: {integrity: sha512-Jo51Atwyo2TdcUncjmU+UQeSTKh3sc2LF/M5i/R3nTU0Djw9V65KGJisdm/RtuKhy2KH/r7eQ1n6kwYFPNdHlA==}
+  /eslint-plugin-jest-dom/4.0.3_eslint@8.29.0:
+    resolution: {integrity: sha512-9j+n8uj0+V0tmsoS7bYC7fLhQmIvjRqRYEcbDSi+TKPsTThLLXCyj5swMSSf/hTleeMktACnn+HFqXBr5gbcbA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0, npm: '>=6', yarn: '>=1'}
     peerDependencies:
       eslint: ^6.8.0 || ^7.0.0 || ^8.0.0
@@ -6638,8 +6635,8 @@ packages:
       requireindex: 1.2.0
     dev: false
 
-  /eslint-plugin-jest/27.1.3_tjvinx5bdnfpg7kkz6ii3mf2ym:
-    resolution: {integrity: sha512-7DrIfYRQPa7JQd1Le8G/BJsfYHVUKQdJQ/6vULSp/4NjKZmSMJ/605G2hhScEra++SiH68zPEjLnrO74nHrMLg==}
+  /eslint-plugin-jest/27.1.6_tjvinx5bdnfpg7kkz6ii3mf2ym:
+    resolution: {integrity: sha512-XA7RFLSrlQF9IGtAmhddkUkBuICCTuryfOTfCSWcZHiHb69OilIH05oozH2XA6CEOtztnOd0vgXyvxZodkxGjg==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ^5.0.0
@@ -7993,7 +7990,7 @@ packages:
     engines: {node: '>=12.0.0'}
     dependencies:
       ansi-escapes: 4.3.2
-      chalk: 4.1.1
+      chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-width: 3.0.0
       external-editor: 3.1.0
@@ -9200,7 +9197,7 @@ packages:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
     engines: {node: '>=10'}
     dependencies:
-      chalk: 4.1.1
+      chalk: 4.1.2
       is-unicode-supported: 0.1.0
     dev: true
 
@@ -9839,7 +9836,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       bl: 4.1.0
-      chalk: 4.1.1
+      chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.7.0
       is-interactive: 1.0.0
@@ -10979,7 +10976,7 @@ packages:
     dependencies:
       object-assign: 4.1.1
       react: 17.0.2
-      react-is: 17.0.2
+      react-is: 18.2.0
     dev: true
 
   /react-test-renderer/17.0.2_react@17.0.2:

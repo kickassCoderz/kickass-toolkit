@@ -71,7 +71,8 @@ const createKickassThemeVars = () => {
             xl3: 'sizes-xl3',
             xl4: 'sizes-xl4',
             xl5: 'sizes-xl5',
-            xl6: 'sizes-xl6'
+            xl6: 'sizes-xl6',
+            xl7: 'sizes-xl7'
         },
         space: {
             xs6: 'space-xs6',
@@ -88,7 +89,8 @@ const createKickassThemeVars = () => {
             xl3: 'space-xl3',
             xl4: 'space-xl4',
             xl5: 'space-xl5',
-            xl6: 'space-xl6'
+            xl6: 'space-xl6',
+            xl7: 'space-xl7'
         },
         shadows: {
             xs: 'shadows-xs',

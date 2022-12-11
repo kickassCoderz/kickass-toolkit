@@ -684,7 +684,7 @@ const createKickassSprinkles = (themeVars: TKickassUIThemeVars, breakpoints: TKi
             fontFamily: { ...themeVars.fonts, inherit: 'inherit' },
             fontWeight: { ...themeVars.fontWeights, inherit: 'inherit' },
             fontSize: { ...themeVars.fontSizes, inherit: 'inherit' },
-            lineHeight: { ...themeVars.lineHeights, inherit: 'inherit' },
+            lineHeight: { ...themeVars.lineHeights, inherit: 'inherit', none: '1' },
             letterSpacing: themeVars.letterSpacings,
             fontStyle: ['italic', 'normal', 'inherit'],
 
@@ -742,5 +742,11 @@ const createKickassSprinkles = (themeVars: TKickassUIThemeVars, breakpoints: TKi
 
     return sprinkles
 }
+
+export type TKAUISprinklesFn = ReturnType<typeof createKickassSprinkles>
+
+export type TKAUISprinklesFnParams = Parameters<TKAUISprinklesFn>
+
+export type TKAUISprinklesProps = TKAUISprinklesFnParams[0]
 
 export { createKickassSprinkles }

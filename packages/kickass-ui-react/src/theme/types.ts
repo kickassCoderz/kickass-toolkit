@@ -148,6 +148,7 @@ export type TKickassUIThemeSizeTokens = {
     xl4: string
     xl5: string
     xl6: string
+    xl7: string
 }
 export type TKickassUIThemeSpaceTokens = {
     xs6: string
@@ -165,6 +166,7 @@ export type TKickassUIThemeSpaceTokens = {
     xl4: string
     xl5: string
     xl6: string
+    xl7: string
 }
 
 export type TKickassUIThemeShadowTokens = {
