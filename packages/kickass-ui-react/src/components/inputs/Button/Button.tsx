@@ -1,12 +1,12 @@
 import { forwardRef } from 'react'
 
 import { mergeClasses } from '../../../internal'
-import type { TButtonBlueprint } from './button.css'
-import { buttonBlueprint } from './button.css'
+import type { TKAUIButtonRecipe } from './button.css'
+import { buttonRecipe } from './button.css'
 
-export type TButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'color'> & TButtonBlueprint
+export type TKAUIButtonProps = Omit<React.ComponentPropsWithRef<'button'>, 'color'> & TKAUIButtonRecipe
 
-const Button = forwardRef<HTMLButtonElement, TButtonProps>(
+const Button = forwardRef<HTMLButtonElement, TKAUIButtonProps>(
     (
         {
             children,
@@ -22,9 +22,9 @@ const Button = forwardRef<HTMLButtonElement, TButtonProps>(
     ) => {
         return (
             <button
-                ref={ref}
                 {...rest}
-                className={mergeClasses(buttonBlueprint({ shape, size, variant, color, fullWidth }), className)}
+                ref={ref}
+                className={mergeClasses(buttonRecipe({ shape, size, variant, color, fullWidth }), className)}
             >
                 {children}
             </button>
@@ -32,6 +32,6 @@ const Button = forwardRef<HTMLButtonElement, TButtonProps>(
     }
 )
 
-Button.displayName = 'Button'
+Button.displayName = 'KAUI-Button'
 
 export { Button }

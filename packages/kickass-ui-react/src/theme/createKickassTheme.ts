@@ -1,13 +1,10 @@
 import { createGlobalTheme } from '@vanilla-extract/css'
 
 import { THEME_ATTR_SELECTOR_DARK, THEME_ATTR_SELECTOR_LIGHT } from '../consts'
-import type { TKickassUIThemeVars } from './createKickassThemeVars'
-import type { TCreateKickassUIConfigTokens } from './types'
+import type { TKAUIThemeVars } from './createKickassThemeVars'
+import type { TKAUICreateConfigTokens } from './types'
 
-const createKickassTheme = (
-    themeVars: TKickassUIThemeVars,
-    themeTokens: Omit<TCreateKickassUIConfigTokens, 'breakpoints'>
-) => {
+const createKickassTheme = (themeVars: TKAUIThemeVars, themeTokens: Omit<TKAUICreateConfigTokens, 'breakpoints'>) => {
     const { colors: colorVars, ...sharedVars } = themeVars
     const { darkThemeColors, lightThemeColors, ...sharedTokens } = themeTokens
 

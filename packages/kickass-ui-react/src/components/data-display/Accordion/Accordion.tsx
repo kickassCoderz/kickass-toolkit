@@ -12,31 +12,31 @@ const AccordionRoot = forwardRef<HTMLUListElement, TAccordionRootProps>((props, 
     return <AccordionWidget.Root ref={ref} {...props} />
 })
 
-AccordionRoot.displayName = 'StarbaseAccordionRoot'
+AccordionRoot.displayName = 'KAUI-AccordionRoot'
 
 const AccordionItem = forwardRef<HTMLLIElement, TAccordionItemProps>((props, ref) => {
     return <AccordionWidget.Item ref={ref} {...props}></AccordionWidget.Item>
 })
 
-AccordionItem.displayName = 'StarbaseAccordionItem'
+AccordionItem.displayName = 'KAUI-AccordionItem'
 
 const AccordionHeader = forwardRef<HTMLHeadingElement, TAccordionItemHeaderProps>((props, ref) => {
     return <AccordionWidget.Header ref={ref} {...props}></AccordionWidget.Header>
 })
 
-AccordionHeader.displayName = 'StarbaseAccordionHeader'
+AccordionHeader.displayName = 'KAUI-AccordionHeader'
 
 const AccordionButton = forwardRef<HTMLButtonElement, TAccordionItemButtonProps>((props, ref) => {
     return <AccordionWidget.Button ref={ref} {...props}></AccordionWidget.Button>
 })
 
-AccordionButton.displayName = 'StarbaseAccordionButton'
+AccordionButton.displayName = 'KAUI-AccordionButton'
 
 const AccordionPanel = forwardRef<HTMLDivElement, TAccordionItemPanelProps>((props, ref) => {
     return <AccordionWidget.Panel ref={ref} {...props} />
 })
 
-AccordionPanel.displayName = 'StarbaseAccordionPanel'
+AccordionPanel.displayName = 'KAUI-AccordionPanel'
 
 const Accordion = {
     Root: AccordionRoot,

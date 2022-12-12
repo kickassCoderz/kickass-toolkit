@@ -1,9 +1,9 @@
 import { globalStyle } from '@vanilla-extract/css'
 
 import { THEME_ATTR_SELECTOR_DARK, THEME_ATTR_SELECTOR_LIGHT } from '../consts'
-import type { TKickassUIThemeVars } from './createKickassThemeVars'
+import type { TKAUIThemeVars } from './createKickassThemeVars'
 
-const createKickassGlobalStyles = (themeVars: TKickassUIThemeVars) => {
+const createKickassGlobalStyles = (themeVars: TKAUIThemeVars) => {
     globalStyle('*,*::before,*::after', {
         boxSizing: 'border-box',
         margin: 0,

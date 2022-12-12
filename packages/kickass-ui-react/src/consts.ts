@@ -1,4 +1,4 @@
-const THEME_STORAGE_KEY = 'kickass_ui_color_scheme'
+const THEME_STORAGE_KEY = 'kaui_color_scheme'
 const LIGHT_THEME_VALUE = 'light'
 const DARK_THEME_VALUE = 'dark'
 const THEME_ATTR_NAME = 'data-kickass-ui-theme'

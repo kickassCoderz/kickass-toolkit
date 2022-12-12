@@ -1,9 +1,9 @@
 import { createSprinkles, defineProperties } from '@vanilla-extract/sprinkles'
 
-import type { TKickassUIThemeVars } from './createKickassThemeVars'
-import type { TKickassUIThemeBreakpointTokens } from './types'
+import type { TKAUIThemeVars } from './createKickassThemeVars'
+import type { TKAUIBreakpointTokens } from './types'
 
-const createKickassSprinkles = (themeVars: TKickassUIThemeVars, breakpoints: TKickassUIThemeBreakpointTokens) => {
+const createKickassSprinkles = (themeVars: TKAUIThemeVars, breakpoints: TKAUIBreakpointTokens) => {
     const commonColors = {
         currentColor: 'currentColor',
         inherit: 'inherit',

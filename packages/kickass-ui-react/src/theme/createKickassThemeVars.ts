@@ -376,6 +376,6 @@ const createKickassThemeVars = () => {
     return { ...sharedVars, ...colorModeVars }
 }
 
-export type TKickassUIThemeVars = ReturnType<typeof createKickassThemeVars>
+export type TKAUIThemeVars = ReturnType<typeof createKickassThemeVars>
 
 export { createKickassThemeVars }

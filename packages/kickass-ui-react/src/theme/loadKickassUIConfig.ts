@@ -1,6 +1,6 @@
 // const mergeConfigs = (
-//     defaultTokens: TCreateKickassUIConfigTokens,
-//     configTokens?: Partial<TCreateKickassUIConfigTokens>
+//     defaultTokens: TKAUICreateConfigTokens,
+//     configTokens?: Partial<TKAUICreateConfigTokens>
 // ) => {
 //     if (!configTokens) {
 //         return defaultTokens
@@ -39,7 +39,7 @@ import { themeFactoryTokens } from './defaultThemeTokens'
 //             console.info('You can define Kickass UI config schema with: some urls')
 //         }
 
-//         return parsedTokens as TCreateKickassUIConfigTokens
+//         return parsedTokens as TKAUICreateConfigTokens
 //     } catch (error) {
 //         throw new Error(`[Kickass-UI]: Something is wrong with provided config file:${error}`)
 //     }

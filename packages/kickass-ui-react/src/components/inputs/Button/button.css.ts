@@ -2,7 +2,7 @@ import { recipe, RecipeVariants } from '@vanilla-extract/recipes'
 
 import { sprinkles } from '../../../theme'
 
-const buttonBlueprint = recipe({
+const buttonRecipe = recipe({
     base: [
         { minWidth: '6rem', transitionProperty: 'border-color,color,background-color' },
         sprinkles({
@@ -455,6 +455,6 @@ const buttonBlueprint = recipe({
     ]
 })
 
-export type TButtonBlueprint = RecipeVariants<typeof buttonBlueprint>
+export type TKAUIButtonRecipe = RecipeVariants<typeof buttonRecipe>
 
-export { buttonBlueprint }
+export { buttonRecipe }

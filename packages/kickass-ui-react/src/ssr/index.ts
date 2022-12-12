@@ -1,11 +1,11 @@
 import { DARK_THEME_VALUE, LIGHT_THEME_VALUE, THEME_ATTR_NAME, THEME_STORAGE_KEY } from '../consts'
-import type { TStarbaseThemeMode } from '../providers'
+import type { TKAUIThemeMode } from '../providers'
 
-type TCreateStarbaseSSRColorSchemeScriptParams = {
-    defaultMode?: TStarbaseThemeMode
+type TKAUICreateSSRColorSchemeScript = {
+    defaultMode?: TKAUIThemeMode
 }
 
-const createKickassUISSRColorSchemeScript = ({ defaultMode }: TCreateStarbaseSSRColorSchemeScriptParams) => {
+const createKAUISSRColorSchemeScript = ({ defaultMode }: TKAUICreateSSRColorSchemeScript) => {
     return `(function () {
         try {
             var theme =JSON.parse(localStorage.getItem("${THEME_STORAGE_KEY}"));
@@ -28,9 +28,9 @@ const createKickassUISSRColorSchemeScript = ({ defaultMode }: TCreateStarbaseSSR
             }
             document.documentElement.setAttribute("${THEME_ATTR_NAME}", theme);
         } catch (e) {
-            console.warn("[KickassUI-SSRScript]:",e);
+            console.warn("[KAUI-SSRScript]:",e);
         }
     })();`
 }
 
-export { createKickassUISSRColorSchemeScript }
+export { createKAUISSRColorSchemeScript }
