@@ -1,2 +1,2 @@
-export * from './useExtractedSprinkles'
+export * from './useExtractSprinklesProps'
 export * from './useSprinkles'

@@ -1,6 +1,6 @@
 import { createElement, forwardRef } from 'react'
 
-import { useExtractedSprinkles } from '../../../hooks'
+import { useExtractSprinklesProps } from '../../../hooks'
 import { mergeClasses } from '../../../internal'
 import type { TKAUISprinklesProps } from '../../../theme/createKickassSprinkles'
 import type {
@@ -27,7 +27,7 @@ const Box: PolymorphicForwardRefExoticComponent<TBoxOwnProps, typeof BOX_DEFAULT
     ) => {
         const Element: React.ElementType = as || BOX_DEFAULT_ELEMENT
 
-        const { otherProps, sprinklesClassName } = useExtractedSprinkles(restProps)
+        const { otherProps, sprinklesClassName } = useExtractSprinklesProps(restProps)
 
         return createElement(Element, {
             ...otherProps,
