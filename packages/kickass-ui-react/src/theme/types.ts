@@ -1,6 +1,6 @@
 // type MakeOptional<Type, Key extends keyof Type> = Omit<Type, Key> & Partial<Pick<Type, Key>>
 
-export type TKickassUIThemeBreakpointTokens = {
+export type TKAUIBreakpointTokens = {
     xs: number
     sm: number
     md: number
@@ -8,7 +8,7 @@ export type TKickassUIThemeBreakpointTokens = {
     xl: number
 }
 
-export type TKickassUIThemeColorTokens = {
+export type TKAUIColorTokens = {
     neutral50: string
     neutral100: string
     neutral200: string
@@ -71,13 +71,13 @@ export type TKickassUIThemeColorTokens = {
     info900: string
 }
 
-export type TKickassUIThemeFontTokens = {
+export type TKAUIFontTokens = {
     heading: string
     body: string
     code: string
 }
 
-export type TKickassUIThemeFontSizeTokens = {
+export type TKAUIFontSizeTokens = {
     html: string
     body: string
     xs3: string
@@ -94,14 +94,14 @@ export type TKickassUIThemeFontSizeTokens = {
     xl6: string
 }
 
-export type TKickassUIThemeFontWeightTokens = {
+export type TKAUIFontWeightTokens = {
     regular: string
     medium: string
     semiBold: string
     bold: string
 }
 
-export type TKickassUIThemeLineHeightTokens = {
+export type TKAUILineHeightTokens = {
     xs: string
     sm: string
     md: string
@@ -109,7 +109,7 @@ export type TKickassUIThemeLineHeightTokens = {
     xl: string
 }
 
-export type TKickassUIThemeLetterSpacingTokens = {
+export type TKAUILetterSpacingTokens = {
     xs: string
     sm: string
     md: string
@@ -117,7 +117,7 @@ export type TKickassUIThemeLetterSpacingTokens = {
     xl: string
 }
 
-export type TKickassUIThemeRadiiTokens = {
+export type TKAUIRadiiTokens = {
     xs: string
     sm: string
     md: string
@@ -126,13 +126,13 @@ export type TKickassUIThemeRadiiTokens = {
     circular: string
 }
 
-export type TKickassUIThemeStrokeWidthTokens = {
+export type TKAUIStrokeWidthTokens = {
     sm: string
     md: string
     lg: string
 }
 
-export type TKickassUIThemeSizeTokens = {
+export type TKAUISizeTokens = {
     xs6: string
     xs5: string
     xs4: string
@@ -150,7 +150,7 @@ export type TKickassUIThemeSizeTokens = {
     xl6: string
     xl7: string
 }
-export type TKickassUIThemeSpaceTokens = {
+export type TKAUISpaceTokens = {
     xs6: string
     xs5: string
     xs4: string
@@ -169,7 +169,7 @@ export type TKickassUIThemeSpaceTokens = {
     xl7: string
 }
 
-export type TKickassUIThemeShadowTokens = {
+export type TKAUIShadowTokens = {
     xs: string
     sm: string
     md: string
@@ -178,7 +178,7 @@ export type TKickassUIThemeShadowTokens = {
     xl2: string
 }
 
-export type TKickassUIThemeTransitionTokens = {
+export type TKAUITransitionTokens = {
     timingAccelerateMax: string
     timingAccelerateMid: string
     timingAccelerateMin: string
@@ -197,7 +197,7 @@ export type TKickassUIThemeTransitionTokens = {
     durationSlowest: string
 }
 
-export type TKickassUIThemeZIndexTokens = {
+export type TKAUIZIndexTokens = {
     xs: string
     sm: string
     md: string
@@ -205,24 +205,24 @@ export type TKickassUIThemeZIndexTokens = {
     xl: string
 }
 
-export type TKickassUIThemeTokens = {
-    colors: TKickassUIThemeColorTokens
-    fonts: TKickassUIThemeFontTokens
-    fontSizes: TKickassUIThemeFontSizeTokens
-    fontWeights: TKickassUIThemeFontWeightTokens
-    lineHeights: TKickassUIThemeLineHeightTokens
-    letterSpacings: TKickassUIThemeLetterSpacingTokens
-    radii: TKickassUIThemeRadiiTokens
-    strokeWidths: TKickassUIThemeStrokeWidthTokens
-    sizes: TKickassUIThemeSizeTokens
-    space: TKickassUIThemeSpaceTokens
-    shadows: TKickassUIThemeShadowTokens
-    transitions: TKickassUIThemeTransitionTokens
-    zIndices: TKickassUIThemeZIndexTokens
+export type TKAUIThemeTokens = {
+    colors: TKAUIColorTokens
+    fonts: TKAUIFontTokens
+    fontSizes: TKAUIFontSizeTokens
+    fontWeights: TKAUIFontWeightTokens
+    lineHeights: TKAUILineHeightTokens
+    letterSpacings: TKAUILetterSpacingTokens
+    radii: TKAUIRadiiTokens
+    strokeWidths: TKAUIStrokeWidthTokens
+    sizes: TKAUISizeTokens
+    space: TKAUISpaceTokens
+    shadows: TKAUIShadowTokens
+    transitions: TKAUITransitionTokens
+    zIndices: TKAUIZIndexTokens
 }
 
-export type TCreateKickassUIConfigTokens = Omit<TKickassUIThemeTokens, 'colors'> & {
-    lightThemeColors: TKickassUIThemeColorTokens
-    darkThemeColors: TKickassUIThemeColorTokens
-    breakpoints: TKickassUIThemeBreakpointTokens
+export type TKAUICreateConfigTokens = Omit<TKAUIThemeTokens, 'colors'> & {
+    lightThemeColors: TKAUIColorTokens
+    darkThemeColors: TKAUIColorTokens
+    breakpoints: TKAUIBreakpointTokens
 }

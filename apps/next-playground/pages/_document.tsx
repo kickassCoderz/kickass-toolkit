@@ -1,4 +1,4 @@
-import { createKickassUISSRColorSchemeScript } from '@kickass-coderz/kickass-ui-react'
+import { createKAUISSRColorSchemeScript } from '@kickass-coderz/kickass-ui-react'
 import { Head, Html, Main, NextScript } from 'next/document'
 import Script from 'next/script'
 
@@ -12,7 +12,7 @@ const Document = () => {
                     id="kickass-ui-ssr"
                     strategy="beforeInteractive"
                     dangerouslySetInnerHTML={{
-                        __html: createKickassUISSRColorSchemeScript({ defaultMode: 'dark' })
+                        __html: createKAUISSRColorSchemeScript({ defaultMode: 'dark' })
                     }}
                 />
                 <Main />

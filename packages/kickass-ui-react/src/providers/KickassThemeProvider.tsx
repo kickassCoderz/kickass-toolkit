@@ -10,7 +10,7 @@ import {
 } from '../consts'
 import { useLocalStorage } from '../internal'
 
-export type TKickassThemeMode = 'light' | 'dark'
+export type TKAUIThemeMode = 'light' | 'dark'
 
 const useSystemTheme = () => {
     const { matches } = useMediaQuery('(prefers-color-scheme: dark)')
@@ -18,7 +18,7 @@ const useSystemTheme = () => {
     return matches ? DARK_THEME_VALUE : LIGHT_THEME_VALUE
 }
 
-const useDisableThemeTransition = (theme: TKickassThemeMode, enabled?: boolean) => {
+const useDisableThemeTransition = (theme: TKAUIThemeMode, enabled?: boolean) => {
     const mountedRef = useRef(false)
 
     useEffect(() => {
@@ -50,7 +50,7 @@ const useDisableThemeTransition = (theme: TKickassThemeMode, enabled?: boolean) 
     }, [enabled, theme])
 }
 
-const useThemeResolver = (mode?: TKickassThemeMode, disableTransitionOnChange?: boolean) => {
+const useThemeResolver = (mode?: TKAUIThemeMode, disableTransitionOnChange?: boolean) => {
     const systemTheme = useSystemTheme()
     const [storageState, setStorageState] = useLocalStorage(THEME_STORAGE_KEY, mode || systemTheme)
 
@@ -61,7 +61,7 @@ const useThemeResolver = (mode?: TKickassThemeMode, disableTransitionOnChange?: 
     }, [setStorageState])
 
     const setTheme = useCallback(
-        (colorMode: TKickassThemeMode) => {
+        (colorMode: TKAUIThemeMode) => {
             setStorageState(colorMode)
         },
         [setStorageState]
@@ -89,33 +89,37 @@ const useThemeResolver = (mode?: TKickassThemeMode, disableTransitionOnChange?: 
     return context
 }
 
-type TKickassThemeContext = {
-    theme: TKickassThemeMode
+type TKAUIThemeContext = {
+    theme: TKAUIThemeMode
     isDark: boolean
     isLight: boolean
-    setTheme: (colorMode: TKickassThemeMode) => void
+    setTheme: (colorMode: TKAUIThemeMode) => void
     toggleTheme: () => void
 }
 
-const KickassThemeContext = createContext<TKickassThemeContext | undefined>(undefined)
+const KickassThemeContext = createContext<TKAUIThemeContext | undefined>(undefined)
 
-type TKickassThemeProviderProps = {
+KickassThemeContext.displayName = 'KAUI-ThemeContext'
+
+type TKAUIThemeProviderProps = {
     children: React.ReactNode
     disableTransitionOnChange?: boolean
-    mode?: TKickassThemeMode
+    mode?: TKAUIThemeMode
 }
 
-const KickassThemeProvider = ({ children, mode, disableTransitionOnChange = true }: TKickassThemeProviderProps) => {
+const KickassThemeProvider = ({ children, mode, disableTransitionOnChange = true }: TKAUIThemeProviderProps) => {
     const context = useThemeResolver(mode, disableTransitionOnChange)
 
     return <KickassThemeContext.Provider value={context}>{children}</KickassThemeContext.Provider>
 }
 
+KickassThemeProvider.displayName = 'KAUI-ThemeProvider'
+
 const useKickassTheme = () => {
     const context = useContext(KickassThemeContext)
 
     if (context === undefined) {
-        throw new Error('[StarbaseUI]: `useStarbaseTheme` must be used within a `StarbaseThemeProvider`!')
+        throw new Error('[KickassUI]: `useKickassTheme` must be used within a `KickassThemeProvider`!')
     }
 
     return context

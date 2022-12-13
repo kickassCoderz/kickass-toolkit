@@ -1,22 +1,22 @@
 import type {
-    TCreateKickassUIConfigTokens,
-    TKickassUIThemeBreakpointTokens,
-    TKickassUIThemeColorTokens,
-    TKickassUIThemeFontSizeTokens,
-    TKickassUIThemeFontTokens,
-    TKickassUIThemeFontWeightTokens,
-    TKickassUIThemeLetterSpacingTokens,
-    TKickassUIThemeLineHeightTokens,
-    TKickassUIThemeRadiiTokens,
-    TKickassUIThemeShadowTokens,
-    TKickassUIThemeSizeTokens,
-    TKickassUIThemeSpaceTokens,
-    TKickassUIThemeStrokeWidthTokens,
-    TKickassUIThemeTransitionTokens,
-    TKickassUIThemeZIndexTokens
+    TKAUIBreakpointTokens,
+    TKAUIColorTokens,
+    TKAUICreateConfigTokens,
+    TKAUIFontSizeTokens,
+    TKAUIFontTokens,
+    TKAUIFontWeightTokens,
+    TKAUILetterSpacingTokens,
+    TKAUILineHeightTokens,
+    TKAUIRadiiTokens,
+    TKAUIShadowTokens,
+    TKAUISizeTokens,
+    TKAUISpaceTokens,
+    TKAUIStrokeWidthTokens,
+    TKAUITransitionTokens,
+    TKAUIZIndexTokens
 } from './types'
 
-const defaultBreakpoints: TKickassUIThemeBreakpointTokens = {
+const defaultBreakpoints: TKAUIBreakpointTokens = {
     xs: 640,
     sm: 768,
     md: 1024,
@@ -24,7 +24,7 @@ const defaultBreakpoints: TKickassUIThemeBreakpointTokens = {
     xl: 1536
 }
 
-const defaultLightThemeColors: TKickassUIThemeColorTokens = {
+const defaultLightThemeColors: TKAUIColorTokens = {
     neutral50: '#f8fafc',
     neutral100: '#f1f5f9',
     neutral200: '#e2e8f0',
@@ -91,7 +91,7 @@ const defaultLightThemeColors: TKickassUIThemeColorTokens = {
     info800: '#075985',
     info900: '#0c4a6e'
 }
-const defaultDarkThemeColors: TKickassUIThemeColorTokens = {
+const defaultDarkThemeColors: TKAUIColorTokens = {
     neutral50: '#f8fafc',
     neutral100: '#f1f5f9',
     neutral200: '#e2e8f0',
@@ -159,14 +159,14 @@ const defaultDarkThemeColors: TKickassUIThemeColorTokens = {
     info900: '#0c4a6e'
 }
 
-const defaultFonts: TKickassUIThemeFontTokens = {
+const defaultFonts: TKAUIFontTokens = {
     heading:
         'ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"',
     body: 'ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,"Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji"',
     code: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace'
 }
 
-const defaultFontSizes: TKickassUIThemeFontSizeTokens = {
+const defaultFontSizes: TKAUIFontSizeTokens = {
     html: '16px',
     body: '1rem',
     xs3: '0.5rem', //8px
@@ -183,14 +183,14 @@ const defaultFontSizes: TKickassUIThemeFontSizeTokens = {
     xl6: '3rem' //48px
 }
 
-const defaultFontWeights: TKickassUIThemeFontWeightTokens = {
+const defaultFontWeights: TKAUIFontWeightTokens = {
     regular: '400',
     medium: '500',
     semiBold: '600',
     bold: '700'
 }
 
-const defaultLineHeights: TKickassUIThemeLineHeightTokens = {
+const defaultLineHeights: TKAUILineHeightTokens = {
     xs: '1.25',
     sm: '1.375',
     md: '1.5',
@@ -198,7 +198,7 @@ const defaultLineHeights: TKickassUIThemeLineHeightTokens = {
     xl: '2'
 }
 
-const defaultLetterSpacings: TKickassUIThemeLetterSpacingTokens = {
+const defaultLetterSpacings: TKAUILetterSpacingTokens = {
     xs: '-0.05em',
     sm: '-0.025em',
     md: '0.025em',
@@ -206,7 +206,7 @@ const defaultLetterSpacings: TKickassUIThemeLetterSpacingTokens = {
     xl: '0.1em'
 }
 
-const defaultRadii: TKickassUIThemeRadiiTokens = {
+const defaultRadii: TKAUIRadiiTokens = {
     xs: '2px',
     sm: '6px',
     md: '10px',
@@ -215,13 +215,13 @@ const defaultRadii: TKickassUIThemeRadiiTokens = {
     circular: '10000px'
 }
 
-const defaultStrokeWidths: TKickassUIThemeStrokeWidthTokens = {
+const defaultStrokeWidths: TKAUIStrokeWidthTokens = {
     sm: '1px',
     md: '2px',
     lg: '4px'
 }
 
-const defaultSizes: TKickassUIThemeSizeTokens = {
+const defaultSizes: TKAUISizeTokens = {
     xs6: '0.125rem', //2px
     xs5: '0.25rem', //4px
     xs4: '0.375rem', //6px
@@ -240,11 +240,11 @@ const defaultSizes: TKickassUIThemeSizeTokens = {
     xl7: '4rem' //64px
 }
 
-const defaultSpaces: TKickassUIThemeSpaceTokens = {
+const defaultSpaces: TKAUISpaceTokens = {
     ...defaultSizes
 }
 
-const defaultShadows: TKickassUIThemeShadowTokens = {
+const defaultShadows: TKAUIShadowTokens = {
     xs: '0 0 2px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.14)',
     sm: '0 0 2px rgba(0,0,0,0.12),0 2px 4px rgba(0,0,0,0.14)',
     md: '0 0 2px rgba(0,0,0,0.12),0 4px 8px rgba(0,0,0,0.14)',
@@ -253,7 +253,7 @@ const defaultShadows: TKickassUIThemeShadowTokens = {
     xl2: '0 0 8px rgba(0,0,0,0.12),0 32px 64px rgba(0,0,0,0.14)'
 }
 
-const defaultTransitions: TKickassUIThemeTransitionTokens = {
+const defaultTransitions: TKAUITransitionTokens = {
     timingAccelerateMax: 'cubic-bezier(1,0,1,1)',
     timingAccelerateMid: 'cubic-bezier(0.7,0,1,0.5)',
     timingAccelerateMin: 'cubic-bezier(0.8,0,1,1)',
@@ -272,7 +272,7 @@ const defaultTransitions: TKickassUIThemeTransitionTokens = {
     durationSlowest: '500ms'
 }
 
-const defaultZindices: TKickassUIThemeZIndexTokens = {
+const defaultZindices: TKAUIZIndexTokens = {
     xs: '10',
     sm: '20',
     md: '30',
@@ -280,7 +280,7 @@ const defaultZindices: TKickassUIThemeZIndexTokens = {
     xl: '50'
 }
 
-const themeFactoryTokens: TCreateKickassUIConfigTokens = {
+const themeFactoryTokens: TKAUICreateConfigTokens = {
     lightThemeColors: defaultLightThemeColors,
     darkThemeColors: defaultDarkThemeColors,
     breakpoints: defaultBreakpoints,

@@ -36,6 +36,6 @@ Current packages are:
 -   `data-service`: A publishable library for data fetching
 -   `hooks`: A publishable library with set of utility hooks
 -   `react-widgets`: A publishable lib with unstyled ui widgets
--   `starbase-ui-react`: A publishable library with kickass design system which utilizes both hooks and widgets
+-   `kickass-ui-react`: A publishable library with kickass design system which utilizes both hooks and widgets
 -   `eslint-config-custom`: A collection of `eslint` configs used in `packages` and `apps`
 -   `tsconfig`: A collection of `tsconfigs` which are used across workspaces
