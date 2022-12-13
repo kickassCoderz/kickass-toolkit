@@ -1,6 +1,10 @@
 import { surfaceStyles } from './surface.css'
 
-const Surface = ({ children }) => {
+type TKAUISurfaceProps = {
+    children: React.ReactNode
+}
+
+const Surface = ({ children }: TKAUISurfaceProps) => {
     return <div className={surfaceStyles}>{children}</div>
 }
 
