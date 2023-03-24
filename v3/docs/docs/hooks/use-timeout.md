@@ -1,0 +1,51 @@
+# useTimeout
+
+Drop in replacement for setTimeout as a React hook.
+
+## Features
+
+- Automatically schedules the timeout on first render
+- Clears active timeout on unmount
+- Gives you an option to clear timeout manually before it executes or for a custom action
+- Server-Side Rendering friendly
+- Full TypeScript support
+
+## Example usage
+
+```jsx
+import { useTimeout } from '@kickass-coderz/hooks'
+
+const Component = () => {
+    useTimeout(() => {
+      console.log('ping')
+    }, 1000)
+
+    return (
+        <div>
+            This is a component!
+        </div>
+    )
+}
+```
+
+## Manually cancel timeout
+
+```jsx
+import { useTimeout } from '@kickass-coderz/hooks'
+
+const Component = () => {
+    const cancel = useTimeout(() => {
+      console.log('Wake up!!!!')
+    }, 3600)
+
+    return (
+        <button type="button" onClick={() => {
+          cancel()
+        }}>Cancel</button>
+    )
+}
+```
+
+## [API Reference](/docs/types/use-timeout)
+
+[For detailed TypeScript and API reference click here.](/docs/types/use-timeout)

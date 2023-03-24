@@ -1,0 +1,44 @@
+---
+sidebar_position: 1
+---
+
+# Introduction
+
+## Key features
+
+📦 **Out-of-the-box**: data fetching, authentication, subscription, low level api hooks
+
+🔌 **Backend agnostic**: Connect to any backend (built-in pluggins planned)
+
+📝 **Written in Typescript**: Get all the goodies which TS provides
+
+📉 **Boilerplate-free**: Keeps your code nice and clean
+
+🔍 **Thoroughly tested**: All code meets quality standards
+
+🎨 **Headless**: Works with any UI
+
+## What is Kickass Toolkit
+
+**Kickass Toolkit** is a set of finely crafted and curated tools for rapid development of modern applications based on **[React](https://reactjs.org/)** and it's ecosystem.
+
+It is a collection of multiple standalone libraries:
+
+-   [@kickass-coderz/hooks](https://reactjs.org/)
+-   [@kickass-coderz/auth-service](https://reactjs.org/)
+-   [@kickass-coderz/data-service](https://reactjs.org/)
+-   [@kickass-coderz/subscription-service](https://reactjs.org/)
+
+## Motivation
+
+We have created **Kickass Toolkit** because we are scratching our own itch. Let's be real, developers are lazy. Starting a new project is a boring and repetitive task which always has to be done. This is where **Kickass Toolkit** kicks in.
+
+By default **Kickass Toolkit** is unopinionated about your **UI** or **buissines logic** but it is strongly opinionated about three parts:
+
+-   **Data fetching**
+-   **Authentication and Authorization**
+-   **Subscriptions**
+
+It is our opinion that those are most important parts of modern web application and that should be handled in a robust way by following industry best practices.
+
+Furthermore **Kickass Toolkit** provides you with collection of hooks which expose low level native browser API. If you need more than bare bones you can explore our [Hook recipes](https://reactjs.org/).
