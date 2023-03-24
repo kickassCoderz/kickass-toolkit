@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook, waitFor } from '@testing-library/react'
 
-import { TestWrapper,BEERS_MOCK_DATA } from '../../__mocks__'
+import { BEERS_MOCK_DATA, TestWrapper } from '../../__fixtures__'
 import { useUpdateOne } from './useUpdateOne'
 
 describe('useUpdateOne', () => {
@@ -12,7 +12,7 @@ describe('useUpdateOne', () => {
         const id = BEERS_MOCK_DATA[0].id
         const payload = { name: 'Vukovarsko' }
 
-        const { result, waitFor } = renderHook(
+        const { result } = renderHook(
             () =>
                 useUpdateOne({
                     resource: 'beers'

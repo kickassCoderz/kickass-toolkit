@@ -8,7 +8,7 @@ describe('useMountEffect', () => {
 
         const { rerender, result, unmount } = renderHook(() => useMountEffect(callbackSpy))
 
-        expect(result.current).toBe(undefined)
+        expect(result.current).toBeUndefined()
 
         expect(callbackSpy).toHaveBeenCalledTimes(1)
 

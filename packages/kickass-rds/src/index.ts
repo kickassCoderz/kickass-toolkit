@@ -1,5 +1,5 @@
-export * from "./types"
-export * from "./utils"
-export {DataServiceProvider} from "./providers"
-export * from "./services"
-export * from "./hooks"
+export * from './hooks'
+export { DataServiceProvider } from './providers'
+export * from './services'
+export * from './types'
+export * from './utils'

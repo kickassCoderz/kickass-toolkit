@@ -2,10 +2,10 @@ import { useMemo, useRef } from 'react'
 
 import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
 
-type TUseEventCallback = (...args: any[]) => any
+type TUseEventCallback = (...arguments_: any[]) => any
 
 interface IEventCallbackHook {
-    <F extends TUseEventCallback>(callback?: F): (this: any, ...args: Parameters<F>) => ReturnType<F>
+    <F extends TUseEventCallback>(callback?: F): (this: any, ...arguments_: Parameters<F>) => ReturnType<F>
 }
 
 /**
@@ -17,18 +17,18 @@ interface IEventCallbackHook {
  * @param callbackFn function to use for event handler
  * @returns an event handler
  */
-const useEvent: IEventCallbackHook = <F extends TUseEventCallback>(callbackFn?: F) => {
-    const callbackRef = useRef(callbackFn)
+const useEvent: IEventCallbackHook = <F extends TUseEventCallback>(callbackFunction?: F) => {
+    const callbackReference = useRef(callbackFunction)
 
     useIsomorphicLayoutEffect(() => {
-        callbackRef.current = callbackFn
+        callbackReference.current = callbackFunction
     })
 
     return useMemo(
         () =>
-            function (this: any, ...args: Parameters<F>) {
-                if (callbackRef.current) {
-                    return Reflect.apply(callbackRef.current, this, args)
+            function (this: any, ...arguments_: Parameters<F>) {
+                if (callbackReference.current) {
+                    return Reflect.apply(callbackReference.current, this, arguments_)
                 }
             },
         []

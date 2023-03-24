@@ -1,1 +1,1 @@
-export * from "./RestDataService"
+export * from './RestDataService'

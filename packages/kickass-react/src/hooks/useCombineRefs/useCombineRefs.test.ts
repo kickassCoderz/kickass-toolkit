@@ -1,82 +1,82 @@
 import { act, renderHook } from '@testing-library/react-hooks'
 import { useRef } from 'react'
 
-import { useCombineRefs } from './useCombineRefs'
+import { useCombineRefs as useCombineReferences } from './useCombineRefs'
 
 describe('useCombineRefs', () => {
     it('should be defined', () => {
-        expect(useCombineRefs).toBeDefined()
+        expect(useCombineReferences).toBeDefined()
     })
 
     it('should render', () => {
         const {
-            result: { current: ref1 }
+            result: { current: reference1 }
         } = renderHook(() => useRef())
         const {
-            result: { current: ref2 }
+            result: { current: reference2 }
         } = renderHook(() => useRef())
-        const { result } = renderHook(() => useCombineRefs(ref1, ref2))
+        const { result } = renderHook(() => useCombineReferences(reference1, reference2))
 
         expect(result.current).toBeTruthy()
     })
 
     it('should pass ref objects to all the combined refs', () => {
-        const { result: resultRef1 } = renderHook(() => useRef<HTMLDivElement>())
-        const { result: resultRef2 } = renderHook(() => useRef<HTMLDivElement>())
-        const { result } = renderHook(() => useCombineRefs(resultRef1.current, resultRef2.current))
+        const { result: resultReference1 } = renderHook(() => useRef<HTMLDivElement>())
+        const { result: resultReference2 } = renderHook(() => useRef<HTMLDivElement>())
+        const { result } = renderHook(() => useCombineReferences(resultReference1.current, resultReference2.current))
 
         expect(result.current).toBeTruthy()
 
-        const refsSpy = jest.spyOn(result, 'current')
+        const referencesSpy = jest.spyOn(result, 'current')
         const div = document.createElement('div')
 
         act(() => {
             result.current(div)
         })
 
-        expect(refsSpy).toHaveBeenCalledTimes(1)
-        expect(refsSpy).toHaveBeenCalledWith(div)
-        expect(resultRef1.current.current).toBe(div)
-        expect(resultRef2.current.current).toBe(div)
+        expect(referencesSpy).toHaveBeenCalledTimes(1)
+        expect(referencesSpy).toHaveBeenCalledWith(div)
+        expect(resultReference1.current.current).toBe(div)
+        expect(resultReference2.current.current).toBe(div)
     })
 
     it('should handle function based refs', () => {
-        const refFunc1 = jest.fn()
-        const refFunc2 = jest.fn()
+        const referenceFunction1 = jest.fn()
+        const referenceFunction2 = jest.fn()
 
-        const { result } = renderHook(() => useCombineRefs(refFunc1, refFunc2))
+        const { result } = renderHook(() => useCombineReferences(referenceFunction1, referenceFunction2))
 
         expect(result.current).toBeTruthy()
 
-        const refsSpy = jest.spyOn(result, 'current')
+        const referencesSpy = jest.spyOn(result, 'current')
         const div = document.createElement('div')
 
         act(() => {
             result.current(div)
         })
 
-        expect(refsSpy).toHaveBeenCalledTimes(1)
-        expect(refsSpy).toHaveBeenCalledWith(div)
-        expect(refFunc1).toHaveBeenCalledTimes(1)
-        expect(refFunc1).toHaveBeenCalledWith(div)
-        expect(refFunc2).toHaveBeenCalledTimes(1)
-        expect(refFunc2).toHaveBeenCalledWith(div)
+        expect(referencesSpy).toHaveBeenCalledTimes(1)
+        expect(referencesSpy).toHaveBeenCalledWith(div)
+        expect(referenceFunction1).toHaveBeenCalledTimes(1)
+        expect(referenceFunction1).toHaveBeenCalledWith(div)
+        expect(referenceFunction2).toHaveBeenCalledTimes(1)
+        expect(referenceFunction2).toHaveBeenCalledWith(div)
     })
 
     it('should ignore falsy ref objects as they are invalid', () => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { result } = renderHook(() => useCombineRefs(undefined as any, null))
+        const { result } = renderHook(() => useCombineReferences(undefined as any, null))
 
         expect(result.current).toBeTruthy()
 
-        const refsSpy = jest.spyOn(result, 'current')
+        const referencesSpy = jest.spyOn(result, 'current')
         const div = document.createElement('div')
 
         act(() => {
             result.current(div)
         })
 
-        expect(refsSpy).toHaveBeenCalledTimes(1)
-        expect(refsSpy).toHaveBeenCalledWith(div)
+        expect(referencesSpy).toHaveBeenCalledTimes(1)
+        expect(referencesSpy).toHaveBeenCalledWith(div)
     })
 })

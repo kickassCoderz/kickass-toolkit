@@ -14,14 +14,14 @@ import { useDataService } from '../useDataService'
  * useGetList is a hook which enables getting a list of entities from the same resource.
  * It uses `dataService.getList` under the hood.
  *
- * @param variables
- * @param queryOptions
+ * @param variables - resource and params
+ * @param queryOptions - options for the query
  * @returns data and mutation state
  */
-function useGetList  <TData extends TBaseResponse = TBaseResponse, TError = unknown>(
+function useGetList<TData extends TBaseResponse = TBaseResponse, TError = unknown>(
     variables: TUseGetListVariables,
     queryOptions?: TQueryOptions<TGetListResponse<TData[]>, TError>
-): TUseGetListResult<TData[], TError>  {
+): TUseGetListResult<TData[], TError> {
     const dataService = useDataService()
 
     const getListQuery = useQuery<TGetListResponse<TData[]>, TError>(

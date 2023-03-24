@@ -99,19 +99,23 @@ export type TGetListResponse<T> = {
 }
 
 export interface IDataService {
-    getOne<T extends TBaseResponse>(resource: string, params: TGetOneParams, context?: TQueryContext): Promise<T>
-    getMany<T extends TBaseResponse>(resource: string, params: TGetManyParams, context?: TQueryContext): Promise<T[]>
+    getOne<T extends TBaseResponse>(resource: string, parameters: TGetOneParams, context?: TQueryContext): Promise<T>
+    getMany<T extends TBaseResponse>(
+        resource: string,
+        parameters: TGetManyParams,
+        context?: TQueryContext
+    ): Promise<T[]>
     getList<T extends TBaseResponse>(
         resource: string,
-        params?: TGetListParams,
+        parameters?: TGetListParams,
         context?: TQueryContext
     ): Promise<TGetListResponse<T[]>>
-    createOne<T extends TBaseResponse>(resource: string, params: TCreateOneParams): Promise<T>
-    createMany<T extends TBaseResponse>(resource: string, params: TCreateManyParams): Promise<T[]>
-    updateOne<T extends TBaseResponse>(resource: string, params: TUpdateOneParams): Promise<T>
-    updateMany<T extends TBaseResponse>(resource: string, params: TUpdateManyParams): Promise<T[]>
-    deleteOne<T extends Partial<TBaseResponse>>(resource: string, params: TDeleteOneParams): Promise<T>
-    deleteMany<T extends Partial<TBaseResponse>>(resource: string, params: TDeleteManyParams): Promise<T[]>
+    createOne<T extends TBaseResponse>(resource: string, parameters: TCreateOneParams): Promise<T>
+    createMany<T extends TBaseResponse>(resource: string, parameters: TCreateManyParams): Promise<T[]>
+    updateOne<T extends TBaseResponse>(resource: string, parameters: TUpdateOneParams): Promise<T>
+    updateMany<T extends TBaseResponse>(resource: string, parameters: TUpdateManyParams): Promise<T[]>
+    deleteOne<T extends Partial<TBaseResponse>>(resource: string, parameters: TDeleteOneParams): Promise<T>
+    deleteMany<T extends Partial<TBaseResponse>>(resource: string, parameters: TDeleteManyParams): Promise<T[]>
 }
 
 export interface IDataServiceProvider {
@@ -253,13 +257,13 @@ export type TUseDeleteManyResult<TData, TError, TPayload, TContext> = TUseMutati
 
 export interface IGenericDataProvider {
     /* eslint-disable @typescript-eslint/no-explicit-any */
-    getOne(resource: string, params: any): Promise<any>
-    getMany?(resource: string, params: any): Promise<any>
-    getList(resource: string, params?: any): Promise<any>
-    create(resource: string, params: any): Promise<any>
-    update(resource: string, params: any): Promise<any>
-    updateMany?(resource: string, params: any): Promise<any>
-    delete(resource: string, params: any): Promise<any>
-    deleteMany?(resource: string, params: any): Promise<any>
+    getOne(resource: string, parameters: any): Promise<any>
+    getMany?(resource: string, parameters: any): Promise<any>
+    getList(resource: string, parameters?: any): Promise<any>
+    create(resource: string, parameters: any): Promise<any>
+    update(resource: string, parameters: any): Promise<any>
+    updateMany?(resource: string, parameters: any): Promise<any>
+    delete(resource: string, parameters: any): Promise<any>
+    deleteMany?(resource: string, parameters: any): Promise<any>
     /* eslint-enable @typescript-eslint/no-explicit-any */
 }

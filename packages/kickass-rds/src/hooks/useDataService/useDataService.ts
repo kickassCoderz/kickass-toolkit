@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { DataServiceContext } from '../../providers/DataServiceProvider/DataServiceProvider'
 import type { IDataService } from '../../types'
 
-function useDataService  <T extends IDataService = IDataService>()  {
+function useDataService<T extends IDataService = IDataService>() {
     const context = useContext(DataServiceContext)
 
     if (!context) {

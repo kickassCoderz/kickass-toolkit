@@ -1,1 +1,1 @@
-export * from "./Dynamic"
+export * from './Dynamic'

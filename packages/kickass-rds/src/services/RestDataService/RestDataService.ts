@@ -1,17 +1,17 @@
 import {
     IDataService,
     TBaseResponse,
-    TCreateManyParams,
-    TCreateOneParams,
-    TDeleteManyParams,
-    TDeleteOneParams,
-    TGetListParams,
+    TCreateManyParams as TCreateManyParameters,
+    TCreateOneParams as TCreateOneParameters,
+    TDeleteManyParams as TDeleteManyParameters,
+    TDeleteOneParams as TDeleteOneParameters,
+    TGetListParams as TGetListParameters,
     TGetListResponse,
-    TGetManyParams,
-    TGetOneParams,
+    TGetManyParams as TGetManyParameters,
+    TGetOneParams as TGetOneParameters,
     TQueryContext,
-    TUpdateManyParams,
-    TUpdateOneParams
+    TUpdateManyParams as TUpdateManyParameters,
+    TUpdateOneParams as TUpdateOneParameters
 } from '../../types'
 
 class RestDataService implements IDataService {
@@ -29,10 +29,10 @@ class RestDataService implements IDataService {
 
         if (fetchInstance) {
             this.fetch = fetchInstance
-        } else if (typeof window !== 'undefined') {
-            this.fetch = window.fetch
+        } else if (typeof window === 'undefined') {
+            throw new TypeError('fetch instance is required in non browser environments')
         } else {
-            throw new Error('fetch instance is required in non browser environments')
+            this.fetch = window.fetch
         }
     }
 
@@ -50,14 +50,14 @@ class RestDataService implements IDataService {
 
     async getOne<T extends TBaseResponse>(
         resource: string,
-        params: TGetOneParams,
+        parameters: TGetOneParameters,
         context?: TQueryContext | undefined
     ): Promise<T> {
-        if (!this.isValidId(params.id)) {
+        if (!this.isValidId(parameters.id)) {
             throw new Error('Invalid params.id')
         }
 
-        const response = await this.fetch(`${this.baseUrl}/${resource}/${params.id}`, {
+        const response = await this.fetch(`${this.baseUrl}/${resource}/${parameters.id}`, {
             headers: this.jsonHeaders
         })
         const result = await response.json()
@@ -66,31 +66,33 @@ class RestDataService implements IDataService {
     }
     async getMany<T extends TBaseResponse>(
         resource: string,
-        params: TGetManyParams,
+        parameters: TGetManyParameters,
         context?: TQueryContext | undefined
     ): Promise<T[]> {
-        const results = await Promise.all(params.ids.map(id => this.getOne<T>(resource, { id })))
+        const results = await Promise.all(parameters.ids.map(id => this.getOne<T>(resource, { id })))
 
         return results
     }
     async getList<T extends TBaseResponse>(
         resource: string,
-        params?: TGetListParams,
+        parameters?: TGetListParameters,
         context?: TQueryContext | undefined
     ): Promise<TGetListResponse<T[]>> {
         const url = new URL(`${this.baseUrl}/${resource}`)
 
-        if (params?.pagination?.page) {
-            const skip = params?.pagination?.perPage ? (params.pagination.page - 1) * params.pagination.perPage : 0
+        if (parameters?.pagination?.page) {
+            const skip = parameters?.pagination?.perPage
+                ? (parameters.pagination.page - 1) * parameters.pagination.perPage
+                : 0
             url.searchParams.append('skip', skip.toString())
         } else {
-            if (params?.pagination?.nextCursor) {
-                url.searchParams.append('cursor', params.pagination.nextCursor.toString())
+            if (parameters?.pagination?.nextCursor) {
+                url.searchParams.append('cursor', parameters.pagination.nextCursor.toString())
             }
         }
 
-        if (params?.pagination?.perPage) {
-            url.searchParams.append('take', params.pagination.perPage.toString())
+        if (parameters?.pagination?.perPage) {
+            url.searchParams.append('take', parameters.pagination.perPage.toString())
         }
 
         const response = await this.fetch(url.toString(), {
@@ -103,48 +105,48 @@ class RestDataService implements IDataService {
             total: result.length
         }
     }
-    async createOne<T extends TBaseResponse>(resource: string, params: TCreateOneParams): Promise<T> {
+    async createOne<T extends TBaseResponse>(resource: string, parameters: TCreateOneParameters): Promise<T> {
         const response = await this.fetch(`${this.baseUrl}/${resource}`, {
             method: 'POST',
             headers: this.jsonHeaders,
-            body: JSON.stringify(params.payload)
+            body: JSON.stringify(parameters.payload)
         })
         const result = await response.json()
 
         return result
     }
-    async createMany<T extends TBaseResponse>(resource: string, params: TCreateManyParams): Promise<T[]> {
-        const results = await Promise.all(params.payload.map(payload => this.createOne<T>(resource, { payload })))
+    async createMany<T extends TBaseResponse>(resource: string, parameters: TCreateManyParameters): Promise<T[]> {
+        const results = await Promise.all(parameters.payload.map(payload => this.createOne<T>(resource, { payload })))
 
         return results
     }
-    async updateOne<T extends TBaseResponse>(resource: string, params: TUpdateOneParams): Promise<T> {
-        if (!this.isValidId(params.id)) {
+    async updateOne<T extends TBaseResponse>(resource: string, parameters: TUpdateOneParameters): Promise<T> {
+        if (!this.isValidId(parameters.id)) {
             throw new Error('Invalid params.id')
         }
 
-        const response = await this.fetch(`${this.baseUrl}/${resource}/${params.id}`, {
+        const response = await this.fetch(`${this.baseUrl}/${resource}/${parameters.id}`, {
             method: 'PUT',
             headers: this.jsonHeaders,
-            body: JSON.stringify(params.payload)
+            body: JSON.stringify(parameters.payload)
         })
         const result = await response.json()
 
         return result
     }
-    async updateMany<T extends TBaseResponse>(resource: string, params: TUpdateManyParams): Promise<T[]> {
+    async updateMany<T extends TBaseResponse>(resource: string, parameters: TUpdateManyParameters): Promise<T[]> {
         const results = await Promise.all(
-            params.ids.map((id, index) => this.updateOne<T>(resource, { id, payload: params.payload[index] }))
+            parameters.ids.map((id, index) => this.updateOne<T>(resource, { id, payload: parameters.payload[index] }))
         )
 
         return results
     }
-    async deleteOne<T extends Partial<TBaseResponse>>(resource: string, params: TDeleteOneParams): Promise<T> {
-        if (!this.isValidId(params.id)) {
+    async deleteOne<T extends Partial<TBaseResponse>>(resource: string, parameters: TDeleteOneParameters): Promise<T> {
+        if (!this.isValidId(parameters.id)) {
             throw new Error('Invalid params.id')
         }
 
-        const response = await this.fetch(`${this.baseUrl}/${resource}/${params.id}`, {
+        const response = await this.fetch(`${this.baseUrl}/${resource}/${parameters.id}`, {
             method: 'DELETE',
             headers: this.jsonHeaders
         })
@@ -155,7 +157,7 @@ class RestDataService implements IDataService {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (error.message === 'Unexpected end of JSON input') {
-                result = { id: params.id }
+                result = { id: parameters.id }
             } else {
                 /* istanbul ignore next - no need to test this case as it is generic catch call */
                 throw error
@@ -164,8 +166,11 @@ class RestDataService implements IDataService {
 
         return result
     }
-    async deleteMany<T extends Partial<TBaseResponse>>(resource: string, params: TDeleteManyParams): Promise<T[]> {
-        const results = await Promise.all(params.ids.map(id => this.deleteOne<T>(resource, { id })))
+    async deleteMany<T extends Partial<TBaseResponse>>(
+        resource: string,
+        parameters: TDeleteManyParameters
+    ): Promise<T[]> {
+        const results = await Promise.all(parameters.ids.map(id => this.deleteOne<T>(resource, { id })))
 
         return results
     }

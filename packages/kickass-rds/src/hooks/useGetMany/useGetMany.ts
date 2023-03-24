@@ -8,14 +8,14 @@ import { useDataService } from '../useDataService'
  * useGetMany is a hook which enables getting a list of entities from the same resource based on their respective ids.
  * It uses `dataService.getMany` under the hood.
  *
- * @param variables
- * @param queryOptions
+ * @param variables - resource and ids
+ * @param queryOptions - options for the query
  * @returns data and query state
  */
-function useGetMany <TData extends TBaseResponse = TBaseResponse, TError = unknown>(
+function useGetMany<TData extends TBaseResponse = TBaseResponse, TError = unknown>(
     variables: TUseGetManyVariables,
     queryOptions?: TQueryOptions<TData[], TError>
-): TUseGetManyResult<TData[], TError>  {
+): TUseGetManyResult<TData[], TError> {
     const dataService = useDataService()
 
     const getManyQuery = useQuery<TData[], TError>(

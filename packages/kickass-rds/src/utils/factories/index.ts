@@ -1,1 +1,1 @@
-export * from "./createFromDataProvider"
+export * from './createFromDataProvider'

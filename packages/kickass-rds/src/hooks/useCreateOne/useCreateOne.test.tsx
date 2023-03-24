@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook, waitFor } from '@testing-library/react'
 
-import { TestWrapper } from '../../__mocks__'
+import { TestWrapper } from '../../__fixtures__'
 import { useCreateOne } from './useCreateOne'
 
 describe('useCreateOne', () => {
@@ -11,7 +11,7 @@ describe('useCreateOne', () => {
     it('should render', async () => {
         const payload = { name: 'Vukovarsko' }
 
-        const { result, waitFor } = renderHook(
+        const { result } = renderHook(
             () =>
                 useCreateOne({
                     resource: 'beers'

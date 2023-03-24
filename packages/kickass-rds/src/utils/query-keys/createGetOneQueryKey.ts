@@ -1,8 +1,8 @@
-import { TGetOneParams } from "../../types"
-import { createBaseQueryKey } from "./createBaseQueryKey"
+import { TGetOneParams as TGetOneParameters } from '../../types'
+import { createBaseQueryKey } from './createBaseQueryKey'
 
-function createGetOneQueryKey (resource: string, params: TGetOneParams)  {
-    return [...createBaseQueryKey(resource, 'getOne'), params] as const
+function createGetOneQueryKey(resource: string, parameters: TGetOneParameters) {
+    return [...createBaseQueryKey(resource, 'getOne'), parameters] as const
 }
 
-export {createGetOneQueryKey}
+export { createGetOneQueryKey }

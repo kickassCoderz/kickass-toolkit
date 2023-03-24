@@ -3,13 +3,13 @@ import { useEffect, useRef, useState } from 'react'
 import { useEvent } from '../useEvent'
 
 // @NOTE: this is here until this is fixed https://github.com/microsoft/TypeScript/issues/37663
-declare type AnyFunction = (...args: unknown[]) => unknown
+declare type AnyFunction = (...arguments_: unknown[]) => unknown
 
 function isFunction<T extends AnyFunction>(value: unknown): value is T {
     return typeof value === 'function'
 }
 
-export type TSetCombinedStateNextStateOrSetter<T> = ((prevState: T) => T) | T
+export type TSetCombinedStateNextStateOrSetter<T> = ((previousState: T) => T) | T
 
 export type TUseUncontrolledStateParams<T> = {
     initialState: T | (() => T)
@@ -23,13 +23,13 @@ export type TUseCombinedControlStateParams<T> = TUseUncontrolledStateParams<T> &
 const useUncontrolledState = <T>({ initialState, handlerFn }: TUseUncontrolledStateParams<T>) => {
     const uncontrolledState = useState(initialState)
     const [uncontrolledStateValue] = uncontrolledState
-    const prevUncontroledValueRef = useRef(uncontrolledStateValue)
+    const previousUncontroledValueReference = useRef(uncontrolledStateValue)
     const handleChange = useEvent(handlerFn)
 
     useEffect(() => {
-        if (prevUncontroledValueRef.current !== uncontrolledStateValue) {
-            handleChange(uncontrolledStateValue as T)
-            prevUncontroledValueRef.current = uncontrolledStateValue
+        if (previousUncontroledValueReference.current !== uncontrolledStateValue) {
+            handleChange(uncontrolledStateValue)
+            previousUncontroledValueReference.current = uncontrolledStateValue
         }
     }, [uncontrolledStateValue, handleChange])
 

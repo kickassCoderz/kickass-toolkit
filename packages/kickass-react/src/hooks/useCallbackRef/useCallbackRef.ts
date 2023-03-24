@@ -5,14 +5,14 @@ import { useCallback, useState } from 'react'
  * @see {@link https://reactjs.org/docs/refs-and-the-dom.html#callback-refs| Official docs}
  *
  */
-const useCallbackRef = <T extends Element>() => {
-    const [ref, setRef] = useState<T | null>(null)
+const useCallbackReference = <T extends Element>() => {
+    const [reference, setReference] = useState<T | null>(null)
 
-    const refCallback = useCallback<React.RefCallback<T>>(node => {
-        setRef(node)
+    const referenceCallback = useCallback<React.RefCallback<T>>(node => {
+        setReference(node)
     }, [])
 
-    return [ref, refCallback] as const
+    return [reference, referenceCallback] as const
 }
 
-export { useCallbackRef }
+export { useCallbackReference as useCallbackRef }

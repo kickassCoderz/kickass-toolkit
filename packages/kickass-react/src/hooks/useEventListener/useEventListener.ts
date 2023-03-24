@@ -72,7 +72,7 @@ type MapEventMapsToEvent<D, T extends PropertyKey> = {
 }
 
 interface GenericEventListener<T> {
-    (evt: T): void
+    (event: T): void
 }
 
 interface GenericEventListenerObject<T> {
@@ -101,11 +101,11 @@ const useEventListener = <
     listener: GenericEventListenerOrEventListenerObject<MapEventMapsToEvent<M, K>[number]>,
     options?: TUseEventListenerOptions
 ) => {
-    const eventHandler = useEvent(function (this: T, ...args) {
+    const eventHandler = useEvent(function (this: T, ...arguments_) {
         if (typeof listener === 'function') {
-            Reflect.apply(listener, this, args)
+            Reflect.apply(listener, this, arguments_)
         } else if (typeof listener?.handleEvent === 'function') {
-            Reflect.apply(listener.handleEvent, this, args)
+            Reflect.apply(listener.handleEvent, this, arguments_)
         }
     })
 
@@ -114,15 +114,15 @@ const useEventListener = <
     let eventOptions: boolean | AddEventListenerOptions | undefined = useMemo(() => {
         const computedOptions: AddEventListenerOptions = {}
 
-        if (typeof once !== 'undefined') {
+        if (once !== undefined) {
             computedOptions.once = once
         }
 
-        if (typeof passive !== 'undefined') {
+        if (passive !== undefined) {
             computedOptions.passive = passive
         }
 
-        if (typeof signal !== 'undefined') {
+        if (signal !== undefined) {
             computedOptions.signal = signal
         }
 

@@ -16,12 +16,12 @@ import { useUnmountEffect } from '../useUnmountEffect'
  * @returns a tuple which consists of execute and clear functions
  */
 const useDebounce = (delay: number) => {
-    const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
+    const timeoutReference = useRef<ReturnType<typeof setTimeout>>()
 
     const clear = useCallback(() => {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current)
-            timeoutRef.current = undefined
+        if (timeoutReference.current) {
+            clearTimeout(timeoutReference.current)
+            timeoutReference.current = undefined
         }
     }, [])
 
@@ -29,7 +29,7 @@ const useDebounce = (delay: number) => {
 
     const execute = useEvent((callback: () => void) => {
         clear()
-        timeoutRef.current = setTimeout(callback, delay)
+        timeoutReference.current = setTimeout(callback, delay)
     })
 
     return [execute, clear] as const

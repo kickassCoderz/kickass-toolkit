@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react'
+import { renderHook, waitFor } from '@testing-library/react'
 
-import { TestWrapper,BEERS_MOCK_DATA } from '../../__mocks__'
+import { BEERS_MOCK_DATA, TestWrapper } from '../../__fixtures__'
 import { useGetList } from './useGetList'
 
 describe('useGetList', () => {
@@ -9,7 +9,7 @@ describe('useGetList', () => {
     })
 
     it('should render', async () => {
-        const { result, waitFor } = renderHook(
+        const { result } = renderHook(
             () =>
                 useGetList({
                     resource: 'beers'

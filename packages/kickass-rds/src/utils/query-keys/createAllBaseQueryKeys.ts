@@ -1,6 +1,6 @@
-import { createBaseQueryKey } from "./createBaseQueryKey";
+import { createBaseQueryKey } from './createBaseQueryKey'
 
-function createAllBaseQueryKeys  (resource: string) {
+function createAllBaseQueryKeys(resource: string) {
     return [
         createBaseQueryKey(resource, 'getOne'),
         createBaseQueryKey(resource, 'getMany'),
@@ -8,4 +8,4 @@ function createAllBaseQueryKeys  (resource: string) {
     ] as const
 }
 
-export {createAllBaseQueryKeys}
+export { createAllBaseQueryKeys }

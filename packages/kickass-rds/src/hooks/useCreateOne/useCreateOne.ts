@@ -14,11 +14,11 @@ import { useDataService } from '../useDataService'
  * useCreateOne is a hook which enables creating a single entity in resource.
  * It uses `dataService.createOne` under the hood.
  *
- * @param variables
- * @param mutationOptions
+ * @param variables - variables for the query
+ * @param mutationOptions - options for the mutation
  * @returns newly created data and mutation state
  */
-function useCreateOne  <
+function useCreateOne<
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,
     TPayload extends Record<string, unknown> = Record<string, unknown>,
@@ -31,7 +31,7 @@ function useCreateOne  <
     const queryClient = useQueryClient()
 
     const createOneMutation = useMutation<TData, TError, TUseCreateOnePayload<TPayload>, TContext>(
-        params => dataService.createOne(variables.resource, params),
+        parameters => dataService.createOne(variables.resource, parameters),
         {
             onSuccess(data) {
                 const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')

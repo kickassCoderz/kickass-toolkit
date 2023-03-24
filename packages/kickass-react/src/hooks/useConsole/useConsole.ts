@@ -1,6 +1,6 @@
 import { useDebugValue, useEffect } from 'react'
 
-const isEnabled = typeof process !== 'undefined' ? process.env['NODE_ENV'] !== 'production' : true
+const isEnabled = typeof process === 'undefined' ? true : process.env['NODE_ENV'] !== 'production'
 
 export type TConsoleLevel =
     | 'debug'
@@ -36,28 +36,28 @@ export type TConsoleLevel =
  * @param level log level like log, error, warn and others
  * @param args any arguments to watch and log on changes
  */
-const useConsole = (level: TConsoleLevel, ...args: unknown[]): void => {
-    const consoleInstance = console as unknown as Record<string, (...args: unknown[]) => void> // fuck typescript
+const useConsole = (level: TConsoleLevel, ...arguments_: unknown[]): void => {
+    const consoleInstance = console as unknown as Record<string, (...arguments__: unknown[]) => void> // fuck typescript
     const logger = consoleInstance[typeof level === 'string' ? level : ''] || console.log
 
-    useDebugValue(args)
+    useDebugValue(arguments_)
 
     useEffect(() => {
         if (!isEnabled) {
             return
         }
 
-        logger(...args)
+        logger(...arguments_)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [level, logger, ...args])
+    }, [level, logger, ...arguments_])
 }
 
-const useConsoleLog = (...args: unknown[]) => useConsole('log', ...args)
+const useConsoleLog = (...arguments_: unknown[]) => useConsole('log', ...arguments_)
 
-const useConsoleWarn = (...args: unknown[]) => useConsole('warn', ...args)
+const useConsoleWarn = (...arguments_: unknown[]) => useConsole('warn', ...arguments_)
 
-const useConsoleError = (...args: unknown[]) => useConsole('error', ...args)
+const useConsoleError = (...arguments_: unknown[]) => useConsole('error', ...arguments_)
 
-const useConsoleInfo = (...args: unknown[]) => useConsole('info', ...args)
+const useConsoleInfo = (...arguments_: unknown[]) => useConsole('info', ...arguments_)
 
 export { useConsole, useConsoleError, useConsoleInfo, useConsoleLog, useConsoleWarn }

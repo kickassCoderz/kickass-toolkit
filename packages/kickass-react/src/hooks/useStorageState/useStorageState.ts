@@ -19,12 +19,12 @@ const useStorageState = (
     storage: Storage,
     initialState: TUseStorageStateInitalState = null
 ): [string | null, Dispatch<SetStateAction<string | null>>] => {
-    const mountedRef = useRef(false)
+    const mountedReference = useRef(false)
 
     const [value, setValue] = useState(() => {
         const initialValue = typeof initialState === 'function' ? initialState() : initialState
 
-        if (typeof storage === 'undefined') {
+        if (storage === undefined) {
             return initialValue
         }
 
@@ -44,8 +44,8 @@ const useStorageState = (
     })
 
     useEffect(() => {
-        if (!mountedRef.current) {
-            mountedRef.current = true
+        if (!mountedReference.current) {
+            mountedReference.current = true
 
             return
         }

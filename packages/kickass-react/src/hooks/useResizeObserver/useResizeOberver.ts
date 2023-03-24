@@ -16,7 +16,7 @@ const getResizeObserverInstance = () => {
     const isBrowser = getIsBrowser()
 
     if (!isBrowser) {
-        return undefined
+        return
     }
 
     if (resizeObserverInstance) {
@@ -26,14 +26,15 @@ const getResizeObserverInstance = () => {
     const onResizeCallbacksMap = new Map<Element, Set<ResizeObserverCallback>>()
 
     const roObserver = new ResizeObserver((entries, observer) => {
-        entries.forEach(entry => {
+        for (const entry of entries) {
             const targetElement = entry.target
             const observedElementCallbacksSet = onResizeCallbacksMap.get(targetElement)
 
-            observedElementCallbacksSet?.forEach(onResizeCallback => {
-                onResizeCallback([entry], observer)
-            })
-        })
+            if (observedElementCallbacksSet)
+                for (const onResizeCallback of observedElementCallbacksSet) {
+                    onResizeCallback([entry], observer)
+                }
+        }
     })
 
     resizeObserverInstance = {
@@ -41,14 +42,14 @@ const getResizeObserverInstance = () => {
         subscribe(target, onResizeCallback) {
             const observedElementCallbacksSet = onResizeCallbacksMap.get(target)
 
-            if (!observedElementCallbacksSet) {
+            if (observedElementCallbacksSet) {
+                observedElementCallbacksSet.add(onResizeCallback)
+            } else {
                 const newCallbacksSet = new Set<ResizeObserverCallback>()
 
                 newCallbacksSet.add(onResizeCallback)
 
                 onResizeCallbacksMap.set(target, newCallbacksSet)
-            } else {
-                observedElementCallbacksSet.add(onResizeCallback)
             }
 
             //always observe
@@ -85,11 +86,11 @@ export type TUseResizeObserverTarget<T extends Element> = RefObject<T> | T | nul
  */
 const useResizeObserver = <T extends Element>(
     target: TUseResizeObserverTarget<T>,
-    callbackFn: ResizeObserverCallback
+    callbackFunction: ResizeObserverCallback
 ) => {
     const resizeObserver = getResizeObserverInstance()
     const targetElement = target && 'current' in target ? target.current : target
-    const onResizeCallback = useEvent(callbackFn)
+    const onResizeCallback = useEvent(callbackFunction)
 
     useIsomorphicLayoutEffect(() => {
         if (resizeObserver && targetElement) {

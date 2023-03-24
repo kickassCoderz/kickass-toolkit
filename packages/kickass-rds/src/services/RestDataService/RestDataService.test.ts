@@ -1,4 +1,4 @@
-import { BEERS_MOCK_DATA, MOCK_API_BASE_URL } from '../../__mocks__'
+import { BEERS_MOCK_DATA, MOCK_API_BASE_URL } from '../../__fixtures__'
 import { RestDataService } from './RestDataService'
 
 describe('RestDataService', () => {

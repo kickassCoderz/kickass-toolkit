@@ -11,23 +11,23 @@ import { useUnmountEffect } from '../useUnmountEffect'
  */
 const useRequestAnimationFrame = () => {
     const isBrowser = useIsBrowser()
-    const animationFrameRef = useRef<ReturnType<typeof requestAnimationFrame>>()
+    const animationFrameReference = useRef<ReturnType<typeof requestAnimationFrame>>()
 
     const clear = useCallback(() => {
-        if (isBrowser && animationFrameRef.current) {
-            cancelAnimationFrame(animationFrameRef.current)
+        if (isBrowser && animationFrameReference.current) {
+            cancelAnimationFrame(animationFrameReference.current)
 
-            animationFrameRef.current = undefined
+            animationFrameReference.current = undefined
         }
     }, [isBrowser])
 
     useUnmountEffect(clear)
 
-    const execute = useEvent((callbackFn: FrameRequestCallback) => {
+    const execute = useEvent((callbackFunction: FrameRequestCallback) => {
         if (isBrowser) {
             clear()
 
-            animationFrameRef.current = requestAnimationFrame(callbackFn)
+            animationFrameReference.current = requestAnimationFrame(callbackFunction)
         }
     })
 

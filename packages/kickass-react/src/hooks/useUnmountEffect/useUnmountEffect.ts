@@ -12,8 +12,8 @@ import { useEvent } from '../useEvent'
  * ```
  *
  */
-const useUnmountEffect = (callbackFn: CallableFunction): void => {
-    const callback = useEvent(() => callbackFn())
+const useUnmountEffect = (callbackFunction: CallableFunction): void => {
+    const callback = useEvent(() => callbackFunction())
 
     useEffect(
         () => {

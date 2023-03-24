@@ -1,1 +1,1 @@
-export * from "./DataServiceProvider"
+export * from './DataServiceProvider'

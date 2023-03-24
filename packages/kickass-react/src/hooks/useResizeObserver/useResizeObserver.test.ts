@@ -58,18 +58,18 @@ describe('useResizeObserver', () => {
 
     it('should subscribe in case ref first was empty but then gained element', () => {
         const div = document.createElement('div')
-        const ref: React.MutableRefObject<Element | null> = { current: null }
+        const reference: React.MutableRefObject<Element | null> = { current: null }
 
         // eslint-disable-next-line @typescript-eslint/no-shadow
         const { rerender } = renderHook(({ ref }) => useResizeObserver(ref.current, onResizeCallbackSpy), {
-            initialProps: { ref }
+            initialProps: { ref: reference }
         })
 
         expect(observeSpy).toHaveBeenCalledTimes(0)
 
-        ref.current = div
+        reference.current = div
 
-        rerender({ ref })
+        rerender({ ref: reference })
 
         expect(observeSpy).toHaveBeenCalledTimes(1)
 
@@ -168,9 +168,9 @@ describe('useResizeObserver', () => {
     it('should accept React ref as a target', () => {
         expect(ResizeObserverSpy).toHaveBeenCalledTimes(1)
         const div = document.createElement('div')
-        const { result: resultRef } = renderHook(() => useRef(div))
+        const { result: resultReference } = renderHook(() => useRef(div))
 
-        renderHook(() => useResizeObserver(resultRef.current, onResizeCallbackSpy))
+        renderHook(() => useResizeObserver(resultReference.current, onResizeCallbackSpy))
 
         expect(observeSpy).toHaveBeenCalledWith(div)
         expect(observeSpy).toHaveBeenCalledTimes(1)

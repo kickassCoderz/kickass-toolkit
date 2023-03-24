@@ -144,10 +144,10 @@ describe('createFromDataProvider', () => {
                 { id: 3, title: 'Laško' }
             ]
         })
-        const dataProviderSpy = Object.keys(dataProvider).reduce((acc, key) => {
-            acc[key] = jest.spyOn(dataProvider, key)
+        const dataProviderSpy = Object.keys(dataProvider).reduce((accumulator, key) => {
+            accumulator[key] = jest.spyOn(dataProvider, key)
 
-            return acc
+            return accumulator
         }, {} as typeof dataProvider)
 
         const dataService = createFromDataProvider(dataProvider)

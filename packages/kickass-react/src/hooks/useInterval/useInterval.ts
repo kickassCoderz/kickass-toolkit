@@ -14,27 +14,27 @@ export type TOnClearIntervalFn = () => void
  * @returns a function to clear interval
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const useInterval = <TArgs extends any[]>(
-    callbackFn: (...args: TArgs) => void,
+const useInterval = <TArguments extends any[]>(
+    callbackFunction: (...arguments_: TArguments) => void,
     ms: number,
-    ...args: TArgs
+    ...arguments_: TArguments
 ): TOnClearIntervalFn => {
-    const intervalRef = useRef<ReturnType<typeof setInterval>>()
+    const intervalReference = useRef<ReturnType<typeof setInterval>>()
 
     const onInterval = useEvent(() => {
-        callbackFn(...args)
+        callbackFunction(...arguments_)
     })
 
     const onClearInterval = useEvent(() => {
-        if (intervalRef.current) {
-            clearInterval(intervalRef.current)
+        if (intervalReference.current) {
+            clearInterval(intervalReference.current)
 
-            intervalRef.current = undefined
+            intervalReference.current = undefined
         }
     })
 
     useEffect(() => {
-        intervalRef.current = setInterval(onInterval, ms)
+        intervalReference.current = setInterval(onInterval, ms)
 
         return onClearInterval
         // eslint-disable-next-line react-hooks/exhaustive-deps

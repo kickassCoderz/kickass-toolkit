@@ -17,19 +17,19 @@ const observerPool: TObserverPoolItem[] = []
  */
 const useIntersectionObserver = <T extends Element>(
     target: React.RefObject<T> | T | null,
-    callbackFn: IntersectionObserverCallback,
+    callbackFunction: IntersectionObserverCallback,
     options?: IntersectionObserverInit
 ): void => {
     const element = target && 'current' in target ? target.current : target
-    const { root = null, rootMargin = '0px 0px 0px 0px', threshold = 0.0 } = options || {}
+    const { root = null, rootMargin = '0px 0px 0px 0px', threshold = 0 } = options || {}
     const observerCallback = useEvent<IntersectionObserverCallback>((entries, observer) => {
         const targetEntries = entries.filter(entry => entry.target === element)
 
-        if (targetEntries.length) {
-            callbackFn(targetEntries, observer)
+        if (targetEntries.length > 0) {
+            callbackFunction(targetEntries, observer)
         }
     })
-    const observerItemRef = useRef<TObserverPoolItem | undefined>()
+    const observerItemReference = useRef<TObserverPoolItem | undefined>()
 
     useEffect(() => {
         const thresholds = Array.isArray(threshold) ? threshold : [threshold]
@@ -42,26 +42,27 @@ const useIntersectionObserver = <T extends Element>(
             ].every(Boolean)
         )
 
-        if (!observerItem) {
+        if (observerItem) {
+            observerItem.callbacks.add(observerCallback)
+        } else {
             const partialObserverItem: Partial<TObserverPoolItem> = {
                 observer: undefined,
                 callbacks: new Set([observerCallback])
             }
             partialObserverItem.observer = new IntersectionObserver(
                 (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void => {
-                    partialObserverItem.callbacks?.forEach(callbackItem => {
-                        callbackItem(entries, observer)
-                    })
+                    if (partialObserverItem.callbacks)
+                        for (const callbackItem of partialObserverItem.callbacks) {
+                            callbackItem(entries, observer)
+                        }
                 },
                 { root, rootMargin, threshold }
             )
             observerItem = partialObserverItem as TObserverPoolItem
-            observerPool.push(observerItem as TObserverPoolItem)
-        } else {
-            observerItem.callbacks.add(observerCallback)
+            observerPool.push(observerItem)
         }
 
-        observerItemRef.current = observerItem
+        observerItemReference.current = observerItem
 
         return () => {
             if (!observerItem) {
@@ -72,18 +73,18 @@ const useIntersectionObserver = <T extends Element>(
 
             if (observerItem.callbacks.size === 0) {
                 observerItem.observer.disconnect()
-                const observerIndex = observerPool.findIndex(item => item === observerItem)
+                const observerIndex = observerPool.indexOf(observerItem)
                 observerPool.splice(observerIndex, 1)
             }
         }
     }, [root, rootMargin, threshold, observerCallback])
 
     useEffect(() => {
-        if (!element || !observerItemRef.current?.observer) {
-            return undefined
+        if (!element || !observerItemReference.current?.observer) {
+            return
         }
 
-        const observerItem = observerItemRef.current?.observer
+        const observerItem = observerItemReference.current?.observer
 
         observerItem.observe(element)
 

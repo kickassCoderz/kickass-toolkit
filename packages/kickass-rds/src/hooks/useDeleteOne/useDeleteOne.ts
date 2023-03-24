@@ -14,11 +14,11 @@ import { useDataService } from '../useDataService'
  * useDeleteOne is a hook which enables deleting single entity in resource based on its id.
  * It uses `dataService.deleteOne` under the hood.
  *
- * @param variables
- * @param mutationOptions
- * @return deleted data and mutation state
+ * @param variables - resource and id
+ * @param mutationOptions - mutation options
+ * @returns deleted data and mutation state
  */
-function useDeleteOne <
+function useDeleteOne<
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,
     TPayload extends Record<string, unknown> = Record<string, unknown>,
@@ -26,12 +26,12 @@ function useDeleteOne <
 >(
     variables: TUseDeleteOneVariables,
     mutationOptions?: TMutationOptions<TData, TError, TUseDeleteOnePayload<TPayload>, TContext>
-): TUseDeleteOneResult<TData, TError, TUseDeleteOnePayload<TPayload>, TContext>  {
+): TUseDeleteOneResult<TData, TError, TUseDeleteOnePayload<TPayload>, TContext> {
     const dataService = useDataService()
     const queryClient = useQueryClient()
 
     const deleteOneMutation = useMutation<TData, TError, TUseDeleteOnePayload<TPayload>, TContext>(
-        params => dataService.deleteOne(variables.resource, params),
+        parameters => dataService.deleteOne(variables.resource, parameters),
         {
             onSuccess(data) {
                 const queryKeysToInvalidate = [
@@ -40,7 +40,7 @@ function useDeleteOne <
                     createGetOneQueryKey(variables.resource, { id: data.id })
                 ]
 
-                queryKeysToInvalidate.forEach(queryKey => queryClient.invalidateQueries(queryKey))
+                for (const queryKey of queryKeysToInvalidate) queryClient.invalidateQueries(queryKey)
             },
             ...mutationOptions
         }

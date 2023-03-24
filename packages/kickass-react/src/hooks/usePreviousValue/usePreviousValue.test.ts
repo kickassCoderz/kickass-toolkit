@@ -9,7 +9,7 @@ describe('usePreviousValue', () => {
     })
 
     it('should render', () => {
-        const { result } = renderHook(() => usePreviousValue(undefined))
+        const { result } = renderHook(() => usePreviousValue())
 
         expect(result.current).toBeUndefined()
     })

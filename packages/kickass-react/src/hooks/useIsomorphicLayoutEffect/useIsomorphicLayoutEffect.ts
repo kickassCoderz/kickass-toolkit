@@ -4,6 +4,6 @@ import { getIsBrowser } from '../useIsBrowser'
 
 const isBrowser = getIsBrowser()
 
-const useIsomorphicLayoutEffect = !isBrowser ? useEffect : useLayoutEffect
+const useIsomorphicLayoutEffect = isBrowser ? useLayoutEffect : useEffect
 
 export { useIsomorphicLayoutEffect }

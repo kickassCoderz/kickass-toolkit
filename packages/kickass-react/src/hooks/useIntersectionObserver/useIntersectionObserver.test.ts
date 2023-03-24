@@ -16,7 +16,7 @@ describe('useIntersectionObserver', () => {
     beforeAll(() => {
         IntersectionObserverSpy = jest.fn(
             (callback: IntersectionObserverCallback, options?: IntersectionObserverInit): IntersectionObserver => {
-                const threshold = typeof options?.threshold === 'undefined' ? 0 : options?.threshold
+                const threshold = options?.threshold === undefined ? 0 : options?.threshold
                 const thresholds = Array.isArray(threshold) ? threshold : [threshold]
 
                 return {
@@ -354,8 +354,8 @@ describe('useIntersectionObserver', () => {
     it('should accept React ref as a target', () => {
         const div = document.createElement('div')
         const callbackSpy = jest.fn()
-        const { result: resultRef } = renderHook(() => useRef(div))
-        const { result } = renderHook(() => useIntersectionObserver(resultRef.current, callbackSpy))
+        const { result: resultReference } = renderHook(() => useRef(div))
+        const { result } = renderHook(() => useIntersectionObserver(resultReference.current, callbackSpy))
 
         expect(observeSpy).toHaveBeenCalledTimes(1)
         expect(observeSpy).toHaveBeenCalledWith(div)

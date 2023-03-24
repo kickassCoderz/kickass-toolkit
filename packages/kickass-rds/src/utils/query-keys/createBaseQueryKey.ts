@@ -1,8 +1,12 @@
+import type {
+    TGetListParams as TGetListParameters,
+    TGetManyParams as TGetManyParameters,
+    TGetOneParams as TGetOneParameters,
+    TQueryKeyIdentifier
+} from '../../types'
 
-import type { TGetListParams, TGetManyParams, TGetOneParams, TQueryKeyIdentifier } from "../../types"
-
-function createBaseQueryKey (resource: string, queryIdentifier: TQueryKeyIdentifier)  {
+function createBaseQueryKey(resource: string, queryIdentifier: TQueryKeyIdentifier) {
     return [resource, queryIdentifier] as const
 }
 
-export {createBaseQueryKey}
+export { createBaseQueryKey }

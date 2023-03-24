@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook, waitFor } from '@testing-library/react'
 
-import { TestWrapper,BEERS_MOCK_DATA } from '../../__mocks__'
+import { BEERS_MOCK_DATA, TestWrapper } from '../../__fixtures__'
 import { useDeleteMany } from './useDeleteMany'
 
 describe('useDeleteMany', () => {
@@ -11,7 +11,7 @@ describe('useDeleteMany', () => {
     it('should render', async () => {
         const ids = [BEERS_MOCK_DATA[0].id, BEERS_MOCK_DATA[1].id]
 
-        const { result, waitFor } = renderHook(
+        const { result } = renderHook(
             () =>
                 useDeleteMany({
                     resource: 'beers'

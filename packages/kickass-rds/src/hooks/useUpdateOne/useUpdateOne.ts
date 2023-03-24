@@ -14,11 +14,11 @@ import { useDataService } from '../useDataService'
  * useUpdateOne is a hook which enables updating a single entity in a resource based on its id.
  * It uses `dataService.updateOne` under the hood.
  *
- * @param variables
- * @param mutationOptions
+ * @param variables - resource and id
+ * @param mutationOptions - mutation options
  * @returns data and mutation state
  */
-function useUpdateOne  <
+function useUpdateOne<
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,
     TPayload extends Record<string, unknown> = Record<string, unknown>,
@@ -26,12 +26,12 @@ function useUpdateOne  <
 >(
     variables: TUseUpdateOneVariables,
     mutationOptions?: TMutationOptions<TData, TError, TUseUpdateOnePayload<TPayload>, TContext>
-): TUseUpdateOneResult<TData, TError, TUseUpdateOnePayload<TPayload>, TContext>  {
+): TUseUpdateOneResult<TData, TError, TUseUpdateOnePayload<TPayload>, TContext> {
     const dataService = useDataService()
     const queryClient = useQueryClient()
 
     const updateOneMutation = useMutation<TData, TError, TUseUpdateOnePayload<TPayload>, TContext>(
-        params => dataService.updateOne(variables.resource, params),
+        parameters => dataService.updateOne(variables.resource, parameters),
         {
             onSuccess(data) {
                 const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')

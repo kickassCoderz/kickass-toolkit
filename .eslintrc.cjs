@@ -6,7 +6,6 @@ module.exports = {
     parserOptions: {
         sourceType: 'module',
         ecmaVersion: 'latest',
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         tsconfigRootDir: __dirname,
         project: ['./tsconfig.base.json', './apps/*/tsconfig.json', './packages/*/tsconfig.json']
     },
@@ -27,9 +26,16 @@ module.exports = {
             'error',
             {
                 cases: {
+                    camelCase: true,
                     kebabCase: true,
                     pascalCase: true
                 }
+            }
+        ],
+        'unicorn/prevent-abbreviations': [
+            'error',
+            {
+                checkFilenames: false
             }
         ]
     },

@@ -12,13 +12,13 @@ import { useEffect, useRef } from 'react'
  * @returns previous value
  */
 const usePreviousValue = <T>(value: T): T | undefined => {
-    const ref = useRef<T>()
+    const reference = useRef<T>()
 
     useEffect(() => {
-        ref.current = value
+        reference.current = value
     })
 
-    return ref.current
+    return reference.current
 }
 
 export { usePreviousValue }

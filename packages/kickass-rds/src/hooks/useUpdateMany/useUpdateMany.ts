@@ -14,11 +14,11 @@ import { useDataService } from '../useDataService'
  * useUpdateMany is a hook which enables updating any number of entities from the same resource based on their respective ids.
  * It uses `dataService.updateMany` under the hood.
  *
- * @param variables
- * @param mutationOptions
+ * @param variables - resource and ids
+ * @param mutationOptions - mutation options
  * @returns data and mutation state
  */
-function useUpdateMany  <
+function useUpdateMany<
     TData extends TBaseResponse = TBaseResponse,
     TError = unknown,
     TPayload extends Record<string, unknown> = Record<string, unknown>,
@@ -26,12 +26,12 @@ function useUpdateMany  <
 >(
     variables: TUseUpdateManyVariables,
     mutationOptions?: TMutationOptions<TData[], TError, TUseUpdateManyPayload<TPayload>, TContext>
-): TUseUpdateManyResult<TData[], TError, TUseUpdateManyPayload<TPayload>, TContext>  {
+): TUseUpdateManyResult<TData[], TError, TUseUpdateManyPayload<TPayload>, TContext> {
     const dataService = useDataService()
     const queryClient = useQueryClient()
 
     const updateManyMutation = useMutation<TData[], TError, TUseUpdateManyPayload<TPayload>, TContext>(
-        params => dataService.updateMany(variables.resource, params),
+        parameters => dataService.updateMany(variables.resource, parameters),
         {
             onSuccess(data) {
                 const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')
@@ -40,10 +40,10 @@ function useUpdateMany  <
                 queryClient.invalidateQueries(listBaseQueryKey)
                 queryClient.invalidateQueries(manyBaseQueryKey)
 
-                data.forEach(item => {
+                for (const item of data) {
                     const oneQueryKey = createGetOneQueryKey(variables.resource, { id: item.id })
                     queryClient.setQueryData(oneQueryKey, item)
-                })
+                }
             },
             ...mutationOptions
         }

@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react'
+import { renderHook, waitFor } from '@testing-library/react'
 
-import { TestWrapper,BEERS_MOCK_DATA } from '../../__mocks__'
+import { BEERS_MOCK_DATA, TestWrapper } from '../../__fixtures__'
 import { useGetOne } from './useGetOne'
 
 describe('useGetOne', () => {
@@ -11,7 +11,7 @@ describe('useGetOne', () => {
     it('should render', async () => {
         const id = BEERS_MOCK_DATA[0].id
 
-        const { result, waitFor } = renderHook(
+        const { result } = renderHook(
             () =>
                 useGetOne({
                     resource: 'beers',

@@ -43,9 +43,9 @@ describe('useEventListener', () => {
         const addSpy = jest.spyOn(div, 'addEventListener')
         const removeSpy = jest.spyOn(div, 'removeEventListener')
 
-        const ref = { current: div }
+        const reference = { current: div }
         const { rerender, unmount } = renderHook(() =>
-            useEventListener(ref.current, 'resize', listener, { passive: true })
+            useEventListener(reference.current, 'resize', listener, { passive: true })
         )
 
         expect(addSpy).toHaveBeenCalledTimes(1)
@@ -73,10 +73,10 @@ describe('useEventListener', () => {
 
         renderHook(() => useEventListener(div, 'resize', spy, { passive: true }))
 
-        const evt = new Event('resize')
-        div.dispatchEvent(evt)
+        const event = new Event('resize')
+        div.dispatchEvent(event)
 
-        expect(spy).toHaveBeenCalledWith(evt)
+        expect(spy).toHaveBeenCalledWith(event)
         expect(context).toBe(div)
     })
 
@@ -90,10 +90,10 @@ describe('useEventListener', () => {
 
         renderHook(() => useEventListener(div, 'resize', { handleEvent: spy }, { passive: true }))
 
-        const evt = new Event('resize')
-        div.dispatchEvent(evt)
+        const event = new Event('resize')
+        div.dispatchEvent(event)
 
-        expect(spy).toHaveBeenCalledWith(evt)
+        expect(spy).toHaveBeenCalledWith(event)
         expect(context).toBe(div)
     })
 })

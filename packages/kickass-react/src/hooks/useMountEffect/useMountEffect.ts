@@ -5,9 +5,9 @@ import { useEffect } from 'react'
  *
  * @param callbackFn a function which will be invoked on component mount
  */
-const useMountEffect = (callbackFn: CallableFunction) => {
+const useMountEffect = (callbackFunction: CallableFunction) => {
     useEffect(() => {
-        callbackFn()
+        callbackFunction()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 }

@@ -7,11 +7,11 @@ export type TCombineRefsMaybeRef<T> = React.Ref<T> | undefined
  *
  * @remarks It can handle ref callback and ref objects.
  */
-const setRef = <T>(ref: TCombineRefsMaybeRef<T>, value: T): void => {
-    if (typeof ref === 'function') {
-        ref(value)
-    } else if (ref !== null && ref !== undefined) {
-        ;(ref as React.MutableRefObject<T>).current = value
+const setReference = <T>(reference: TCombineRefsMaybeRef<T>, value: T): void => {
+    if (typeof reference === 'function') {
+        reference(value)
+    } else if (reference !== null && reference !== undefined) {
+        ;(reference as React.MutableRefObject<T>).current = value
     }
 }
 
@@ -20,8 +20,10 @@ const setRef = <T>(ref: TCombineRefsMaybeRef<T>, value: T): void => {
  *
  * @remarks Each ref provided to this hook will be passed the ref prop on the target element.
  */
-const combineRefs = <T>(...refs: Array<TCombineRefsMaybeRef<T>>): React.RefCallback<T> => {
-    return (node: T) => refs.forEach(ref => setRef(ref, node))
+const combineReferences = <T>(...references: Array<TCombineRefsMaybeRef<T>>): React.RefCallback<T> => {
+    return (node: T) => {
+        for (const reference of references) setReference(reference, node)
+    }
 }
 
 /**
@@ -29,9 +31,9 @@ const combineRefs = <T>(...refs: Array<TCombineRefsMaybeRef<T>>): React.RefCallb
  *
  * @remarks Each ref provided to this hook will be passed the ref prop on the target element.
  */
-const useCombineRefs = <T>(...refs: Array<TCombineRefsMaybeRef<T>>): React.RefCallback<T> => {
+const useCombineReferences = <T>(...references: Array<TCombineRefsMaybeRef<T>>): React.RefCallback<T> => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    return useCallback(combineRefs(...refs), refs)
+    return useCallback(combineReferences(...references), references)
 }
 
-export { combineRefs, useCombineRefs }
+export { combineReferences as combineRefs, useCombineReferences as useCombineRefs }

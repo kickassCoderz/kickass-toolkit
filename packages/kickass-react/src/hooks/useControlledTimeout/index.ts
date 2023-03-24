@@ -1,1 +1,1 @@
-export * from "./useControlledTimeout"
+export * from './useControlledTimeout'

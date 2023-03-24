@@ -21,7 +21,7 @@ const getMediaQueryInstance = (query: string): TMediaQueryPoolItem => {
         const mediaQuery = matchMedia(query)
         const callbacks = new Set<(event: MediaQueryListEvent) => void>()
         const handleChange = (event: MediaQueryListEvent) => {
-            callbacks.forEach(callback => callback(event))
+            for (const callback of callbacks) callback(event)
         }
 
         mediaQuery.addEventListener('change', handleChange)
@@ -48,7 +48,7 @@ const getMediaQueryInstance = (query: string): TMediaQueryPoolItem => {
 const useMediaQuery = (query: string, mediaQueryOptions: TUseMediaQueryOptions = {}): { matches: boolean } => {
     const { initialValue } = mediaQueryOptions
     const isBrowser = useIsBrowser()
-    const isSSRMode = typeof initialValue !== 'undefined'
+    const isSSRMode = initialValue !== undefined
 
     const [matches, setMatches] = useState(() => {
         if (isSSRMode) {

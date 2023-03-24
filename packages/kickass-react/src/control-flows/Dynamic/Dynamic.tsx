@@ -1,4 +1,4 @@
-import  { forwardRef } from 'react'
+import { forwardRef } from 'react'
 
 export type MakeRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>
 

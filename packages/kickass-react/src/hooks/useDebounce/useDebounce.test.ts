@@ -26,7 +26,7 @@ describe('useDebounce', () => {
 
         expect(result.current).toBeInstanceOf(Array)
 
-        expect(result.current.length).toBe(2)
+        expect(result.current).toHaveLength(2)
 
         expect(result.current[0]).toBeInstanceOf(Function)
 
@@ -34,40 +34,40 @@ describe('useDebounce', () => {
     })
 
     it('should run given callback only after specified delay since last call', () => {
-        const spyFn = jest.fn()
+        const spyFunction = jest.fn()
 
         const { result } = renderHook(() => useDebounce(200))
 
         const execute = result.current[0]
 
-        act(() => execute(spyFn))
+        act(() => execute(spyFunction))
 
-        expect(spyFn).not.toHaveBeenCalled()
+        expect(spyFunction).not.toHaveBeenCalled()
 
         jest.advanceTimersByTime(100)
 
-        act(() => execute(spyFn))
+        act(() => execute(spyFunction))
 
         jest.advanceTimersByTime(199)
 
-        expect(spyFn).not.toHaveBeenCalled()
+        expect(spyFunction).not.toHaveBeenCalled()
 
         jest.advanceTimersByTime(1)
 
-        expect(spyFn).toHaveBeenCalledTimes(1)
+        expect(spyFunction).toHaveBeenCalledTimes(1)
     })
 
     it('should cancel debounce execution when clear method is called', () => {
-        const spyFn = jest.fn()
+        const spyFunction = jest.fn()
 
         const { result } = renderHook(() => useDebounce(200))
 
         const execute = result.current[0]
         const clear = result.current[1]
 
-        act(() => execute(spyFn))
+        act(() => execute(spyFunction))
 
-        expect(spyFn).not.toHaveBeenCalled()
+        expect(spyFunction).not.toHaveBeenCalled()
 
         jest.advanceTimersByTime(149)
 
@@ -75,28 +75,28 @@ describe('useDebounce', () => {
 
         jest.advanceTimersByTime(100)
 
-        expect(spyFn).not.toHaveBeenCalled()
+        expect(spyFunction).not.toHaveBeenCalled()
     })
 
     it('should cancel debounce execution after component unmount', () => {
-        const spyFn = jest.fn()
+        const spyFunction = jest.fn()
 
         const { result, unmount } = renderHook(() => useDebounce(200))
 
         const execute = result.current[0]
 
-        act(() => execute(spyFn))
+        act(() => execute(spyFunction))
 
-        expect(spyFn).not.toHaveBeenCalled()
+        expect(spyFunction).not.toHaveBeenCalled()
 
         jest.advanceTimersByTime(149)
 
-        expect(spyFn).not.toHaveBeenCalled()
+        expect(spyFunction).not.toHaveBeenCalled()
 
         unmount()
 
         jest.advanceTimersByTime(100)
 
-        expect(spyFn).not.toHaveBeenCalled()
+        expect(spyFunction).not.toHaveBeenCalled()
     })
 })

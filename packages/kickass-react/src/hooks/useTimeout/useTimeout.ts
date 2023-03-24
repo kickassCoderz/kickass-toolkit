@@ -13,27 +13,27 @@ export type TOnClearTimeout = () => void
  * @returns A function to clear timeout
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const useTimeout = <TArgs extends any[]>(
-    callbackFn: (...args: TArgs) => void,
+const useTimeout = <TArguments extends any[]>(
+    callbackFunction: (...arguments_: TArguments) => void,
     ms: number,
-    ...args: TArgs
+    ...arguments_: TArguments
 ): TOnClearTimeout => {
-    const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
+    const timeoutReference = useRef<ReturnType<typeof setTimeout>>()
 
     const onTimeout = useEvent(() => {
-        callbackFn(...args)
+        callbackFunction(...arguments_)
     })
 
     const onClearTimeout = useEvent(() => {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current)
+        if (timeoutReference.current) {
+            clearTimeout(timeoutReference.current)
 
-            timeoutRef.current = undefined
+            timeoutReference.current = undefined
         }
     })
 
     useEffect(() => {
-        timeoutRef.current = setTimeout(onTimeout, ms)
+        timeoutReference.current = setTimeout(onTimeout, ms)
 
         return onClearTimeout
         // eslint-disable-next-line react-hooks/exhaustive-deps

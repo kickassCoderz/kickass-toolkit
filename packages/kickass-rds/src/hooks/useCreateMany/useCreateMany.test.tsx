@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, renderHook, waitFor } from '@testing-library/react'
 
-import { TestWrapper } from '../../__mocks__'
+import { TestWrapper } from '../../__fixtures__'
 import { useCreateMany } from './useCreateMany'
 
 describe('useCreateMany', () => {
@@ -11,7 +11,7 @@ describe('useCreateMany', () => {
     it('should render', async () => {
         const payload = [{ name: 'Vukovarsko' }, { name: 'Velebitsko' }]
 
-        const { result, waitFor } = renderHook(
+        const { result } = renderHook(
             () =>
                 useCreateMany({
                     resource: 'beers'
