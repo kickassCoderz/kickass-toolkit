@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react'
 
-import { useControlledTimeout } from '../use-controlled-timeout'
+import { useControlledTimeout } from '.'
 
 describe('useControlledTimeout', () => {
     beforeAll(() => {

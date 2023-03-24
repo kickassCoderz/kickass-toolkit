@@ -1,1 +1,1 @@
-export * from "./create-context-provider"
+export * from "./createContextProvider"
