@@ -8,7 +8,7 @@ const config: Config = {
     transform: {
         '^.+\\.(t|j)sx?$': ['@swc/jest', { jsc: { transform: { react: { runtime: 'automatic' } } } }]
     },
-     setupFilesAfterEnv: ['./jest.setup.js']
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.ts']
 }
 
 export default config

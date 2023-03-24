@@ -8,6 +8,6 @@
         "module": "ESNext",
         "target": "es6"
     },
-    "include": ["src", "tsup.config.ts", "jest.config.ts"],
+    "include": ["src", "tsup.config.ts", "jest.config.ts", "jest.setup.ts"],
     "exclude": ["dist", "node_modules"]
 }
