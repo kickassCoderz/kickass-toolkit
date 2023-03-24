@@ -1,6 +1,6 @@
 {
     "$schema": "https://json.schemastore.org/tsconfig",
-    "display": "Kickass React",
+    "display": "Kickass RDS",
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
         "jsx": "react-jsx",
