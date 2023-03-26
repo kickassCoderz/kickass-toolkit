@@ -1,7 +1,7 @@
 import type { Config } from 'jest'
 
 const config: Config = {
-    displayName: 'kickass-js',
+    displayName: 'Kickass JS',
     testEnvironment: 'node',
     roots: ['<rootDir>'],
     modulePathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/dist'],

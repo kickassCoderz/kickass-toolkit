@@ -1,7 +1,7 @@
 import type { Config } from 'jest'
 
 const config: Config = {
-    displayName: 'kickass-rds',
+    displayName: 'Kickass RDS',
     testEnvironment: 'jsdom',
     roots: ['<rootDir>'],
     modulePathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/dist'],
