@@ -4,7 +4,7 @@ sidebar_position: 5
 
 # Fetching multiple resources
 
-In addition to usual CRUD API calls DataService is capable of doing those on the many records at once. Continuing from our previous examples we will again fetch some data (beers) from [Punk API](https://punkapi.com/documentation/v2). 
+In addition to usual CRUD API calls DataService is capable of doing those on the many records at once. Continuing from our previous examples we will again fetch some data (beers) from [Punk API](https://punkapi.com/documentation/v2).
 
 :::note
 
@@ -36,12 +36,12 @@ const Component = () => {
 
     return (
         <>
-          <h3>Featured</h3>
-          <ul>
-              {data.map(item => {
-                  return <li>{item.name}</li>
-              })}
-          </ul>
+            <h3>Featured</h3>
+            <ul>
+                {data.map(item => {
+                    return <li>{item.name}</li>
+                })}
+            </ul>
         </>
     )
 }
@@ -51,16 +51,16 @@ To understand how this works we need to take a look at our `getMany` method from
 
 ```ts
 class RestDataService implements IDataService {
-    // rest of the methods 
+    // rest of the methods
 
     async getMany<T extends TBaseResponse>(
-      resource: string,
-      params: TGetManyParams,
-      context?: TQueryContext | undefined
+        resource: string,
+        params: TGetManyParameters,
+        context?: TQueryContext | undefined
     ): Promise<T[]> {
-      const results = await Promise.all(params.ids.map(id => this.getOne<T>(resource, { id })))
+        const results = await Promise.all(params.ids.map(id => this.getOne<T>(resource, { id })))
 
-      return results
+        return results
     }
 
     // rest of the methods
@@ -68,8 +68,9 @@ class RestDataService implements IDataService {
 ```
 
 As you can see the implementation basically calls `getOne` method for each of the provided `params.ids` and then merges the results and returns them in the same array. This is useful because:
--  you do not need to worry about doing that yourself
--  you can decide how you wish to do paralization (if creating a custom DataService)
+
+-   you do not need to worry about doing that yourself
+-   you can decide how you wish to do paralization (if creating a custom DataService)
 
 ## Creating many records
 
@@ -97,7 +98,7 @@ const updateMany = useUpdateMany({
 
 // calling this method would call PUT /api/images/:id for each image
 const onUpdate = (images: { id: number; title: string; blob: File }[]) => {
-    updateMany.mutate({ 
+    updateMany.mutate({
         ids: images.map(image => image.id),
         payload: images
     })
@@ -115,7 +116,7 @@ const deleteMany = useDeleteMany({
 
 // calling this method would call DELETE /api/images/:id for each image
 const onDelete = (images: { id: number; title: string; blob: File }[]) => {
-    deleteMany.mutate({ 
+    deleteMany.mutate({
         ids: images.map(image => image.id)
     })
 }

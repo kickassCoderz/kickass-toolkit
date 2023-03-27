@@ -2,9 +2,9 @@
 sidebar_position: 7.1
 ---
 
-# Creating custom DataService 
+# Creating custom DataService
 
-To create a custom DataService the easiest way is to implement our public `IDataService` interface. 
+To create a custom DataService the easiest way is to implement our public `IDataService` interface.
 
 ## Implementing the interface
 
@@ -30,7 +30,7 @@ import { IDataService } from '@kickass-coderz/data-service'
 class MyDataService implements IDataService {
     async getOne<T extends TBaseResponse>(
         resource: string,
-        params: TGetOneParams,
+        params: TGetOneParameters,
         context?: TQueryContext | undefined
     ): Promise<T> {
         const response = await fetch(`https://yourapi.com/api/${resource}/${params.id}`, {
@@ -52,10 +52,7 @@ Even though DataService interface requires all of the `CRUD` methods, your API m
 class MyDataService implements IDataService {
     // rest of the methods
 
-    async createMany<T extends TBaseResponse>(
-        resource: string, 
-        params: TCreateManyParams
-    ): Promise<T[]> {
+    async createMany<T extends TBaseResponse>(resource: string, params: TCreateManyParameters): Promise<T[]> {
         throw new Error('Method not supported')
     }
 
@@ -95,13 +92,13 @@ The constructor for our service expects `baseUrl` and `fetchInstances` parameter
 
 ## Reusable code
 
-As DataService is just a class you can of course add any additional methods for the parts of the code you use across your data fetching methods. 
+As DataService is just a class you can of course add any additional methods for the parts of the code you use across your data fetching methods.
 
-For example in our `RestDataService` we add `isValidId` method which checks if the `params.id` is valid and it is called for any method that accepts this param. 
+For example in our `RestDataService` we add `isValidId` method which checks if the `params.id` is valid and it is called for any method that accepts this param.
 
 ```ts
 class RestDataService implements IDataService {
-    // rest of the methods 
+    // rest of the methods
 
     private isValidId(value: string | number) {
         if (typeof value === 'number') {
@@ -109,15 +106,15 @@ class RestDataService implements IDataService {
         }
 
         if (typeof value === 'string') {
-          // we do not want '/' character in our id param 
-          // to avoid unwanted any pathname traversal 
+            // we do not want '/' character in our id param
+            // to avoid unwanted any pathname traversal
             return !value.includes('/')
         }
 
         return false
     }
 
-    async updateOne<T extends TBaseResponse>(resource: string, params: TUpdateOneParams): Promise<T> {
+    async updateOne<T extends TBaseResponse>(resource: string, params: TUpdateOneParameters): Promise<T> {
         if (!this.isValidId(params.id)) {
             throw new Error('Invalid params.id')
         }
@@ -127,7 +124,7 @@ class RestDataService implements IDataService {
         return result
     }
 
-    // rest of the methods 
+    // rest of the methods
 }
 ```
 
@@ -160,7 +157,7 @@ Even though we recomment using classes for implementing your DataService you can
 const dataService: IDataService = {
     async getOne<T extends TBaseResponse>(
         resource: string,
-        params: TGetOneParams,
+        params: TGetOneParameters,
         context?: TQueryContext | undefined
     ): Promise<T> {
         const response = await fetch(`https://yourapi.com/api/${resource}/${params.id}`, {
