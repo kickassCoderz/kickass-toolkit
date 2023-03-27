@@ -1,6 +1,13 @@
 import { renderHook } from '@testing-library/react'
 
-import { TConsoleLevel, useConsole, useConsoleError, useConsoleInfo, useConsoleLog, useConsoleWarn } from './useConsole'
+import {
+    type TUseConsoleConsoleLevel,
+    useConsole,
+    useConsoleError,
+    useConsoleInfo,
+    useConsoleLog,
+    useConsoleWarn
+} from './useConsole'
 
 describe('useConsole', () => {
     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation()
@@ -44,7 +51,7 @@ describe('useConsole', () => {
     })
 
     it('should use different underlying console method when level is provided', () => {
-        renderHook(({ a, level }: { a: number; level: TConsoleLevel }) => useConsole(level, a), {
+        renderHook(({ a, level }: { a: number; level: TUseConsoleConsoleLevel }) => useConsole(level, a), {
             initialProps: { a: 0, level: 'info' }
         })
 
@@ -53,9 +60,12 @@ describe('useConsole', () => {
     })
 
     it('should log to console when level changes', () => {
-        const { rerender } = renderHook(({ a, level }: { a: number; level: TConsoleLevel }) => useConsole(level, a), {
-            initialProps: { a: 0, level: 'log' }
-        })
+        const { rerender } = renderHook(
+            ({ a, level }: { a: number; level: TUseConsoleConsoleLevel }) => useConsole(level, a),
+            {
+                initialProps: { a: 0, level: 'log' }
+            }
+        )
 
         expect(consoleLogSpy).toHaveBeenCalledWith(0)
         expect(consoleLogSpy).toHaveBeenCalledTimes(1)
@@ -69,18 +79,10 @@ describe('useConsole', () => {
         expect(consoleInfoSpy).toHaveBeenCalledTimes(2)
     })
 
-    it('should fallback to console.log method if invalid level is provided', () => {
-        renderHook(() => useConsole('wrong' as TConsoleLevel, 1))
+    it('should throw if invalid level is provided', () => {
+        const level = 'wrong' as TUseConsoleConsoleLevel
 
-        expect(consoleLogSpy).toHaveBeenCalledWith(1)
-        expect(consoleLogSpy).toHaveBeenCalledTimes(1)
-    })
-
-    it('should fallback to console.log method if level is not a string', () => {
-        renderHook(() => useConsole(undefined as unknown as TConsoleLevel, 1))
-
-        expect(consoleLogSpy).toHaveBeenCalledWith(1)
-        expect(consoleLogSpy).toHaveBeenCalledTimes(1)
+        expect(() => renderHook(() => useConsole(level, 1))).toThrow()
     })
 
     it('useConsoleLog should log to console with level log', () => {
