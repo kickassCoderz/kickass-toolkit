@@ -1,4 +1,9 @@
-export default function Home(){
+import { Dynamic } from '@kickass-coderz/kickass-react'
 
-    return <div>Hello World</div>
+export default function Home() {
+    return (
+        <div>
+            <Dynamic component="button">Button</Dynamic>
+        </div>
+    )
 }
