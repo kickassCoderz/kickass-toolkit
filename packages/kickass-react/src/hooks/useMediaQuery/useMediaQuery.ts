@@ -1,7 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useIsBrowser } from '../useIsBrowser'
-import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
 
 type TUseMediaQueryOptions = {
     /** Value that will be used for the initial render, use when evironment does not support matchMedia eg. during SSR (Server Side Rendering). If undefined is provided it will default to matchMedia.matches in Browser and to false in all other environments.*/
@@ -41,8 +40,8 @@ const getMediaQueryInstance = (query: string): TMediaQueryPoolItem => {
 /**
  * Drop in replacement for media query detection and browser matchMedia.
  *
- * @param query media query to detect
- * @param mediaQueryOptions
+ * @param query - media query to detect
+ * @param mediaQueryOptions - options for media query
  * @returns An object with matches boolean
  */
 const useMediaQuery = (query: string, mediaQueryOptions: TUseMediaQueryOptions = {}): { matches: boolean } => {
@@ -62,7 +61,7 @@ const useMediaQuery = (query: string, mediaQueryOptions: TUseMediaQueryOptions =
         return getMediaQueryInstance(query).mediaQuery.matches
     })
 
-    useIsomorphicLayoutEffect(() => {
+    useEffect(() => {
         const { mediaQuery, callbacks, removeListener } = getMediaQueryInstance(query)
 
         if (isSSRMode) {

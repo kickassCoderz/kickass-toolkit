@@ -1,5 +1,5 @@
 /* eslint-disable func-names */
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react'
 
 import { useStorageState } from './useStorageState'
 

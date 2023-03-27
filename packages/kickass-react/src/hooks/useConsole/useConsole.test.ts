@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks'
+import { renderHook } from '@testing-library/react'
 
 import { TConsoleLevel, useConsole, useConsoleError, useConsoleInfo, useConsoleLog, useConsoleWarn } from './useConsole'
 

@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook } from '@testing-library/react'
 
 import { useMediaQuery } from './useMediaQuery'
 
@@ -6,10 +6,11 @@ describe('useMediaQuery', () => {
     const initialMM = global.matchMedia
     const onChangeSpy = jest.fn()
     const offChangeSpy = jest.fn()
-    const matchMediaSpy = jest.fn(query => {
+    const matchMediaSpy = jest.fn((query: string) => {
         return {
             matches: query.includes('max-width: 600px'),
             media: query,
+            // eslint-disable-next-line unicorn/no-null
             onchange: null,
             addListener: jest.fn(),
             removeListener: jest.fn(),
@@ -57,7 +58,9 @@ describe('useMediaQuery', () => {
         expect(result.current.matches).toBe(true)
 
         act(() => {
-            onChangeSpy.mock.calls[0][1]({ matches: false })
+            // @TODO: fixme
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+            onChangeSpy.mock.calls[0][1]({ matches: false }) as MediaQueryList['addEventListener']
         })
 
         expect(result.current.matches).toBe(false)
