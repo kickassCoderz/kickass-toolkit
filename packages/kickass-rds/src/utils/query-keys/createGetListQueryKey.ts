@@ -1,4 +1,4 @@
-import { TGetListParams as TGetListParameters } from '../../types'
+import type { TGetListParameters } from '../../types'
 import { createBaseQueryKey } from './createBaseQueryKey'
 
 function createGetListQueryKey(resource: string, parameters: TGetListParameters) {

@@ -1,4 +1,4 @@
-import { TGetManyParams as TGetManyParameters } from '../../types'
+import type { TGetManyParameters } from '../../types'
 import { createBaseQueryKey } from './createBaseQueryKey'
 
 function createGetManyQueryKey(resource: string, parameters: TGetManyParameters) {

@@ -46,44 +46,44 @@ export type TQueryContext = {
     signal?: AbortSignal
 }
 
-export type TGetOneParams = {
+export type TGetOneParameters = {
     id: string | number
 }
 
-export type TGetManyParams = {
+export type TGetManyParameters = {
     ids: string[] | number[]
 }
 
-export type TGetListParams = {
+export type TGetListParameters = {
     pagination?: TPagination
     sort?: TSort[]
     filter?: TFilter[]
 }
 
-export type TCreateOneParams = {
+export type TCreateOneParameters = {
     payload: Record<string, unknown>
 }
 
-export type TCreateManyParams = {
+export type TCreateManyParameters = {
     payload: Record<string, unknown>[]
 }
 
-export type TUpdateOneParams = {
+export type TUpdateOneParameters = {
     id: string | number
     payload: Record<string, unknown>
 }
 
-export type TUpdateManyParams = {
+export type TUpdateManyParameters = {
     ids: string[] | number[]
     payload: Record<string, unknown>[]
 }
 
-export type TDeleteOneParams = {
+export type TDeleteOneParameters = {
     id: string | number
     payload?: Record<string, unknown>
 }
 
-export type TDeleteManyParams = {
+export type TDeleteManyParameters = {
     ids: string[] | number[]
     payload?: Record<string, unknown>
 }
@@ -99,23 +99,27 @@ export type TGetListResponse<T> = {
 }
 
 export interface IDataService {
-    getOne<T extends TBaseResponse>(resource: string, parameters: TGetOneParams, context?: TQueryContext): Promise<T>
+    getOne<T extends TBaseResponse>(
+        resource: string,
+        parameters: TGetOneParameters,
+        context?: TQueryContext
+    ): Promise<T>
     getMany<T extends TBaseResponse>(
         resource: string,
-        parameters: TGetManyParams,
+        parameters: TGetManyParameters,
         context?: TQueryContext
     ): Promise<T[]>
     getList<T extends TBaseResponse>(
         resource: string,
-        parameters?: TGetListParams,
+        parameters?: TGetListParameters,
         context?: TQueryContext
     ): Promise<TGetListResponse<T[]>>
-    createOne<T extends TBaseResponse>(resource: string, parameters: TCreateOneParams): Promise<T>
-    createMany<T extends TBaseResponse>(resource: string, parameters: TCreateManyParams): Promise<T[]>
-    updateOne<T extends TBaseResponse>(resource: string, parameters: TUpdateOneParams): Promise<T>
-    updateMany<T extends TBaseResponse>(resource: string, parameters: TUpdateManyParams): Promise<T[]>
-    deleteOne<T extends Partial<TBaseResponse>>(resource: string, parameters: TDeleteOneParams): Promise<T>
-    deleteMany<T extends Partial<TBaseResponse>>(resource: string, parameters: TDeleteManyParams): Promise<T[]>
+    createOne<T extends TBaseResponse>(resource: string, parameters: TCreateOneParameters): Promise<T>
+    createMany<T extends TBaseResponse>(resource: string, parameters: TCreateManyParameters): Promise<T[]>
+    updateOne<T extends TBaseResponse>(resource: string, parameters: TUpdateOneParameters): Promise<T>
+    updateMany<T extends TBaseResponse>(resource: string, parameters: TUpdateManyParameters): Promise<T[]>
+    deleteOne<T extends Partial<TBaseResponse>>(resource: string, parameters: TDeleteOneParameters): Promise<T>
+    deleteMany<T extends Partial<TBaseResponse>>(resource: string, parameters: TDeleteManyParameters): Promise<T[]>
 }
 
 export interface IDataServiceProvider {
@@ -137,21 +141,21 @@ export type TQueryOptions<TData, TError> = Omit<
 
 export type TUseGetOneVariables = {
     resource: string
-    params: TGetOneParams
+    params: TGetOneParameters
 }
 
 export type TUseGetOneResult<TData, TError> = TUseQueryResult<TData, TError>
 
 export type TUseGetManyVariables = {
     resource: string
-    params: TGetManyParams
+    params: TGetManyParameters
 }
 
 export type TUseGetManyResult<TData, TError> = TUseQueryResult<TData, TError>
 
 export type TUseGetListVariables = {
     resource: string
-    params?: TGetListParams
+    params?: TGetListParameters
 }
 
 export type TUseGetListResult<TData, TError> = TUseQueryResult<TGetListResponse<TData>, TError>

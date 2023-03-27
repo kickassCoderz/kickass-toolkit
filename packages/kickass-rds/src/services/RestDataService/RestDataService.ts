@@ -1,17 +1,17 @@
 import {
     IDataService,
     TBaseResponse,
-    TCreateManyParams as TCreateManyParameters,
-    TCreateOneParams as TCreateOneParameters,
-    TDeleteManyParams as TDeleteManyParameters,
-    TDeleteOneParams as TDeleteOneParameters,
-    TGetListParams as TGetListParameters,
+    TCreateManyParameters as TCreateManyParameters,
+    TCreateOneParameters as TCreateOneParameters,
+    TDeleteManyParameters as TDeleteManyParameters,
+    TDeleteOneParameters as TDeleteOneParameters,
+    TGetListParameters as TGetListParameters,
     TGetListResponse,
-    TGetManyParams as TGetManyParameters,
-    TGetOneParams as TGetOneParameters,
+    TGetManyParameters as TGetManyParameters,
+    TGetOneParameters as TGetOneParameters,
     TQueryContext,
-    TUpdateManyParams as TUpdateManyParameters,
-    TUpdateOneParams as TUpdateOneParameters
+    TUpdateManyParameters as TUpdateManyParameters,
+    TUpdateOneParameters as TUpdateOneParameters
 } from '../../types'
 
 class RestDataService implements IDataService {

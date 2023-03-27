@@ -1,24 +1,24 @@
-import {
+import type {
     IDataService,
     IGenericDataProvider,
     TBaseResponse,
-    TCreateManyParams as TCreateManyParameters,
-    TCreateOneParams as TCreateOneParameters,
-    TDeleteManyParams as TDeleteManyParameters,
-    TDeleteOneParams as TDeleteOneParameters,
-    TGetListParams as TGetListParameters,
+    TCreateManyParameters,
+    TCreateOneParameters,
+    TDeleteManyParameters,
+    TDeleteOneParameters,
+    TGetListParameters,
     TGetListResponse,
-    TGetManyParams as TGetManyParameters,
-    TGetOneParams as TGetOneParameters,
+    TGetManyParameters,
+    TGetOneParameters,
     TQueryContext,
-    TUpdateManyParams as TUpdateManyParameters,
-    TUpdateOneParams as TUpdateOneParameters
+    TUpdateManyParameters,
+    TUpdateOneParameters
 } from '../../types'
 
 /**
  * Create DataService from dataProvider instance.
  *
- * @param dataProvider
+ * @param dataProvider - dataProvider instance
  * @returns dataService
  */
 const createFromDataProvider = (dataProvider: IGenericDataProvider): IDataService => {
