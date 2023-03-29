@@ -1,3 +1,4 @@
+export * from './useConsole'
 export * from './useElementReferenceWithCallback'
 export * from './useElementReferenceWithState'
 export * from './usePreviousValue'
