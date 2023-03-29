@@ -1,3 +1,5 @@
+export * from './useElementReferenceWithCallback'
+export * from './useElementReferenceWithState'
 export * from './usePreviousValue'
 export * from './usePreviousValueState'
 export * from './useRerender'
