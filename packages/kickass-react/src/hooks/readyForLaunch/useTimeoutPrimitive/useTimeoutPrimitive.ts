@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useRef } from 'react'
 
-export type TUseControlledTimeoutExecuteFunction = <T extends Array<unknown>>(
+export type TUseTimeoutPrimitiveExecuteFunction = <T extends Array<unknown>>(
     callback: (...arguments_: T) => void,
     ms: number,
     ...arguments_: T
 ) => void
 
-export type TUseControlledTimeoutClearFunction = () => void
+export type TUseTimeoutPrimitiveClearFunction = () => void
 
 /**
  * A controlled version of `setTimeout`.
@@ -18,21 +18,21 @@ export type TUseControlledTimeoutClearFunction = () => void
  * @example
  * Call `console.log` after 1 second:
  * ```tsx
- * const [execute] = useControlledTimeout()
+ * const [execute] = useTimeoutPrimitive()
  *
  * execute(() => console.log('Kickass Coderz'), 1000)
  * ```
  * @example
  * Call `console.log` after 1 second with arguments:
  * ```tsx
- * const [execute] = useControlledTimeout()
+ * const [execute] = useTimeoutPrimitive()
  *
  * execute((a, b) => console.log(a, b), 1000, 'Kickass', 'Coderz')
  * ```
  * @example
  * Execute timer, clear it and execute it again:
  * ```tsx
- * const [execute, clear] = useControlledTimeout()
+ * const [execute, clear] = useTimeoutPrimitive()
  *
  * execute(() => console.log('Kickass Coderz'), 1000)
  *
@@ -41,10 +41,10 @@ export type TUseControlledTimeoutClearFunction = () => void
  * execute(() => console.log('Kickass Coderz'), 1000)
  * ```
  */
-function useControlledTimeout() {
+function useTimeoutPrimitive() {
     const timeoutReference = useRef<ReturnType<typeof setTimeout>>()
 
-    const clear = useCallback<TUseControlledTimeoutClearFunction>(() => {
+    const clear = useCallback<TUseTimeoutPrimitiveClearFunction>(() => {
         if (timeoutReference.current) {
             clearTimeout(timeoutReference.current)
 
@@ -52,17 +52,11 @@ function useControlledTimeout() {
         }
     }, [])
 
-    const execute = useCallback<TUseControlledTimeoutExecuteFunction>((callback, ms, ...arguments_) => {
+    const execute = useCallback<TUseTimeoutPrimitiveExecuteFunction>((callback, ms, ...arguments_) => {
         timeoutReference.current = setTimeout(callback, ms, ...arguments_)
     }, [])
-
-    useEffect(() => {
-        return () => {
-            clear()
-        }
-    }, [clear])
 
     return [execute, clear] as const
 }
 
-export { useControlledTimeout }
+export { useTimeoutPrimitive }

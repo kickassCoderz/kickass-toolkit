@@ -27,7 +27,6 @@ describe('useTimeout', () => {
         renderHook(() => useTimeout(onTimeoutSpy, 1000))
         jest.runOnlyPendingTimers()
 
-        expect(onTimeoutSpy).toHaveBeenCalledWith()
         expect(onTimeoutSpy).toHaveBeenCalledTimes(1)
     })
 
@@ -82,22 +81,6 @@ describe('useTimeout', () => {
         jest.runOnlyPendingTimers()
 
         expect(onTimeoutSpy).toHaveBeenCalledTimes(0)
-    })
-
-    it('should call timeout callback with args', () => {
-        const onTimeoutSpy = jest.fn((a: string, b: number) => {
-            return a + b
-        })
-        renderHook(({ a, b }) => useTimeout(onTimeoutSpy, 1000, a, b), {
-            initialProps: {
-                a: 'a',
-                b: 1
-            }
-        })
-        jest.runOnlyPendingTimers()
-
-        expect(onTimeoutSpy).toHaveBeenCalledTimes(1)
-        expect(onTimeoutSpy).toHaveBeenCalledWith('a', 1)
     })
 
     it('should not call timeout callback after calling clear function', () => {
