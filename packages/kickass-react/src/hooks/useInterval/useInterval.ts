@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
+import { useEffectEvent } from '../useEffectEvent/useEffectEvent'
 import { useTimeoutPrimitive } from '../useTimeoutPrimitive/useTimeoutPrimitive'
 
-type TUseIntervalCallback = () => void
+export type TUseIntervalCallback = () => void
 
 /**
  * Executes a callback function every x milliseconds.
@@ -14,16 +15,12 @@ type TUseIntervalCallback = () => void
  */
 function useInterval(callback: TUseIntervalCallback, delay: number) {
     const [execute, clear] = useTimeoutPrimitive()
-    const callbackReference = useRef(callback)
-
-    useEffect(() => {
-        callbackReference.current = callback
-    }, [callback])
+    const effectEventCallback = useEffectEvent(callback)
 
     useEffect(() => {
         const tick = () => {
             execute(() => {
-                callbackReference.current()
+                effectEventCallback()
                 tick()
             }, delay)
         }
@@ -31,7 +28,7 @@ function useInterval(callback: TUseIntervalCallback, delay: number) {
         tick()
 
         return clear
-    }, [execute, clear, delay])
+    }, [execute, clear, delay, effectEventCallback])
 
     return clear
 }

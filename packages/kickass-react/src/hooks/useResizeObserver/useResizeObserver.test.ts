@@ -58,6 +58,7 @@ describe('useResizeObserver', () => {
 
     it('should subscribe in case ref first was empty but then gained element', () => {
         const div = document.createElement('div')
+        // eslint-disable-next-line unicorn/no-null
         const reference: React.MutableRefObject<Element | null> = { current: null }
 
         // eslint-disable-next-line @typescript-eslint/no-shadow
@@ -83,6 +84,7 @@ describe('useResizeObserver', () => {
         ]
         const observerInstance = ResizeObserverSpy.mock.instances[0]
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         ResizeObserverSpy.mock.calls[0][0](entries, observerInstance)
 
         expect(onResizeCallbackSpy).toHaveBeenCalledWith(entries, observerInstance)
@@ -106,6 +108,7 @@ describe('useResizeObserver', () => {
         ]
         const observerInstance = ResizeObserverSpy.mock.instances[0]
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         ResizeObserverSpy.mock.calls[0][0](entries, observerInstance)
 
         expect(onResizeCallbackSpy).toHaveBeenCalledWith(entries, observerInstance)
@@ -138,6 +141,7 @@ describe('useResizeObserver', () => {
         ]
         const observerInstance = ResizeObserverSpy.mock.instances[0]
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         ResizeObserverSpy.mock.calls[0][0](entries, observerInstance)
 
         expect(onResizeCallbackSpy).toHaveBeenCalledWith([entries[0]], observerInstance)

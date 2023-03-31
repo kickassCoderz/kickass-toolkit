@@ -16,7 +16,7 @@ export type TUseConsoleParameters<T extends TUseConsoleConsoleLevel> = Parameter
  * @param level - log level like log, error, warn and others
  * @param args - any arguments to watch and log on changes
  */
-const useConsole = <T extends TUseConsoleConsoleLevel>(level: T, ...arguments_: TUseConsoleParameters<T>): void => {
+function useConsole<T extends TUseConsoleConsoleLevel>(level: T, ...arguments_: TUseConsoleParameters<T>): void {
     assert(console[level], 'useConsole', `Invalid level: ${level} provided!`)
 
     const logger = useMemo(() => {

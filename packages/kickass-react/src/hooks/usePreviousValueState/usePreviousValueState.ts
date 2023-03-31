@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 
 function defaultShouldUpdate<T>(previousValue: T, nextValue: T): boolean {
     return previousValue !== nextValue
@@ -42,10 +42,6 @@ function usePreviousValueState<T>(
         },
         [shouldUpdate]
     )
-
-    useEffect(() => {
-        console.log(state)
-    }, [state])
 
     return { setValue, previousValue: state.previousValue, currentValue: state.currentValue }
 }

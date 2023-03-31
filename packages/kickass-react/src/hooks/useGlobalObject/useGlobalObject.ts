@@ -6,7 +6,7 @@
  *
  * @returns globalObject depending on an enviroment
  */
-const useGlobalObject = () => {
+function useGlobalObject() {
     if (typeof window !== 'undefined') {
         return window
     }

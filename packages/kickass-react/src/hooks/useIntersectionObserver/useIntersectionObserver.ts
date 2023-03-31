@@ -1,7 +1,6 @@
-import type * as React from 'react'
 import { useEffect, useRef } from 'react'
 
-import { useEvent } from '../useEvent'
+import { useEffectEvent } from '../useEffectEvent/useEffectEvent'
 
 type TObserverPoolItem = { observer: IntersectionObserver; callbacks: Set<IntersectionObserverCallback> }
 // See this for observerPool type
@@ -10,19 +9,20 @@ const observerPool: TObserverPoolItem[] = []
 
 /**
  * Drop in hook replacement for IntersectionObserver
- *
- * @param target an element to observe
- * @param callbackFn callback to call when intersection changes
- * @param options to pass to the observer
+ * @beta - this hook is still in development and may change in the future
+ * @param target - an element to observe
+ * @param callbackFn - callback to call when intersection changes
+ * @param options - to pass to the observer
  */
-const useIntersectionObserver = <T extends Element>(
+function useIntersectionObserver<T extends Element>(
     target: React.RefObject<T> | T | null,
     callbackFunction: IntersectionObserverCallback,
     options?: IntersectionObserverInit
-): void => {
+): void {
     const element = target && 'current' in target ? target.current : target
+    // eslint-disable-next-line unicorn/no-null
     const { root = null, rootMargin = '0px 0px 0px 0px', threshold = 0 } = options || {}
-    const observerCallback = useEvent<IntersectionObserverCallback>((entries, observer) => {
+    const observerCallback = useEffectEvent<IntersectionObserverCallback>((entries, observer) => {
         const targetEntries = entries.filter(entry => entry.target === element)
 
         if (targetEntries.length > 0) {

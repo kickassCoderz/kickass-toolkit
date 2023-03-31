@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useMemo } from 'react'
 
-import { useEvent } from '../useEvent/useEvent'
+import { useEffectEvent } from '../useEffectEvent/useEffectEvent'
 
 // List all `EventMap` types here.
 export type DOMEventMapDefinitions = [
@@ -12,7 +12,7 @@ export type DOMEventMapDefinitions = [
     [BaseAudioContext, BaseAudioContextEventMap],
     [BroadcastChannel, BroadcastChannelEventMap],
     [Document, DocumentEventMap],
-    [DocumentAndElementEventHandlers, DocumentAndElementEventHandlersEventMap],
+    // [DocumentAndElementEventHandlers, DocumentAndElementEventHandlersEventMap],
     [Element, ElementEventMap],
     [EventSource, EventSourceEventMap],
     [FileReader, FileReaderEventMap],
@@ -62,6 +62,7 @@ export type DOMEventMapDefinitions = [
 ]
 
 type MapDefinitionToEventMap<D, T> = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [K in keyof D]: D[K] extends [any, any] ? (T extends D[K][0] ? D[K][1] : never) : never
 }
 type GetDOMEventMaps<T> = MapDefinitionToEventMap<DOMEventMapDefinitions, T>
@@ -85,13 +86,13 @@ export type TUseEventListenerOptions = boolean | AddEventListenerOptions | undef
 
 /**
  * Drop in replacement for addEventListener as a React hook
- *
- * @param target an EventTarget on which listener will be attached
- * @param eventType a type of event, for example "click"
- * @param listener an object which recieves notification when event occures. It can be a function or EventListenerObject.
- * @param options an event listener options. {@link https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#parameters See on MDN}
+ * @beta This hook is in beta and may change in the future.
+ * @param target - an EventTarget on which listener will be attached
+ * @param eventType - a type of event, for example "click"
+ * @param listener - an object which recieves notification when event occures. It can be a function or EventListenerObject.
+ * @param options - an event listener options. {@link https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#parameters | See on MDN}
  */
-const useEventListener = <
+function useEventListener<
     T extends EventTarget,
     K extends MapEventMapsToKeys<M>[number] & string,
     M extends GetDOMEventMaps<T>
@@ -100,11 +101,12 @@ const useEventListener = <
     eventType: K,
     listener: GenericEventListenerOrEventListenerObject<MapEventMapsToEvent<M, K>[number]>,
     options?: TUseEventListenerOptions
-) => {
-    const eventHandler = useEvent(function (this: T, ...arguments_) {
+) {
+    const eventHandler = useEffectEvent(function (this: T, ...arguments_) {
         if (typeof listener === 'function') {
             Reflect.apply(listener, this, arguments_)
         } else if (typeof listener?.handleEvent === 'function') {
+            // eslint-disable-next-line @typescript-eslint/unbound-method
             Reflect.apply(listener.handleEvent, this, arguments_)
         }
     })

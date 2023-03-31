@@ -1,4 +1,4 @@
-const getIsBrowser = () => {
+function getIsBrowser() {
     return typeof window !== 'undefined'
 }
 
@@ -7,7 +7,7 @@ const getIsBrowser = () => {
  *
  * @returns boolean flag
  */
-const useIsBrowser = () => {
+function useIsBrowser() {
     return getIsBrowser()
 }
 

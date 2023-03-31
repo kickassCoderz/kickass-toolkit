@@ -1,4 +1,3 @@
-/* eslint-disable func-names */
 import { act, renderHook } from '@testing-library/react'
 
 import { useStorageState } from './useStorageState'
@@ -7,6 +6,7 @@ class StorageMock implements Storage {
     length = 0
     store: Record<string, string> = {}
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     key(index: number): string | null {
         return 'test'
     }
@@ -16,6 +16,7 @@ class StorageMock implements Storage {
     }
 
     getItem(key: string): string | null {
+        // eslint-disable-next-line unicorn/no-null
         return this.store[key] || null
     }
 
@@ -35,6 +36,7 @@ describe('useStorageState', () => {
     const spyGetItem2 = jest.spyOn(storageMock2, 'getItem')
     const spySetItem = jest.spyOn(storageMock, 'setItem')
 
+    // eslint-disable-next-line unicorn/no-null
     const useTestStorageState = (key: string, initialState: string | null | (() => string | null) = null) =>
         useStorageState(key, storageMock, initialState)
 

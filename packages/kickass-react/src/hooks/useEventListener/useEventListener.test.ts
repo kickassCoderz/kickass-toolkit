@@ -67,7 +67,7 @@ describe('useEventListener', () => {
         const div = document.createElement('div')
         let context: unknown
         const spy = jest.fn(function (this: unknown) {
-            // eslint-disable-next-line @typescript-eslint/no-this-alias
+            // eslint-disable-next-line @typescript-eslint/no-this-alias, unicorn/no-this-assignment
             context = this
         })
 
@@ -84,7 +84,7 @@ describe('useEventListener', () => {
         const div = document.createElement('div')
         let context: unknown
         const spy = jest.fn(function (this: unknown) {
-            // eslint-disable-next-line @typescript-eslint/no-this-alias
+            // eslint-disable-next-line @typescript-eslint/no-this-alias, unicorn/no-this-assignment
             context = this
         })
 

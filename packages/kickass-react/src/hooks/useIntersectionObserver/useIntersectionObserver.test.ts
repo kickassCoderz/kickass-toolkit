@@ -20,6 +20,7 @@ describe('useIntersectionObserver', () => {
                 const thresholds = Array.isArray(threshold) ? threshold : [threshold]
 
                 return {
+                    // eslint-disable-next-line unicorn/no-null
                     root: options?.root || null,
                     rootMargin: options?.rootMargin || '0px 0px 0px 0px',
                     thresholds,
@@ -157,12 +158,14 @@ describe('useIntersectionObserver', () => {
         ]
         const observerInstance = IntersectionObserverSpy.mock.instances[0]
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         IntersectionObserverSpy.mock.calls[0][0](entries, observerInstance)
 
         expect(callbackSpy).toHaveBeenCalledTimes(1)
 
         rerender({ callback: callbackSpy2 })
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         IntersectionObserverSpy.mock.calls[0][0](entries, observerInstance)
 
         expect(callbackSpy).toHaveBeenCalledTimes(1)
@@ -209,6 +212,7 @@ describe('useIntersectionObserver', () => {
         ]
         const observerInstance = IntersectionObserverSpy.mock.instances[0]
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         IntersectionObserverSpy.mock.calls[0][0](entries, observerInstance)
 
         expect(callbackSpy).toHaveBeenCalledWith(entries, observerInstance)
@@ -252,8 +256,10 @@ describe('useIntersectionObserver', () => {
         ]
         const observerInstance = IntersectionObserverSpy.mock.instances[0]
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         IntersectionObserverSpy.mock.calls[0][0](entries1, observerInstance)
         expect(callbackSpy).toHaveBeenCalledWith(entries1, observerInstance)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         IntersectionObserverSpy.mock.calls[0][0](entries2, observerInstance)
         expect(callbackSpy).toHaveBeenCalledWith(entries2, observerInstance)
         expect(callbackSpy).toHaveBeenCalledTimes(2)
@@ -282,6 +288,7 @@ describe('useIntersectionObserver', () => {
         ]
         const observerInstance = IntersectionObserverSpy.mock.instances[0]
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         IntersectionObserverSpy.mock.calls[0][0](entries, observerInstance)
 
         const entries2: IntersectionObserverEntry[] = [
@@ -297,6 +304,7 @@ describe('useIntersectionObserver', () => {
         ]
         const observerInstance2 = IntersectionObserverSpy.mock.instances[1]
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         IntersectionObserverSpy.mock.calls[1][0](entries, observerInstance)
 
         expect(callbackSpy).toHaveBeenCalledWith(entries, observerInstance)

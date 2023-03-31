@@ -1,8 +1,7 @@
-import { RefObject } from 'react'
+import { RefObject, useEffect } from 'react'
 
-import { useEvent } from '../useEvent'
-import { getIsBrowser } from '../useIsBrowser'
-import { useIsomorphicLayoutEffect } from '../useIsomorphicLayoutEffect'
+import { useEffectEvent } from '../useEffectEvent/useEffectEvent'
+import { getIsBrowser } from '../useIsBrowser/useIsBrowser'
 
 export type TResizeObserverInstance = {
     observer: ResizeObserver
@@ -79,20 +78,19 @@ export type TUseResizeObserverTarget<T extends Element> = RefObject<T> | T | nul
 
 /**
  * useResizeObserver is an drop in replacement for ResizeObserver.
- *
- *
- * @param target An element to observe
- * @param callbackFn A callback to execute on resize
+ * @beta This hook is in beta and may change in the future.
+ * @param target - An element to observe
+ * @param callbackFn - A callback to execute on resize
  */
-const useResizeObserver = <T extends Element>(
+function useResizeObserver<T extends Element>(
     target: TUseResizeObserverTarget<T>,
     callbackFunction: ResizeObserverCallback
-) => {
+) {
     const resizeObserver = getResizeObserverInstance()
     const targetElement = target && 'current' in target ? target.current : target
-    const onResizeCallback = useEvent(callbackFunction)
+    const onResizeCallback = useEffectEvent(callbackFunction)
 
-    useIsomorphicLayoutEffect(() => {
+    useEffect(() => {
         if (resizeObserver && targetElement) {
             resizeObserver.subscribe(targetElement, onResizeCallback)
         }

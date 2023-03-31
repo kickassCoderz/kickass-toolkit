@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { useIsBrowser } from '../useIsBrowser'
+import { useIsBrowser } from '../useIsBrowser/useIsBrowser'
 
 type TUseMediaQueryOptions = {
     /** Value that will be used for the initial render, use when evironment does not support matchMedia eg. during SSR (Server Side Rendering). If undefined is provided it will default to matchMedia.matches in Browser and to false in all other environments.*/
@@ -44,7 +44,7 @@ const getMediaQueryInstance = (query: string): TMediaQueryPoolItem => {
  * @param mediaQueryOptions - options for media query
  * @returns An object with matches boolean
  */
-const useMediaQuery = (query: string, mediaQueryOptions: TUseMediaQueryOptions = {}): { matches: boolean } => {
+function useMediaQuery(query: string, mediaQueryOptions: TUseMediaQueryOptions = {}): { matches: boolean } {
     const { initialValue } = mediaQueryOptions
     const isBrowser = useIsBrowser()
     const isSSRMode = initialValue !== undefined

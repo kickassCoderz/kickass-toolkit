@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 
+import { useEffectEvent } from '../useEffectEvent/useEffectEvent'
 import { useTimeoutPrimitive } from '../useTimeoutPrimitive/useTimeoutPrimitive'
 
-type TUseTimeoutCallback = () => void
+export type TUseTimeoutCallback = () => void
 
 /**
  * A hook to execute a callback after a delay.
@@ -13,17 +14,15 @@ type TUseTimeoutCallback = () => void
  */
 function useTimeout(callback: TUseTimeoutCallback, delay: number) {
     const [execute, clear] = useTimeoutPrimitive()
-    const callbackReference = useRef(callback)
+    const effectEvent = useEffectEvent(callback)
 
     useEffect(() => {
-        callbackReference.current = callback
-    }, [callback])
-
-    useEffect(() => {
-        execute(() => callbackReference.current(), delay)
+        execute(() => {
+            effectEvent()
+        }, delay)
 
         return clear
-    }, [execute, clear, delay])
+    }, [execute, clear, delay, effectEvent])
 
     return clear
 }

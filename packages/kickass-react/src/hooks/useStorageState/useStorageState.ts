@@ -1,24 +1,25 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react'
 import { useState } from 'react'
 
-import { useEvent } from '../useEvent'
+import { useEffectEvent } from '../useEffectEvent/useEffectEvent'
 
 export type TUseStorageStateInitalState = string | null | (() => string | null)
 
 /**
  * useStorageState is a hook which helps persist data in chosen storage API to keep state between page
  * reloads.
- *
- * @param key A string under witch data will be saved in Storage
- * @param storage A chosen {@link Storage} API
- * @param initialState A initial state for chosen storage. Default value is null.
+ * @beta This hook is in beta state and can be changed in the future.
+ * @param key - A string under witch data will be saved in Storage
+ * @param storage - A chosen {@link Storage} API
+ * @param initialState - A initial state for chosen storage. Default value is null.
  * @returns a tuple of value and setterFn
  */
-const useStorageState = (
+function useStorageState(
     key: string,
     storage: Storage,
+    // eslint-disable-next-line unicorn/no-null
     initialState: TUseStorageStateInitalState = null
-): [string | null, Dispatch<SetStateAction<string | null>>] => {
+): [string | null, Dispatch<SetStateAction<string | null>>] {
     const mountedReference = useRef(false)
 
     const [value, setValue] = useState(() => {
@@ -31,7 +32,7 @@ const useStorageState = (
         return storage.getItem(key) || initialValue
     })
 
-    const setStorageValue = useEvent((valueOrSetter: SetStateAction<string | null>) => {
+    const setStorageValue = useEffectEvent((valueOrSetter: SetStateAction<string | null>) => {
         setValue(valueOrSetter)
 
         const newValue = typeof valueOrSetter === 'function' ? valueOrSetter(value) : valueOrSetter
