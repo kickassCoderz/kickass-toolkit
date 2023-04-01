@@ -1,4 +1,6 @@
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
+// @TODO: Fix "on" events inference
+//
 
 export type MakeRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>
 
@@ -31,10 +33,10 @@ export type TDynamicAsProperty<C extends React.ElementType> = {
 }
 
 // Get the properties and omit what should be omited based on provided props
-export type TDynamicProperties<C extends React.ElementType, Properties = unknown> = React.PropsWithChildren<
-    Properties & TDynamicAsProperty<C>
-> &
-    Merge<React.ComponentPropsWithoutRef<C>, TDynamicAsProperty<C> & Properties>
+export type TDynamicProperties<C extends React.ElementType, Properties = unknown> = Merge<
+    React.ComponentPropsWithoutRef<C>,
+    TDynamicAsProperty<C> & Properties
+>
 
 // Extract ref
 export type TDynamicReference<C extends React.ElementType> = React.ComponentPropsWithRef<C>['ref']
@@ -55,6 +57,7 @@ export type TDynamicComponent = <C extends React.ElementType>(
 
 /**
  * A primitive polymorphic component that can be used to render any valid react component. All `props` and `ref` are passed to the component and are properly infered.
+ * @beta This component is still in beta and might change in future.
  * @param properties - All `props` and `ref` for given `component` prop. `component` prop is required.
  *
  * @example
@@ -75,7 +78,7 @@ export type TDynamicComponent = <C extends React.ElementType>(
  * <Dynamic>Kickass Coderz</Dynamic>
  * ```
  */
-const _Dynamic: TDynamicComponent = forwardRef(function Dynamic<C extends React.ElementType>(
+const Dynamic: TDynamicComponent = forwardRef(function Dynamic<C extends React.ElementType>(
     { component, children, ...rest }: TDynamicProperties<C>,
     reference?: TDynamicReference<C>
 ) {
@@ -94,4 +97,4 @@ const _Dynamic: TDynamicComponent = forwardRef(function Dynamic<C extends React.
     )
 })
 
-export { _Dynamic as Dynamic }
+export { Dynamic }
