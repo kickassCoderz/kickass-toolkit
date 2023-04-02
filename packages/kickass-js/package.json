@@ -1,0 +1,26 @@
+{
+    "name": "@kickass-coderz/kickass-js",
+    "version": "0.0.0",
+    "type": "module",
+    "license": "MIT",
+    "private": false,
+    "sideEffects": false,
+    "main": "dist/index.cjs",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "tsup",
+        "dev": "pnpm run build --watch",
+        "lint": "eslint \"src/**/*.ts*\"",
+        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+        "typecheck": "tsc --noEmit --pretty",
+        "test": "jest",
+        "test:watch": "jest --watch"
+    }
+}

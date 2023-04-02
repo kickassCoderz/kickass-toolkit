@@ -1,0 +1,13 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Kickass React",
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "lib": ["DOM", "DOM.Iterable", "ESNext"],
+        "module": "ESNext",
+        "target": "es6"
+    },
+    "include": ["src", "tsup.config.ts", "jest.config.ts"],
+    "exclude": ["dist", "node_modules"]
+}

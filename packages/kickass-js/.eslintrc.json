@@ -1,0 +1,14 @@
+{
+    "extends": ["../../.eslintrc.cjs"],
+    "overrides": [
+        {
+            "files": ["*.test.ts", "*.test.tsx"],
+            "plugins": ["jest"],
+            "extends": ["plugin:jest/recommended", "plugin:jest/style"],
+            "env": {
+                "jest": true
+            },
+            "rules": {}
+        }
+    ]
+}
