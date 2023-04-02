@@ -7,7 +7,7 @@ import type {
     TUseUpdateOneResult,
     TUseUpdateOneVariables
 } from '../../types'
-import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
+import { createGetListQueryKey, createGetManyQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
 /**
@@ -34,8 +34,8 @@ function useUpdateOne<
         parameters => dataService.updateOne(variables.resource, parameters),
         {
             async onSuccess(data) {
-                const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')
-                const manyBaseQueryKey = createBaseQueryKey(variables.resource, 'getMany')
+                const listBaseQueryKey = createGetListQueryKey(variables.resource)
+                const manyBaseQueryKey = createGetManyQueryKey(variables.resource)
                 const oneQueryKey = createGetOneQueryKey(variables.resource, { id: data.id })
 
                 await queryClient.invalidateQueries(listBaseQueryKey)

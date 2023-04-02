@@ -7,7 +7,7 @@ import type {
     TUseDeleteManyResult,
     TUseDeleteManyVariables
 } from '../../types'
-import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
+import { createGetListQueryKey, createGetManyQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
 /**
@@ -39,8 +39,8 @@ function useDeleteMany<
                 )
 
                 const queryKeysToInvalidate = [
-                    createBaseQueryKey(variables.resource, 'getList'),
-                    createBaseQueryKey(variables.resource, 'getMany'),
+                    createGetListQueryKey(variables.resource),
+                    createGetManyQueryKey(variables.resource),
                     ...oneQueryKeysToInvalidate
                 ]
 

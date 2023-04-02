@@ -7,7 +7,7 @@ import type {
     TUseDeleteOneResult,
     TUseDeleteOneVariables
 } from '../../types'
-import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
+import { createGetListQueryKey, createGetManyQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
 /**
@@ -35,8 +35,8 @@ function useDeleteOne<
         {
             async onSuccess(data) {
                 const queryKeysToInvalidate = [
-                    createBaseQueryKey(variables.resource, 'getList'),
-                    createBaseQueryKey(variables.resource, 'getMany'),
+                    createGetListQueryKey(variables.resource),
+                    createGetManyQueryKey(variables.resource),
                     createGetOneQueryKey(variables.resource, { id: data.id })
                 ]
 

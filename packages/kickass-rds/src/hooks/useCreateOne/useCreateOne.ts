@@ -7,7 +7,7 @@ import type {
     TUseCreateOneResult,
     TUseCreateOneVariables
 } from '../../types'
-import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
+import { createGetListQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
 /**
@@ -34,7 +34,7 @@ function useCreateOne<
         parameters => dataService.createOne(variables.resource, parameters),
         {
             async onSuccess(data) {
-                const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')
+                const listBaseQueryKey = createGetListQueryKey(variables.resource)
                 const oneQueryKey = createGetOneQueryKey(variables.resource, { id: data.id })
 
                 await queryClient.invalidateQueries(listBaseQueryKey)

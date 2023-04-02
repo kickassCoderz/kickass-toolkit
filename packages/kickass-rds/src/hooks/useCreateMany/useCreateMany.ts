@@ -7,7 +7,7 @@ import type {
     TUseCreateManyResult,
     TUseCreateManyVariables
 } from '../../types'
-import { createBaseQueryKey, createGetOneQueryKey } from '../../utils'
+import { createGetListQueryKey, createGetOneQueryKey } from '../../utils'
 import { useDataService } from '../useDataService'
 
 /**
@@ -34,7 +34,7 @@ function useCreateMany<
         parameters => dataService.createMany(variables.resource, parameters),
         {
             async onSuccess(data) {
-                const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')
+                const listBaseQueryKey = createGetListQueryKey(variables.resource)
                 await queryClient.invalidateQueries(listBaseQueryKey)
 
                 data.forEach(item => {

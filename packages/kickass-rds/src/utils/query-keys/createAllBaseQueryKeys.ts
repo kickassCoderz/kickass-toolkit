@@ -1,10 +1,11 @@
 import { createBaseQueryKey } from './createBaseQueryKey'
+import { createGetListQueryKey } from './createGetListQueryKey'
 
 function createAllBaseQueryKeys(resource: string) {
     return [
         createBaseQueryKey(resource, 'getOne'),
         createBaseQueryKey(resource, 'getMany'),
-        createBaseQueryKey(resource, 'getList')
+        createGetListQueryKey(resource)
     ] as const
 }
 
