@@ -51,6 +51,7 @@ class RestDataService implements IDataService {
     async getOne<T extends TBaseResponse>(
         resource: string,
         parameters: TGetOneParameters,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         context?: TQueryContext | undefined
     ): Promise<T> {
         if (!this.isValidId(parameters.id)) {
@@ -60,13 +61,14 @@ class RestDataService implements IDataService {
         const response = await this.fetch(`${this.baseUrl}/${resource}/${parameters.id}`, {
             headers: this.jsonHeaders
         })
-        const result = await response.json()
+        const result = (await response.json()) as T
 
         return result
     }
     async getMany<T extends TBaseResponse>(
         resource: string,
         parameters: TGetManyParameters,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         context?: TQueryContext | undefined
     ): Promise<T[]> {
         const results = await Promise.all(parameters.ids.map(id => this.getOne<T>(resource, { id })))
@@ -76,6 +78,7 @@ class RestDataService implements IDataService {
     async getList<T extends TBaseResponse>(
         resource: string,
         parameters?: TGetListParameters,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         context?: TQueryContext | undefined
     ): Promise<TGetListResponse<T[]>> {
         const url = new URL(`${this.baseUrl}/${resource}`)
@@ -111,7 +114,7 @@ class RestDataService implements IDataService {
             headers: this.jsonHeaders,
             body: JSON.stringify(parameters.payload)
         })
-        const result = await response.json()
+        const result = (await response.json()) as T
 
         return result
     }
@@ -130,7 +133,7 @@ class RestDataService implements IDataService {
             headers: this.jsonHeaders,
             body: JSON.stringify(parameters.payload)
         })
-        const result = await response.json()
+        const result = (await response.json()) as T
 
         return result
     }
@@ -153,11 +156,11 @@ class RestDataService implements IDataService {
         let result
 
         try {
-            result = await response.json()
+            result = (await response.json()) as T
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-            if (error.message === 'Unexpected end of JSON input') {
-                result = { id: parameters.id }
+            if ((error as Error).message === 'Unexpected end of JSON input') {
+                result = { id: parameters.id } as T
             } else {
                 /* istanbul ignore next - no need to test this case as it is generic catch call */
                 throw error

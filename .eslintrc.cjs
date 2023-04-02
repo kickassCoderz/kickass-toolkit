@@ -19,7 +19,12 @@ module.exports = {
     ],
     rules: {
         '@typescript-eslint/no-unused-vars': 'error',
-        'tsdoc/syntax': 'error',
+        'tsdoc/syntax': [
+            'error',
+            {
+                ignoreMessageIds: ['tsdoc-characters-after-block-tag']
+            }
+        ],
         'simple-import-sort/imports': 'error',
         'simple-import-sort/exports': 'error',
         'unicorn/filename-case': [

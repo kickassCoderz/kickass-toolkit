@@ -1,6 +1,5 @@
-/**
- * \@jest-environment node
- */
+/* @jest-environment node */
+
 import { useGlobalObject } from './useGlobalObject'
 
 describe('useGlobalObject', () => {
