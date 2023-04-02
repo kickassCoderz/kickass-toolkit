@@ -58,6 +58,7 @@ describe('createFromDataProvider', () => {
         }).toThrow('Invalid dataProvider, make sure you passed the dataProvider instance')
 
         expect(() => {
+            // eslint-disable-next-line unicorn/no-null
             createFromDataProvider(null as never)
         }).toThrow('Invalid dataProvider, make sure you passed the dataProvider instance')
     })

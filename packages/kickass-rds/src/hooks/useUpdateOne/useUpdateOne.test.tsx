@@ -10,7 +10,9 @@ describe('useUpdateOne', () => {
 
     it('should render', async () => {
         const id = BEERS_MOCK_DATA[0].id
-        const payload = BEERS_MOCK_DATA[0]
+        const payload = {
+            name: 'Imperial Stout'
+        }
 
         const { result } = renderHook(
             () =>
@@ -31,5 +33,7 @@ describe('useUpdateOne', () => {
         expect(result.current.data).toBeDefined()
 
         expect(result.current.data).toMatchObject(payload)
+
+        expect(result.current.data?.id).toBeDefined()
     })
 })

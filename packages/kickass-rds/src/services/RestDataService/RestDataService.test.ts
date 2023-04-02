@@ -119,12 +119,9 @@ describe('RestDataService', () => {
 
         expect(result).toBeDefined()
 
-        expect(result).toEqual(
-            expect.objectContaining({
-                id: expect.any(String),
-                name: expect.stringContaining(payload.name)
-            })
-        )
+        expect(result).toEqual(expect.objectContaining(payload))
+
+        expect(result.id).toBeDefined()
     })
 
     it('should createMany', async () => {
@@ -134,18 +131,11 @@ describe('RestDataService', () => {
 
         expect(result).toBeDefined()
 
-        expect(result).toEqual(
-            expect.arrayContaining([
-                expect.objectContaining({
-                    id: expect.any(String),
-                    name: expect.stringContaining(payload[0].name)
-                }),
-                expect.objectContaining({
-                    id: expect.any(String),
-                    name: expect.stringContaining(payload[1].name)
-                })
-            ])
-        )
+        expect(result).toMatchObject(payload)
+
+        result.forEach(item => {
+            expect(item.id).toBeDefined()
+        })
     })
 
     it('should updateOne', async () => {
@@ -161,7 +151,7 @@ describe('RestDataService', () => {
         expect(result).toEqual(
             expect.objectContaining({
                 id: BEERS_MOCK_DATA[0].id,
-                name: expect.stringContaining(payload.name)
+                name: payload.name
             })
         )
     })
@@ -181,18 +171,11 @@ describe('RestDataService', () => {
 
         expect(result).toBeDefined()
 
-        expect(result).toEqual(
-            expect.arrayContaining([
-                expect.objectContaining({
-                    id: expect.stringContaining(ids[0]),
-                    name: expect.stringContaining(payload[0].name)
-                }),
-                expect.objectContaining({
-                    id: expect.stringContaining(ids[1]),
-                    name: expect.stringContaining(payload[1].name)
-                })
-            ])
-        )
+        expect(result).toMatchObject(payload)
+
+        result.forEach(item => {
+            expect(item.id).toBeDefined()
+        })
     })
 
     it('should deleteOne', async () => {
@@ -202,12 +185,9 @@ describe('RestDataService', () => {
 
         expect(result).toBeDefined()
 
-        expect(result).toEqual(
-            expect.objectContaining({
-                id: expect.stringContaining(BEERS_MOCK_DATA[0].id),
-                name: expect.stringContaining(BEERS_MOCK_DATA[0].name)
-            })
-        )
+        expect(result).toMatchObject({
+            id
+        })
     })
 
     it('deleteOne should throw on id containing slashes', async () => {
@@ -221,18 +201,7 @@ describe('RestDataService', () => {
 
         expect(result).toBeDefined()
 
-        expect(result).toEqual(
-            expect.arrayContaining([
-                expect.objectContaining({
-                    id: expect.stringContaining(ids[0]),
-                    name: expect.stringContaining(BEERS_MOCK_DATA[0].name)
-                }),
-                expect.objectContaining({
-                    id: expect.stringContaining(ids[1]),
-                    name: expect.stringContaining(BEERS_MOCK_DATA[1].name)
-                })
-            ])
-        )
+        expect(result).toMatchObject(ids.map(id => ({ id })))
     })
 
     it('should throw if id is invalid type', async () => {

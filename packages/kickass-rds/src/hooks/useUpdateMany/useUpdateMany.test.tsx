@@ -9,8 +9,8 @@ describe('useUpdateMany', () => {
     })
 
     it('should render', async () => {
-        const payload = BEERS_MOCK_DATA.slice(0, 2)
-        const ids = payload.map(item => item.id)
+        const payload = [{ name: 'Imperial Stout' }, { name: 'New England IPA' }]
+        const ids = BEERS_MOCK_DATA.slice(0, 2).map(item => item.id)
 
         const { result } = renderHook(
             () =>
@@ -34,5 +34,9 @@ describe('useUpdateMany', () => {
         expect(result.current.data).toBeDefined()
 
         expect(result.current.data).toMatchObject(payload)
+
+        result.current.data?.forEach(item => {
+            expect(item.id).toBeDefined()
+        })
     })
 })

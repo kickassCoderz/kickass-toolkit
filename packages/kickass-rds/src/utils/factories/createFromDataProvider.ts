@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import type {
     IDataService,
     IGenericDataProvider,
@@ -18,6 +20,7 @@ import type {
 /**
  * Create DataService from dataProvider instance.
  *
+ * @beta This utility is still in beta and might change in future.
  * @param dataProvider - dataProvider instance
  * @returns dataService
  */
