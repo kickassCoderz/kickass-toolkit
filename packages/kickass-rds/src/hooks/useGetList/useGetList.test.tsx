@@ -9,6 +9,8 @@ describe('useGetList', () => {
     })
 
     it('should render', async () => {
+        const payload = { ...BEERS_MOCK_DATA }
+
         const { result } = renderHook(
             () =>
                 useGetList({
@@ -25,7 +27,7 @@ describe('useGetList', () => {
         expect(result.current.data).toBeDefined()
 
         expect(result.current.data).toMatchObject({
-            data: BEERS_MOCK_DATA,
+            data: payload,
             total: 4
         })
     })

@@ -29,11 +29,30 @@ describe('useCreateOne', () => {
 
         expect(result.current.data).toBeDefined()
 
-        expect(result.current.data).toEqual(
-            expect.objectContaining({
-                id: expect.any(String),
-                name: expect.stringContaining(payload.name)
-            })
+        expect(result.current.data).toMatchObject(payload)
+    })
+
+    it('should return id for item', async () => {
+        const payload = { name: 'Vukovarsko' }
+
+        const { result } = renderHook(
+            () =>
+                useCreateOne({
+                    resource: 'beers'
+                }),
+            {
+                wrapper: TestWrapper
+            }
         )
+
+        act(() => {
+            result.current.mutate({ payload })
+        })
+
+        await waitFor(() => expect(result.current.isSuccess).toBe(true))
+
+        expect(result.current.data).toBeDefined()
+
+        expect(result.current.data?.id).toBeDefined()
     })
 })

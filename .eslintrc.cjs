@@ -37,7 +37,8 @@ module.exports = {
             {
                 checkFilenames: false
             }
-        ]
+        ],
+        'unicorn/no-array-for-each': 'off'
     },
     settings: {
         react: {

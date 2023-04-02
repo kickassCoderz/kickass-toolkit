@@ -9,7 +9,8 @@ describe('useGetMany', () => {
     })
 
     it('should render', async () => {
-        const ids = [BEERS_MOCK_DATA[0].id, BEERS_MOCK_DATA[1].id]
+        const payload = BEERS_MOCK_DATA.slice(0, 2)
+        const ids = payload.map(item => item.id)
 
         const { result } = renderHook(
             () =>
@@ -28,11 +29,6 @@ describe('useGetMany', () => {
 
         expect(result.current.data).toBeDefined()
 
-        expect(result.current.data).toEqual(
-            expect.arrayContaining([
-                expect.objectContaining(BEERS_MOCK_DATA[0]),
-                expect.objectContaining(BEERS_MOCK_DATA[1])
-            ])
-        )
+        expect(result.current.data).toMatchObject(payload)
     })
 })

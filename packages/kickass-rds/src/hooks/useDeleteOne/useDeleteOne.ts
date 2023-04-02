@@ -40,9 +40,7 @@ function useDeleteOne<
                     createGetOneQueryKey(variables.resource, { id: data.id })
                 ]
 
-                for (const queryKey of queryKeysToInvalidate) {
-                    await queryClient.invalidateQueries(queryKey)
-                }
+                await Promise.allSettled(queryKeysToInvalidate.map(queryKey => queryClient.invalidateQueries(queryKey)))
             },
             ...mutationOptions
         }

@@ -40,10 +40,10 @@ function useUpdateMany<
                 await queryClient.invalidateQueries(listBaseQueryKey)
                 await queryClient.invalidateQueries(manyBaseQueryKey)
 
-                for (const item of data) {
+                data.forEach(item => {
                     const oneQueryKey = createGetOneQueryKey(variables.resource, { id: item.id })
                     queryClient.setQueryData(oneQueryKey, item)
-                }
+                })
             },
             ...mutationOptions
         }

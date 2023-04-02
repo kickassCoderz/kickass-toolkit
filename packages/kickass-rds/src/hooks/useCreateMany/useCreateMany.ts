@@ -37,10 +37,10 @@ function useCreateMany<
                 const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')
                 await queryClient.invalidateQueries(listBaseQueryKey)
 
-                for (const item of data) {
+                data.forEach(item => {
                     const oneQueryKey = createGetOneQueryKey(variables.resource, { id: item.id })
                     queryClient.setQueryData(oneQueryKey, item)
-                }
+                })
             },
             ...mutationOptions
         }

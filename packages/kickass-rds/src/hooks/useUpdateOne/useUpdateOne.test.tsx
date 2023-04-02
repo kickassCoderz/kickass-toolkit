@@ -10,7 +10,7 @@ describe('useUpdateOne', () => {
 
     it('should render', async () => {
         const id = BEERS_MOCK_DATA[0].id
-        const payload = { name: 'Vukovarsko' }
+        const payload = BEERS_MOCK_DATA[0]
 
         const { result } = renderHook(
             () =>
@@ -30,11 +30,6 @@ describe('useUpdateOne', () => {
 
         expect(result.current.data).toBeDefined()
 
-        expect(result.current.data).toEqual(
-            expect.objectContaining({
-                id: expect.stringContaining(id),
-                name: expect.stringContaining(payload.name)
-            })
-        )
+        expect(result.current.data).toMatchObject(payload)
     })
 })

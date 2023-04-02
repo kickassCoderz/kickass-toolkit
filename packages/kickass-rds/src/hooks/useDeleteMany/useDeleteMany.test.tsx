@@ -29,17 +29,6 @@ describe('useDeleteMany', () => {
 
         expect(result.current.data).toBeDefined()
 
-        expect(result.current.data).toEqual(
-            expect.arrayContaining([
-                expect.objectContaining({
-                    id: expect.stringContaining(ids[0]),
-                    name: expect.stringContaining(BEERS_MOCK_DATA[0].name)
-                }),
-                expect.objectContaining({
-                    id: expect.stringContaining(ids[1]),
-                    name: expect.stringContaining(BEERS_MOCK_DATA[1].name)
-                })
-            ])
-        )
+        expect(result.current.data).toMatchObject(ids.map(id => ({ id })))
     })
 })

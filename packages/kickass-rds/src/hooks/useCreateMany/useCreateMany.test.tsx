@@ -29,17 +29,32 @@ describe('useCreateMany', () => {
 
         expect(result.current.data).toBeDefined()
 
-        expect(result.current.data).toEqual(
-            expect.arrayContaining([
-                expect.objectContaining({
-                    id: expect.any(String),
-                    name: expect.stringContaining(payload[0].name)
+        expect(result.current.data).toMatchObject(payload)
+    })
+
+    it('should return id for each item', async () => {
+        const payload = [{ name: 'Vukovarsko' }, { name: 'Velebitsko' }]
+
+        const { result } = renderHook(
+            () =>
+                useCreateMany({
+                    resource: 'beers'
                 }),
-                expect.objectContaining({
-                    id: expect.any(String),
-                    name: expect.stringContaining(payload[1].name)
-                })
-            ])
+            {
+                wrapper: TestWrapper
+            }
         )
+
+        act(() => {
+            result.current.mutate({ payload })
+        })
+
+        await waitFor(() => expect(result.current.isSuccess).toBe(true))
+
+        expect(result.current.data).toBeDefined()
+
+        result.current.data?.forEach(item => {
+            expect(item.id).toBeDefined()
+        })
     })
 })

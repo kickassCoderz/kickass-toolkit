@@ -44,9 +44,7 @@ function useDeleteMany<
                     ...oneQueryKeysToInvalidate
                 ]
 
-                for (const queryKey of queryKeysToInvalidate) {
-                    await queryClient.invalidateQueries(queryKey)
-                }
+                await Promise.allSettled(queryKeysToInvalidate.map(queryKey => queryClient.invalidateQueries(queryKey)))
             },
             ...mutationOptions
         }
