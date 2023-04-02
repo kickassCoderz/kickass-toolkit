@@ -15,6 +15,7 @@ describe('useGetOne', () => {
             () =>
                 useGetOne({
                     resource: 'beers',
+
                     params: {
                         id
                     }
@@ -24,7 +25,7 @@ describe('useGetOne', () => {
             }
         )
 
-        await waitFor(() => result.current.isSuccess)
+        await waitFor(() => expect(result.current.isSuccess).toBe(true))
 
         expect(result.current.data).toBeDefined()
 

@@ -33,12 +33,12 @@ function useUpdateMany<
     const updateManyMutation = useMutation<TData[], TError, TUseUpdateManyPayload<TPayload>, TContext>(
         parameters => dataService.updateMany(variables.resource, parameters),
         {
-            onSuccess(data) {
+            async onSuccess(data) {
                 const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')
                 const manyBaseQueryKey = createBaseQueryKey(variables.resource, 'getMany')
 
-                queryClient.invalidateQueries(listBaseQueryKey)
-                queryClient.invalidateQueries(manyBaseQueryKey)
+                await queryClient.invalidateQueries(listBaseQueryKey)
+                await queryClient.invalidateQueries(manyBaseQueryKey)
 
                 for (const item of data) {
                     const oneQueryKey = createGetOneQueryKey(variables.resource, { id: item.id })

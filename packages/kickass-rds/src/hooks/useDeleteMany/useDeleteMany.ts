@@ -33,7 +33,7 @@ function useDeleteMany<
     const deleteManyMutation = useMutation<TData[], TError, TUseDeleteManyPayload<TPayload>, TContext>(
         parameters => dataService.deleteMany(variables.resource, parameters),
         {
-            onSuccess(data, parameters) {
+            async onSuccess(data, parameters) {
                 const oneQueryKeysToInvalidate = parameters.ids.map(id =>
                     createGetOneQueryKey(variables.resource, { id })
                 )
@@ -44,7 +44,9 @@ function useDeleteMany<
                     ...oneQueryKeysToInvalidate
                 ]
 
-                for (const queryKey of queryKeysToInvalidate) queryClient.invalidateQueries(queryKey)
+                for (const queryKey of queryKeysToInvalidate) {
+                    await queryClient.invalidateQueries(queryKey)
+                }
             },
             ...mutationOptions
         }

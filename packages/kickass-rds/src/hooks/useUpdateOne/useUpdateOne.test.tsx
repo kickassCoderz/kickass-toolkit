@@ -26,7 +26,7 @@ describe('useUpdateOne', () => {
             result.current.mutate({ id, payload })
         })
 
-        await waitFor(() => result.current.isSuccess)
+        await waitFor(() => expect(result.current.isSuccess).toBe(true))
 
         expect(result.current.data).toBeDefined()
 

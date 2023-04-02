@@ -29,7 +29,7 @@ describe('useUpdateMany', () => {
             })
         })
 
-        await waitFor(() => result.current.isSuccess)
+        await waitFor(() => expect(result.current.isSuccess).toBe(true))
 
         expect(result.current.data).toBeDefined()
 

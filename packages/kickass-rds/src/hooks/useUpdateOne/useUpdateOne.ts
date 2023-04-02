@@ -33,13 +33,13 @@ function useUpdateOne<
     const updateOneMutation = useMutation<TData, TError, TUseUpdateOnePayload<TPayload>, TContext>(
         parameters => dataService.updateOne(variables.resource, parameters),
         {
-            onSuccess(data) {
+            async onSuccess(data) {
                 const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')
                 const manyBaseQueryKey = createBaseQueryKey(variables.resource, 'getMany')
                 const oneQueryKey = createGetOneQueryKey(variables.resource, { id: data.id })
 
-                queryClient.invalidateQueries(listBaseQueryKey)
-                queryClient.invalidateQueries(manyBaseQueryKey)
+                await queryClient.invalidateQueries(listBaseQueryKey)
+                await queryClient.invalidateQueries(manyBaseQueryKey)
 
                 queryClient.setQueryData(oneQueryKey, data)
             },

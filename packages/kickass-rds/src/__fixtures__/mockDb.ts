@@ -20,4 +20,4 @@ const dropMockDatabase = () => {
     drop(mockDatabase)
 }
 
-export { dropMockDatabase as dropMockDb, mockDatabase as mockDb, seedMockDatabase as seedMockDb }
+export { dropMockDatabase, mockDatabase, seedMockDatabase }

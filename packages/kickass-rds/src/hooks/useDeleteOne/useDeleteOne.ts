@@ -33,14 +33,16 @@ function useDeleteOne<
     const deleteOneMutation = useMutation<TData, TError, TUseDeleteOnePayload<TPayload>, TContext>(
         parameters => dataService.deleteOne(variables.resource, parameters),
         {
-            onSuccess(data) {
+            async onSuccess(data) {
                 const queryKeysToInvalidate = [
                     createBaseQueryKey(variables.resource, 'getList'),
                     createBaseQueryKey(variables.resource, 'getMany'),
                     createGetOneQueryKey(variables.resource, { id: data.id })
                 ]
 
-                for (const queryKey of queryKeysToInvalidate) queryClient.invalidateQueries(queryKey)
+                for (const queryKey of queryKeysToInvalidate) {
+                    await queryClient.invalidateQueries(queryKey)
+                }
             },
             ...mutationOptions
         }

@@ -16,6 +16,7 @@
         "test:watch": "turbo run test:watch"
     },
     "devDependencies": {
+        "whatwg-fetch": "^3.6.2",
         "@commitlint/cli": "^17.4.4",
         "@commitlint/config-conventional": "^17.4.4",
         "@next/eslint-plugin-next": "^13.2.4",

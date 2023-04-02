@@ -82,7 +82,7 @@ describe('useConsole', () => {
     it('should throw if invalid level is provided', () => {
         const level = 'wrong' as TUseConsoleConsoleLevel
 
-        expect(() => renderHook(() => useConsole(level, 1))).toThrow()
+        expect(() => useConsole(level, 1)).toThrow()
     })
 
     it('useConsoleLog should log to console with level log', () => {

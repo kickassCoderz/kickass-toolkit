@@ -33,11 +33,11 @@ function useCreateOne<
     const createOneMutation = useMutation<TData, TError, TUseCreateOnePayload<TPayload>, TContext>(
         parameters => dataService.createOne(variables.resource, parameters),
         {
-            onSuccess(data) {
+            async onSuccess(data) {
                 const listBaseQueryKey = createBaseQueryKey(variables.resource, 'getList')
                 const oneQueryKey = createGetOneQueryKey(variables.resource, { id: data.id })
 
-                queryClient.invalidateQueries(listBaseQueryKey)
+                await queryClient.invalidateQueries(listBaseQueryKey)
                 queryClient.setQueryData(oneQueryKey, data)
             },
             ...mutationOptions
