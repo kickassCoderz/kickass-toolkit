@@ -1,0 +1,9 @@
+{
+    "quick-start": "Quick Start",
+    "crud-operations": "CRUD Operations",
+    "fetching-multiple-resources": "Fetching multiple resources",
+    "server-side-rendering": "Server-Side rendering",
+    "data-client": "Data Client",
+    "existing-data-service-list": "Existing DataService list",
+    "creating-custom-service": "Creating custom DataService"
+}
