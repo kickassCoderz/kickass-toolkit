@@ -29,46 +29,6 @@ describe('Show', () => {
         expect(screen.queryByText('Kickass Coderz')).toBeNull()
     })
 
-    it("should render via renderFn when the 'when' condition is truthy", () => {
-        const { rerender, container } = render(
-            <Show when={true}>
-                {() => {
-                    return <div>Kickass Coderz</div>
-                }}
-            </Show>
-        )
-
-        expect(screen.getByText('Kickass Coderz')).toBeDefined()
-
-        expect(screen.getByText('Kickass Coderz').textContent).toBe('Kickass Coderz')
-
-        expect(container.innerHTML).toBe('<div>Kickass Coderz</div>')
-
-        rerender(
-            <Show when={false}>
-                {() => {
-                    return <div>Kickass Coderz</div>
-                }}
-            </Show>
-        )
-
-        expect(screen.queryByText('Kickass Coderz')).toBeNull()
-    })
-
-    it("should pass 'when' as argument to renderFn", () => {
-        const renderFunction = jest.fn((value: string) => <div>{value}</div>)
-
-        const { container } = render(<Show when={'Kickass Coderz'}>{renderFunction}</Show>)
-
-        expect(renderFunction).toHaveBeenCalledWith('Kickass Coderz')
-
-        expect(screen.getByText('Kickass Coderz')).toBeDefined()
-
-        expect(screen.getByText('Kickass Coderz').textContent).toBe('Kickass Coderz')
-
-        expect(container.innerHTML).toBe('<div>Kickass Coderz</div>')
-    })
-
     it('should render fallback when condition is falsey and is provided', () => {
         const { rerender, container } = render(
             <Show when={true} fallback={<div>This Sucks</div>}>

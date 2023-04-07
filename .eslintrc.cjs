@@ -3,6 +3,7 @@ module.exports = {
     root: true,
     parser: '@typescript-eslint/parser',
     plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc', 'simple-import-sort'],
+    reportUnusedDisableDirectives: true,
     parserOptions: {
         sourceType: 'module',
         ecmaVersion: 'latest',
