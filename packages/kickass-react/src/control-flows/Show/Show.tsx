@@ -1,16 +1,16 @@
 export type TShowProperties<T> = {
     /**
-     * A provided value which will be evaluated.
+     * A provided value which will be evaluated. Must be truthy to render `children`.
      */
     when: T
     /**
-     * A `ReactNode` which will be rendered when the `when` condition is falsy.
+     * A element which will be rendered when the `when` condition is falsy.
      */
-    fallback?: React.ReactNode
+    fallback?: JSX.Element | null
     /**
-     * A `ReactNode` or `renderFn` which will be called with evaluated value of `when`.
+     * A element which will be rendered when the `when` condition is truthy.
      */
-    children: React.ReactNode | ((item: NonNullable<T>) => JSX.Element)
+    children: JSX.Element
 }
 
 /**
@@ -27,41 +27,14 @@ export type TShowProperties<T> = {
  *   <div>Active screen</div>
  * </Show>
  * }
- *```
- * @example
- * You can use `renderFn` and scope evaluated data:
- * ```tsx
- * type TPerson = {
- *   name: string
- *   age: number
- * }
- *
- * type TProperties = {
- *   state?: {
- *   person: TPerson
- *  }
- * }
- *
- * const MyComponent = ({ state }: TProperties) => {
- *   return (
- *      <Show when={state?.person} fallback={<div>No Person</div>}>
- *          {person => {
- *             return <div>{person.age}</div>
- *        }}
- *   </Show>
- *  )
- * }
- *
  * ```
  */
-function Show<T>({ when, fallback, children }: TShowProperties<T>) {
-    if (when && children) {
-        return typeof children === 'function' ? children(when) : <>{children}</>
-    }
 
-    //@TODO: Fix me when react fixes its types
+function Show<T>(properties: TShowProperties<T>) {
     // eslint-disable-next-line unicorn/no-null
-    return fallback ? <>{fallback}</> : null
+    const { when, fallback = null, children } = properties
+
+    return when ? children : fallback
 }
 
 export { Show }
