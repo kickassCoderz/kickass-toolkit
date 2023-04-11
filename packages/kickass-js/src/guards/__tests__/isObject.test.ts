@@ -10,12 +10,6 @@ describe('isObject', () => {
         expect(isObject([])).toBe(false)
     })
 
-    it("should return 'false' for class instance", () => {
-        class Test {}
-
-        expect(isObject(new Test())).toBe(false)
-    })
-
     it("should return 'false' for other non object values", () => {
         // eslint-disable-next-line unicorn/no-useless-undefined
         expect(isObject(undefined)).toBe(false)
@@ -38,6 +32,10 @@ describe('isObject', () => {
     })
 
     it("should return 'true' for object values", () => {
+        class Test {}
+
+        expect(isObject(new Test())).toBe(true)
+
         expect(isObject({})).toBe(true)
     })
 })

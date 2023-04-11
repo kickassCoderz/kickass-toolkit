@@ -7,7 +7,7 @@ import { isNull } from './isNull'
  * @returns `true` if the value is an object, `false` otherwise.
  */
 function isObject(value: unknown): value is object {
-    return !isArray(value) && typeof value === 'object' && !isNull(value) && value.constructor === Object
+    return typeof value === 'object' && !isArray(value) && !isNull(value)
 }
 
 export { isObject }
