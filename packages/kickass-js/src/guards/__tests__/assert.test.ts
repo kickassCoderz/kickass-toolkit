@@ -1,4 +1,4 @@
-import { assert } from './assert'
+import { assert } from '../assert'
 
 describe('assert', () => {
     it('should be defined', () => {
@@ -8,24 +8,18 @@ describe('assert', () => {
     it('should throw if condition is false', () => {
         expect(() => {
             assert(false, 'error message')
-        }).toThrow('[AssertionError]: error message')
+        }).toThrow('error message')
     })
 
     it('should not throw if condition is true', () => {
         expect(() => {
-            assert(true, '[AssertionError]: error message')
+            assert(true, 'error message')
         }).not.toThrow()
     })
 
     it("should append prefix if it's provided", () => {
         expect(() => {
-            assert(false, 'error message', 'prefix')
+            assert(false, 'error message', { scope: 'prefix' })
         }).toThrow('[prefix]: error message')
-    })
-
-    it('should only throw prefix if message is not provided', () => {
-        expect(() => {
-            assert(false, undefined, 'prefix')
-        }).toThrow('[prefix]')
     })
 })
