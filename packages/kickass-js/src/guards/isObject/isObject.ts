@@ -1,5 +1,5 @@
-import { isArray } from './isArray'
-import { isNull } from './isNull'
+import { isArray } from '../isArray/isArray'
+import { isNull } from '../isNull/isNull'
 
 /**
  * Checks if the given value is an object. It filters out `null` and `array`.

@@ -1,4 +1,4 @@
-import { isSymbol } from '../isSymbol'
+import { isSymbol } from './isSymbol'
 
 describe('isSymbol', () => {
     it('should return false if value is not symbol', () => {

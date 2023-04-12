@@ -1,4 +1,4 @@
-import { isInstanceOf } from '../isInstanceOf'
+import { isInstanceOf } from './isInstanceOf'
 
 const logCoderz = (): void => {
     console.log('Kickass Coderz')

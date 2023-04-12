@@ -1,4 +1,4 @@
-import { isNill } from '../isNill'
+import { isNill } from './isNill'
 
 describe('isNill', () => {
     it('should return false if value is not null or undefined', () => {

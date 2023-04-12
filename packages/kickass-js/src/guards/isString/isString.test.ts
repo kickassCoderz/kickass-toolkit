@@ -1,4 +1,4 @@
-import { isString } from '../isString'
+import { isString } from './isString'
 
 describe('isString', () => {
     it("should return 'false' for non-string values", () => {

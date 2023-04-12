@@ -1,5 +1,5 @@
-import { isNull } from './isNull'
-import { isUndefined } from './isUndefined'
+import { isNull } from '../isNull/isNull'
+import { isUndefined } from '../isUndefined/isUndefined'
 
 /**
  * Checks if value is `null` or `undefined`.

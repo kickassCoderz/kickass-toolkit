@@ -1,4 +1,4 @@
-import { isBoolean } from '../isBoolean'
+import { isBoolean } from './isBoolean'
 
 describe('isBoolean', () => {
     const mockFunction = jest.fn()

@@ -1,4 +1,4 @@
-import { isArray } from '../isArray'
+import { isArray } from './isArray'
 
 describe('isArray', () => {
     const mockFunction = jest.fn()
