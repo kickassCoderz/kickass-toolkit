@@ -181,8 +181,8 @@ importers:
         version: 18.2.0(react@18.2.0)
     devDependencies:
       ra-data-fakerest:
-        specifier: ^4.5.0
-        version: 4.5.0(ra-core@4.9.2)
+        specifier: ^4.9.2
+        version: 4.9.2(ra-core@4.9.2)
       whatwg-fetch:
         specifier: ^3.6.2
         version: 3.6.2
@@ -6900,8 +6900,8 @@ packages:
       - react-native
     dev: true
 
-  /ra-data-fakerest@4.5.0(ra-core@4.9.2):
-    resolution: {integrity: sha512-6NwDHb4HYjH7K7enW7PeBatnsXOif/BZXNNGDpDbimFg1qBJIRAHgUIov4w/jEQdnlKsodAs2v5OoTT8Rn6zcQ==}
+  /ra-data-fakerest@4.9.2(ra-core@4.9.2):
+    resolution: {integrity: sha512-AGUoocvOPlzysRmj7rJM889BaRil0yHeDEp2cMyAgCyz1oHkiuqa82F29kE9BXZtk/ouNrNgVvGNNQFpDteP6w==}
     peerDependencies:
       ra-core: ^4.0.0
     dependencies:
