@@ -4,7 +4,7 @@
         "title": "Kickass Toolkit",
         "display": "hidden",
         "theme": {
-            "layout": "raw"
+            "layout": "full"
         }
     },
     "docs": {
