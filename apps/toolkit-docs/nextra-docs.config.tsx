@@ -1,5 +1,7 @@
 import type { DocsThemeConfig } from 'nextra-theme-docs'
 
+import { Logo } from './src/components'
+
 const config: DocsThemeConfig = {
     docsRepositoryBase: 'https://github.com/kickassCoderz/kickass-toolkit/tree/master/apps/toolkit-docs/src/pages',
 
@@ -13,12 +15,7 @@ const config: DocsThemeConfig = {
         }
     },
     logoLink: '/',
-    logo: (
-        <>
-            <span>😎</span>
-            <span>Kickass Toolkit</span>
-        </>
-    ),
+    logo: Logo,
     footer: {
         text: (
             <>
