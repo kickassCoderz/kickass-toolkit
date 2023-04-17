@@ -1,5 +1,5 @@
 {
-    "name": "@kickass-coderz/kickass-react",
+    "name": "@kickass-coderz/react",
     "version": "0.0.0",
     "type": "module",
     "license": "MIT",
@@ -24,7 +24,7 @@
         "test:watch": "jest --watch"
     },
     "dependencies": {
-        "@kickass-coderz/kickass-js": "workspace:*"
+        "@kickass-coderz/utils": "workspace:*"
     },
     "peerDependencies": {
         "react": ">= 18.0.0",

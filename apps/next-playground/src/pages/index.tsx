@@ -1,4 +1,4 @@
-import { Dynamic } from '@kickass-coderz/kickass-react'
+import { Dynamic } from '@kickass-coderz/react'
 
 export default function Home() {
     return (
