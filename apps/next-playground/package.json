@@ -14,9 +14,9 @@
         "next": "^13.2.4",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "@kickass-coderz/kickass-rds": "workspace:*",
-        "@kickass-coderz/kickass-react": "workspace:*",
-        "@kickass-coderz/kickass-js": "workspace:*"
+        "@kickass-coderz/data-service": "workspace:*",
+        "@kickass-coderz/react": "workspace:*",
+        "@kickass-coderz/utils": "workspace:*"
     },
     "devDependencies": {
         "@types/node": "^18.15.10",

@@ -1,4 +1,4 @@
-import { assert } from '@kickass-coderz/kickass-js'
+import { assert } from '@kickass-coderz/utils'
 import { useDebugValue, useEffect, useMemo } from 'react'
 
 const isEnabled = typeof process === 'undefined' ? true : process.env['NODE_ENV'] !== 'production'
