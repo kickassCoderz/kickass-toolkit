@@ -5,5 +5,5 @@
         "title": "Packages"
     },
     "data-service": "Data service",
-    "react-utils": "React utils"
+    "react": "React hooks and utils"
 }
