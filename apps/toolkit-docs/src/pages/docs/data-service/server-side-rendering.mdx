@@ -2,4 +2,146 @@ import { Callout } from 'nextra-theme-docs'
 
 # Server-Side Rendering
 
-<Callout type="error">TODO</Callout>
+Server-side rendering (SSR) is a popular technique for rendering web pages on the server. This is in contrast to client-side rendering (CSR), where the web page is rendered on the client's browser. SSR is a great way to improve performance and SEO, but it can be challenging to set up and maintain.
+
+## Overview
+
+In kickass-toolkit we recommend using [Next.js](https://nextjs.org/) for SSR. Next.js is a framework for building server-rendered React applications. It provides a number of features out of the box. The examples in this page use Next.js, but the concepts apply to any SSR framework.
+
+## Basic example
+
+Even though DataService can be instantiated multiple times, we recommend creating a single instance and sharing it across the application during SSR.
+
+We will use RestDataService as an example same as before.
+
+```tsx copy filename="dataService.ts"
+import { RestDataService } from '@kickass-coderz/data-service'
+
+const dataService = new RestDataService()
+
+export { dataService }
+```
+
+Now we can import the dataService instance in our pages and use it to fetch data.
+
+```tsx copy filename="pages/index.tsx"
+import { dataService } from './dataService'
+
+const Page = ({ data }) => {
+    return (
+        <ul>
+            {data.map(item => {
+                return <li>{item.name}</li>
+            })}
+        </ul>
+    )
+}
+
+const getServerSideProps = () => {
+    // this calls https://api.punkapi.com/v2/beers
+    const { data: beers } = await dataService.getList('beers')
+
+    return {
+        props: {
+            beers
+        }
+    }
+}
+```
+
+You can read more about SSR in Next.js [here](https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering).
+
+## Using Hydrate
+
+As we use react-query under the hood we can use QueryClient to fetch data on the server with our DataService and then send it to the client to be used inside our hooks like `useGetList`.
+
+<Callout>
+    Make sure you have your DataService setup. If not check our [Project
+    setup](/docs/data-service/quick-start#project-setup).
+</Callout>
+
+```tsx copy filename="pages/index.tsx"
+import { dataService } from './dataService'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
+import { useGetList } from '@kickass-coderz/data-service'
+
+const Page = () => {
+    const { data } = useGetList({
+        resource: 'beers'
+    })
+
+    return (
+        <ul>
+            {data.map(item => {
+                return <li>{item.name}</li>
+            })}
+        </ul>
+    )
+}
+
+const getServerSideProps = () => {
+    const queryClient = new QueryClient()
+
+    await queryClient.prefetchQuery(createGetListQueryKey('beers'), () => dataService.getList('beers'))
+
+    return {
+        props: {
+            beers: dehydrate(queryClient)
+        }
+    }
+}
+```
+
+To use react-query hydration you need to add `Hydrate` component to your `_app.js` or `_app.tsx` file.
+
+```tsx
+const MyApp = ({ Component, pageProps }: AppProps) => {
+    return (
+        <>
+            <Head>
+                <title>My Next App</title>
+            </Head>
+            <DataServiceProvider dataService={dataService}>
+                <Hydrate state={pageProps.dehydratedState}>
+                    <Component {...pageProps} />
+                </Hydrate>
+            </DataServiceProvider>
+        </>
+    )
+}
+```
+
+You can learn more about [Hydrate component here](https://tanstack.com/query/v4/docs/react/reference/hydration#hydrate-1).
+
+By using `createGetListQueryKey` on server our data is automatically populated inside `useGetList` hook on the client. This is because with shared query keys `useGetList` hook automatically knows where to look for list data.
+
+## Next.js 13
+
+Next.js introduced new concept of server components as an alternative to data fetching methods. You can read more about it [here](https://beta.nextjs.org/docs/data-fetching/fetching#asyncawait-in-server-components).
+
+Example below shows you how to use DataService with server components.
+
+```tsx copy filename="pages/index.tsx"
+import { dataService } from './dataService'
+
+const Page = async () => {
+    // this calls https://api.punkapi.com/v2/beers
+    const { data: beers } = await dataService.getList('beers')
+
+    return (
+        <ul>
+            {data.map(item => {
+                return <li>{item.name}</li>
+            })}
+        </ul>
+    )
+}
+```
+
+With server components being `async` we can fetch data directly inside of them. We also do not need to use hooks since everything is fetched and rendered on the server exclusively.
+
+<Callout type="info">
+   In the future we plan to add even more support and features for server components as they become stable.
+</Callout>
+
+We recommend using server components but you can however stiil use our hooks inside client components. You can learn more about the differences [here](https://beta.nextjs.org/docs/rendering/server-and-client-components).
