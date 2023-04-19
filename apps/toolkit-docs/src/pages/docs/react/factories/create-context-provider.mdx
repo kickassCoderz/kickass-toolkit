@@ -1,0 +1,61 @@
+import { Callout } from 'nextra-theme-docs'
+
+# createContextProvider
+
+`createContextProvider` is a function that Creates a `Provider` component and `useProvider` hook with type inference based od provided factory function.
+It reduces boilerplate code and makes it easier to use context in your application.
+
+<Callout type="warning">`createContextProvider` should be called outside component scope!</Callout>
+
+## Example usage
+
+### ContextProvider without props and default value
+
+```tsx copy
+import { createContextProvider } from '@kickass-coderz/react'
+
+const [Provider, useProvider] = createContextProvider(() => {
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggleOpen = useCallback(() => {
+        setIsOpen(previous => !previous)
+    }, [])
+
+    return { isOpen, setIsOpen }
+})
+```
+
+### ContextProvider with props
+
+```tsx copy
+import { createContextProvider } from '@kickass-coderz/react'
+
+const [Provider, useProvider] = createContextProvider((properties: ProviderProperties) => {
+    const [isOpen, setIsOpen] = useState(properties.defaultOpen)
+
+    const toggleOpen = useCallback(() => {
+        setIsOpen(previous => !previous)
+    }, [])
+
+    return { isOpen, setIsOpen }
+})
+```
+
+### ContextProvider with props and default value
+
+```tsx copy
+import { createContextProvider } from '@kickass-coderz/react'
+
+const [Provider, useProvider] = createContextProvider(
+    (properties: ProviderProperties) => {
+        const [isOpen, setIsOpen] = useState(properties.defaultOpen)
+
+        const toggleOpen = useCallback(() => {
+            setIsOpen(previous => !previous)
+        }, [])
+
+        return { isOpen, setIsOpen }
+    },
+    { isOpen: false, setIsOpen: () => {} }
+)
+```

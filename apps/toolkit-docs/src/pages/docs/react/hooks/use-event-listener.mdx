@@ -1,0 +1,34 @@
+# useEventListener
+
+**useEventListener** is a wrapper around `addEventListener`
+
+## Features
+
+-   Subscribes event listener to target on mount
+-   Unsubscribes event listener on unmount
+-   Handles event listener objects
+-   Full TS support for most targets (feel free to contact us if something is missing)
+-   No need to wrap callback with `useCallback`, because hook manages callback mutation internally.
+
+## Example usage
+
+```tsx
+import { useEventListener } from '@kickass-coderz/react'
+import { useRef } from 'react'
+
+const boxStyles = {
+    width: 400,
+    height: 400,
+    backgroundColor: 'hotpink'
+}
+
+const MyComponent = () => {
+    const boxRef = useRef()
+
+    useEventListener(boxRef, 'mousemove', ({ offsetX, offsetY }) => {
+        console.log({ offsetX, offsetY })
+    })
+
+    return <div ref={boxRef} style={boxStyles} />
+}
+```

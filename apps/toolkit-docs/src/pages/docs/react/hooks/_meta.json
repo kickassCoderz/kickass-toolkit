@@ -1,0 +1,23 @@
+{
+    "use-console": "useConsole",
+    "use-effect-event": "useEffectEvent",
+    "use-element-reference-with-callback": "useElementReferenceWithCallback",
+    "use-element-reference-with-state": "useElementReferenceWithState",
+    "use-event-listener": "useEventListener",
+    "use-get-fps": "useGetFps",
+    "use-global-object": "useGlobalObject",
+    "use-intersection-observer": "useIntersectionObserver",
+    "use-interval": "useInterval",
+    "use-is-browser": "useIsBrowser",
+    "use-media-query": "useMediaQuery",
+    "use-previous-value-state": "usePreviousValueState",
+    "use-previous-value": "usePreviousValue",
+    "use-request-animation-frame-primitive": "useRequestAnimationFramePrimitive",
+    "use-request-animation-frame": "useRequestAnimationFrame",
+    "use-resize-observer": "useResizeObserver",
+    "use-storage-state": "useStorageState",
+    "use-target-fps": "useTargetFps",
+    "use-timeout-primitive": "useTimeoutPrimitive",
+    "use-timeout": "useTimeout",
+    "use-toggle": "useToggle"
+}

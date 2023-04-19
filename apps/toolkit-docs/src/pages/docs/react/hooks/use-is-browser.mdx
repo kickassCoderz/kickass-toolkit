@@ -1,0 +1,29 @@
+# useIsBrowser
+
+Check if current environment is browser. Useful during SSR.
+
+-   No more `typeof window !== 'undefined'` checks
+-   Server-side rendering friendly
+
+## Example usage
+
+```tsx
+import { useIsBrowser } from '@kickass-coderz/react'
+
+const Component = () => {
+    const isBrowser = useIsBrowser()
+
+    return null
+}
+```
+
+-   for Browser it will return `true`.
+-   for Node it will return `false`
+
+## Server-Side Rendering (SSR) and outside of React usage
+
+For SSR and outside of React you can use `getIsBrowser` helper, even though `useIsBrowser` will also work because it does not use any of the React APIs so for Node environment it is just a function.
+
+```tsx
+import { getIsBrowser } from '@kickass-coderz/react'
+```

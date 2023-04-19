@@ -1,0 +1,87 @@
+# Dynamic
+
+`Dynamic` is a primitive polymorphic component that can be used to render any valid react component. All `props` and `ref` are passed to the component and are properly infered.
+
+It can be useful and reduce boilerplate when you want to render from data.
+
+## Usage
+
+Lets asume we have following component we want to render:
+
+```tsx
+const RedThing = () => <strong style={{ color: 'red' }}>Red Thing</strong>
+const GreenThing = () => <strong style={{ color: 'green' }}>Green Thing</strong>
+const BlueThing = () => <strong style={{ color: 'blue' }}>Blue Thing</strong>
+```
+
+Without `Dynamic` we would have to write:
+
+```tsx
+const RenderThing3 = () => {
+    const [color, setColor] = useState<'red' | 'green' | 'blue'>('red')
+
+    return (
+        <div>
+            {color === 'red' && <RedThing />}
+            {color === 'green' && <GreenThing />}
+            {color === 'blue' && <BlueThing />}
+            <button onClick={() => setColor('green')}>Green</button>
+            <button onClick={() => setColor('blue')}>Blue</button>
+            <button onClick={() => setColor('red')}>Blue</button>
+        </div>
+    )
+}
+```
+
+Or something like this:
+
+```tsx
+const options = {
+    red: RedThing,
+    green: GreenThing,
+    blue: BlueThing
+}
+
+type Options = keyof typeof options
+
+const RenderThing = () => {
+    const [color, setColor] = useState<Options>('red')
+
+    const Thing = options[color]
+
+    return (
+        <div>
+            <Thing />
+            <button onClick={() => setColor('green')}>Green</button>
+            <button onClick={() => setColor('blue')}>Blue</button>
+            <button onClick={() => setColor('red')}>Blue</button>
+        </div>
+    )
+}
+```
+
+With `Dynamic` we can write it even shorter:
+
+```tsx
+import { Dynamic } from '@kickass-coderz/react'
+const options = {
+    red: RedThing,
+    green: GreenThing,
+    blue: BlueThing
+}
+
+type Options = keyof typeof options
+
+const RenderThing = () => {
+    const [color, setColor] = useState<keyof typeof options>('red')
+
+    return (
+        <div>
+            <Dynamic component={options[color]} />
+            <button onClick={() => setColor('green')}>Green</button>
+            <button onClick={() => setColor('blue')}>Blue</button>
+            <button onClick={() => setColor('red')}>Blue</button>
+        </div>
+    )
+}
+```

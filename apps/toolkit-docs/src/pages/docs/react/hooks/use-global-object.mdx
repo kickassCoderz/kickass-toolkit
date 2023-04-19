@@ -1,0 +1,22 @@
+# useGlobalObject
+
+Returns global object for current environment. Useful when you want to access global object from inside your component without checking manually which one is available.
+
+-   No more `typeof window !== 'undefined'` checks
+-   Works in both browser and server-side rendering
+-   Contains fallbacks for older browsers
+
+## Example usage
+
+```tsx
+import { useGlobalObject } from '@kickass-coderz/react'
+
+const Component = () => {
+    const globalObject = useGlobalObject()
+
+    return null
+}
+```
+
+-   for Browser it will return Window.
+-   for Node it will return Global object.

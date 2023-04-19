@@ -1,0 +1,25 @@
+# Switch
+
+`Switch` component renders the first `Match` child that matches `when` or `fallback` if no `Match` children match.
+Its is useful for when we want to render but there are more than 2 mutually exclusive conditions.
+
+## Usage
+
+Let's implement a simple routing:
+
+```jsx
+import { Switch, Match } from '@kickass-coderz/react'
+
+const MySimpleRouter = () => {
+    return (
+        <Switch fallback={<div>Not found</div>}>
+            <Match when={path === '/'}>
+                <div>Home Page</div>
+            </Match>
+            <Match when={path === '/about'}>
+                <div>About Page</div>
+            </Match>
+        </Switch>
+    )
+}
+```

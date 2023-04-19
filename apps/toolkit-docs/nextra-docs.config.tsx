@@ -26,6 +26,9 @@ const config: DocsThemeConfig = {
                 {`${new Date().getFullYear()}`}
             </>
         )
+    },
+    sidebar: {
+        defaultMenuCollapseLevel: 1
     }
 }
 

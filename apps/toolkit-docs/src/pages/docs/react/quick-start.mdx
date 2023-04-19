@@ -1,19 +1,21 @@
-import { Callout, Tab, Tabs } from 'nextra-theme-docs'
+import { Callout, Tab, Tabs, Steps } from 'nextra-theme-docs'
 
 # Quick start
 
-<Callout type="info">DOCS COMING SOON</Callout>
+Follow the steps below to get started with Kickass Coderz React.
 
-We are building docs for this, while we are doing that you can [check out the source code](https://github.com/kickassCoderz/kickass-toolkit/tree/master/packages/react). It has full typescript support, docs and tests so you should find no issue in using those as a reference.
+## Project setup
 
-### Install
+<Steps>
 
-Package is also already available on npm, you can install it using your favorite package manager.
+### Installation
+
+Add package to your project dependencies:
 
 <Tabs items={['npm', 'pnpm', 'yarn']}>
     <Tab>
     ```bash copy 
-    npm install @kickass-coderz/react 
+    npm install @kickass-coderz/react
     ```
     </Tab>
     <Tab>
@@ -23,8 +25,28 @@ Package is also already available on npm, you can install it using your favorite
     </Tab>
     <Tab>
     ```bash copy 
-    yarn add @kickass-coderz/react
+    yarn add @kickass-coderz/react 
     ```
     </Tab>
 
 </Tabs>
+### Usage
+
+No additional setup is required, just import things you want and start using them.
+
+```tsx copy
+import { useRef } from 'react'
+import { useEventListener } from '@kickass-coderz/react'
+
+const SomeComponent = () => {
+    const ref = useRef()
+
+    useEventListener(ref, 'click', event => {
+        // do something
+    })
+
+    return <div ref={ref}>Kickass</div>
+}
+```
+
+</Steps>

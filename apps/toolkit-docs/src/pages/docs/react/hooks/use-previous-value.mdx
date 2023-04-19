@@ -1,0 +1,33 @@
+# usePreviousValue
+
+Hook that returns the previous value of the given value. In React terms that would be a value during previous render.
+
+It will always return `undefined` on the first render.
+
+## Example usage
+
+```tsx
+import { useState } from 'react'
+import { usePreviousValue } from '@kickass-coderz/hooks'
+
+const Component = ({ handleUpvote }) => {
+    const [value, setValue] = useState(1)
+
+    // after each increment this will return the previous value
+    // if value becomes 2, previousValue will be 1
+    // if value becomes 3, previousValue will be 2
+    // ...
+    const previousValue = usePreviousValue(value)
+
+    return (
+        <button
+            type="button"
+            onClick={() => {
+                setValue(count + 1)
+            }}
+        >
+            Increment
+        </button>
+    )
+}
+```

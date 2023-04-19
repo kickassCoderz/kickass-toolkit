@@ -1,0 +1,163 @@
+# useStorageState
+
+useStorageState is a hook which helps persist data in chosen storage API to keep state between page
+reloads.
+
+For convinience and ease of use we also export `useLocalStorageState` and `useSessionStorageState` hooks.
+
+## Features
+
+-   Familiar React API
+-   Familiar browser API
+-   Server-Side Rendering friendly
+-   Full TypeScript support
+
+## Example usage
+
+Let's recreate `useLocalStorageState` with help of [useGlobalObject](/docs/react/use-global-object):
+
+```tsx
+import { useGlobalObject, useStorageState } from '@kickass-coderz/react'
+
+const useLocalStorageState = (key: string, initialState: TUseStorageStateInitalState = null) => {
+    return useStorageState(key, useGlobalObject().localStorage, initialState)
+}
+```
+
+## useLocalStorageState
+
+Just like React's useState but persits into browser local storage API to keep state between page reloads.
+
+### Features
+
+-   Familiar React API
+-   Familiar browser API
+-   Server-Side Rendering friendly
+-   Full TypeScript support
+
+### Example usage
+
+```tsx
+import { useLocalStorageState } from '@kickass-coderz/react'
+
+const Component = () => {
+    // this will now persist in localStorage under the key 'count'
+    const [count, setCount] = useLocalStorageState('count', 0)
+
+    return (
+        <button
+            type="button"
+            onClick={() => {
+                setCount(count + 1)
+            }}
+        >
+            Increment
+        </button>
+    )
+}
+```
+
+### Setter function
+
+You can also use a setter function to update the state.
+
+```tsx
+const [count, setCount] = useLocalStorageState('count', 0)
+
+const onClick = () => {
+    setCount(currentCount => currentCount + 1)
+}
+```
+
+It is also useful when you want to memoize event handler without changing the reference
+after each state update.
+
+The example below will cause unecessary re-renders for any component that gets onClick handler through props.
+
+```tsx
+const [count, setCount] = useLocalStorageState('count', 0)
+
+const onClick = useCallback(() => {
+    setCount(count + 1)
+}, [count]) // onClick reference will change after each state update
+```
+
+The example below will fix that keeping the onClick reference the same.
+
+```tsx
+const [count, setCount] = useLocalStorageState('count', 0)
+
+const onClick = useCallback(() => {
+    // we get the current state as an argument for our setter function
+    setCount(currentCount => currentCount + 1)
+}, []) // onClick reference will stay the same avoiding re-renders
+```
+
+## useSessionStorageState
+
+Just like React's useState but persits into browser session storage API to keep state between page reloads.
+
+### Features
+
+-   Familiar React API
+-   Familiar browser API
+-   Server-Side Rendering friendly
+-   Full TypeScript support
+
+### Example usage
+
+```tsx
+import { useSessionStorageState } from '@kickass-coderz/react'
+
+const Component = () => {
+    // this will now persist in sessionStorage under the key 'count'
+    const [count, setCount] = useSessionStorageState('count', 0)
+
+    return (
+        <button
+            type="button"
+            onClick={() => {
+                setCount(count + 1)
+            }}
+        >
+            Increment
+        </button>
+    )
+}
+```
+
+### Setter function
+
+You can also use a setter function to update the state.
+
+```tsx
+const [count, setCount] = useSessionStorageState('count', 0)
+
+const onClick = () => {
+    setCount(currentCount => currentCount + 1)
+}
+```
+
+It is also useful when you want to memoize event handler without changing the reference
+after each state update.
+
+The example below will cause unecessary re-renders for any component that gets onClick handler through props.
+
+```tsx
+const [count, setCount] = useSessionStorageState('count', 0)
+
+const onClick = useCallback(() => {
+    setCount(count + 1)
+}, [count]) // onClick reference will change after each state update
+```
+
+The example below will fix that keeping the onClick reference the same.
+
+```tsx
+const [count, setCount] = useSessionStorageState('count', 0)
+
+const onClick = useCallback(() => {
+    // we get the current state as an argument for our setter function
+    setCount(currentCount => currentCount + 1)
+}, []) // onClick reference will stay the same avoiding re-renders
+```

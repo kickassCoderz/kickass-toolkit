@@ -1,0 +1,22 @@
+# Show
+
+`Show` component conditionally renders part of the view. It renders `children` when the `when` condition is truthy or `fallback` if provided.
+You can think of it as ternary operator(`when ? children : fallback`) but in JSX.
+
+## Usage
+
+Lets how different screens based on some state:
+
+```jsx
+import { Show } from '@kickass-coderz/react'
+
+const MyComponent = () => {
+    const [isActive, setIsActive] = useState(false)
+
+    return (
+        <Show when={isActive} fallback={<div>Inactive screen</div>}>
+            <div>Active screen</div>
+        </Show>
+    )
+}
+```
