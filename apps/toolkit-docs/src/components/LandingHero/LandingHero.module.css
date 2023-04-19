@@ -72,3 +72,10 @@ a.cta:focus-visible {
 a.cta:focus-visible span {
     transform: translateX(3px);
 }
+
+.wrapper {
+    max-width: 90rem;
+    padding-left: max(env(safe-area-inset-left), 1.5rem);
+    padding-right: max(env(safe-area-inset-right), 1.5rem);
+    margin: 0 auto;
+}

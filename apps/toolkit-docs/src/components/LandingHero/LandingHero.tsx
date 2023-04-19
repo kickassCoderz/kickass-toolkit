@@ -4,7 +4,7 @@ import styles from './LandingHero.module.css'
 
 const LandingHero = () => {
     return (
-        <>
+        <div className={styles.wrapper}>
             <h1 className={styles.heroTitle}>
                 Develop <span className={styles.heroTitleDistinct}>Kickass</span> projects
                 <br /> with rapid development <span className={styles.heroTitleDistinct}>Toolkit</span>
@@ -17,7 +17,7 @@ const LandingHero = () => {
             <Link className={styles.cta} href="/docs/introduction">
                 Get started <span>→</span>
             </Link>
-        </>
+        </div>
     )
 }
 

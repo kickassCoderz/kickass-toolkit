@@ -1,3 +1,6 @@
 {
-    "quick-start": "Quick start"
+    "quick-start": "Quick start",
+    "hooks": "Hooks",
+    "factories": "Factories",
+    "control-flows": "Control flows"
 }
