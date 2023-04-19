@@ -1,1 +1,61 @@
 # useIntersectionObserver
+
+Drop in replacement for IntersectionObserver as a React hook.
+
+## Features
+
+-   Subscribe to intersection changes for the given target
+-   Full TypeScript support
+-   Cleans up observer subscription on unmount
+-   Reuses observer - calling the same hook multiple times will reuse the same observer instance saving memory
+
+## Example usage
+
+Do not render the video if it is not visible on the screen.
+
+```tsx
+import { useIntersectionObserver } from '@kickass-coderz/react'
+
+const Component = () => {
+    const videoContainerRef = useRef()
+    const [isVideoVisible, setVideoVisible] = useState(false)
+
+    useIntersectionObserver(videoContainerRef, ([entry]) => {
+      setVideoVisible(entry.isIntersecting)
+    })
+
+    return (
+      <div ref={videoContainerRef}>
+        {isVideoVisible && (
+          <video width="1920" height="1080" controls>
+            <source src="movie.mp4" type="video/mp4">
+          </video>
+        )}
+      </div>
+    )
+}
+```
+
+The hook accepts React ref, or any `Element` same as `IntersectionObserver` constructor.
+
+## Observer options
+
+We also fully support options like `threshold` and `root` as described in [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver#properties).
+
+```jsx
+useIntersectionObserver(
+    videoContainerRef,
+    ([entry]) => {
+        setVideoVisible(entry.isIntersecting)
+    },
+    {
+        root: document.body,
+        rootMargin: '10px',
+        threshold: [0.5, 0.9]
+    }
+)
+```
+
+## Memory optimization
+
+As said above, `useIntersectionObserver` reuses observer instance to save memory. So calling the hook multiple times will not create new IntersectionObserver instance. It achives this by attaching callbacks for different targets and options inside the observer pool `Array`. Before adding any new observers this `Array` is check if the matching observer already exists, and if it does it will reuse it. This `Array` is also checked when change is detected for the target and each registered callback for the observer is called sequentially.

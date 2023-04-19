@@ -8,6 +8,7 @@ import { useRequestAnimationFramePrimitive } from '../useRequestAnimationFramePr
  * @beta this hook is in beta and may change in the future.
  * @param frameRequestCallback - The callback to be executed on each RAF loop.
  * @param isActive - A boolean to control the RAF loop.
+ * @returns clear function
  */
 function useRequestAnimationFrame(frameRequestCallback: FrameRequestCallback, isActive: boolean) {
     const { clear, loop } = useRequestAnimationFramePrimitive()
@@ -18,8 +19,10 @@ function useRequestAnimationFrame(frameRequestCallback: FrameRequestCallback, is
             loop(effectEvent)
         }
 
-        return clear()
+        return clear
     }, [isActive, loop, clear, effectEvent])
+
+    return clear
 }
 
 export { useRequestAnimationFrame }
