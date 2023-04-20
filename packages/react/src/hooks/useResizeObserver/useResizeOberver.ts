@@ -87,10 +87,11 @@ function useResizeObserver<T extends Element>(
     callbackFunction: ResizeObserverCallback
 ) {
     const resizeObserver = getResizeObserverInstance()
-    const targetElement = target && 'current' in target ? target.current : target
     const onResizeCallback = useEffectEvent(callbackFunction)
 
     useEffect(() => {
+        const targetElement = target && 'current' in target ? target.current : target
+
         if (resizeObserver && targetElement) {
             resizeObserver.subscribe(targetElement, onResizeCallback)
         }
@@ -100,7 +101,7 @@ function useResizeObserver<T extends Element>(
                 resizeObserver.unsubscribe(targetElement, onResizeCallback)
             }
         }
-    }, [resizeObserver, onResizeCallback, targetElement])
+    }, [resizeObserver, onResizeCallback, target])
 }
 
 export { useResizeObserver }
