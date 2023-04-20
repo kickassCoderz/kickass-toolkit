@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react'
+import { render, renderHook } from '@testing-library/react'
 import { useRef } from 'react'
 
 import { useIntersectionObserver } from './useIntersectionObserver'
@@ -369,5 +369,21 @@ describe('useIntersectionObserver', () => {
         expect(observeSpy).toHaveBeenCalledWith(div)
         expect(IntersectionObserverSpy).toHaveBeenCalledTimes(1)
         expect(result.current).toBeUndefined()
+    })
+
+    it('should create IntersectionObserver instance when useRef object is passed', () => {
+        const callbackSpy = jest.fn()
+
+        const Component = () => {
+            const reference = useRef<HTMLDivElement>(null)
+            useIntersectionObserver(reference, callbackSpy)
+
+            return <div ref={reference}>Test</div>
+        }
+
+        render(<Component />)
+
+        expect(observeSpy).toHaveBeenCalledTimes(1)
+        expect(IntersectionObserverSpy).toHaveBeenCalledTimes(1)
     })
 })

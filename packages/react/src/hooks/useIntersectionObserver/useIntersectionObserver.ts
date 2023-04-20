@@ -7,6 +7,10 @@ type TObserverPoolItem = { observer: IntersectionObserver; callbacks: Set<Inters
 // https://github.com/kickassCoderz/kickass-toolkit/pull/42#issuecomment-1169928398
 const observerPool: TObserverPoolItem[] = []
 
+const getTargetElement = <T extends Element>(target: React.RefObject<T> | T | null): T | null => {
+    return target && 'current' in target ? target.current : target
+}
+
 /**
  * Drop in hook replacement for IntersectionObserver
  * @beta - this hook is still in development and may change in the future
@@ -19,10 +23,11 @@ function useIntersectionObserver<T extends Element>(
     callbackFunction: IntersectionObserverCallback,
     options?: IntersectionObserverInit
 ): void {
-    const element = target && 'current' in target ? target.current : target
     // eslint-disable-next-line unicorn/no-null
     const { root = null, rootMargin = '0px 0px 0px 0px', threshold = 0 } = options || {}
     const observerCallback = useEffectEvent<IntersectionObserverCallback>((entries, observer) => {
+        const element = getTargetElement(target)
+
         const targetEntries = entries.filter(entry => entry.target === element)
 
         if (targetEntries.length > 0) {
@@ -80,6 +85,8 @@ function useIntersectionObserver<T extends Element>(
     }, [root, rootMargin, threshold, observerCallback])
 
     useEffect(() => {
+        const element = getTargetElement(target)
+
         if (!element || !observerItemReference.current?.observer) {
             return
         }
@@ -91,7 +98,7 @@ function useIntersectionObserver<T extends Element>(
         return () => {
             observerItem.unobserve(element)
         }
-    }, [element])
+    }, [target])
 }
 
 export { useIntersectionObserver }
