@@ -1,52 +1,57 @@
+import { assert, isUndefined } from '@kickass-coderz/utils'
 import { createContext, useContext } from 'react'
 
-export type TProviderProperties = {
+export type CreateContextProviderProperties = {
     children?: React.ReactNode
 } & Record<string, unknown>
 
-export type TUseCreateContextValue<T, P extends TProviderProperties> = (properties: P) => T
-
-export type TProvider<P extends TProviderProperties> = (properties: P) => JSX.Element
-
-export type TUseProvider<T> = () => T
-
-export type TCreateContextProviderReturnType<T, P extends TProviderProperties> = [TProvider<P>, TUseProvider<T>]
+export type TCreateContextProviderOptions = {
+    /**
+     * Name of the context. It will be used in error messages as a `scope` and as a `displayName` for the `Context`. Useful for debugging.
+     */
+    scope?: string
+    /**
+     * Error message which will be thrown by `useProvider` hook if the `context` is `undefined`. It can be a string or a function which will be called on error and it's return value will be used as an error message.
+     */
+    errorMessage?: string | (() => string)
+}
 
 /**
  * Creates a `Provider` component and `useProvider` hook with type inference based od provided factory function.
- * @beta this is work in progress and API might change
- * @param useCreateContextValue - a factory hook which will be called on `Provider` component mount. It takes all of `Provider` component props as argument and it's return value will be available as context value via `useProvider` hook.
- * @param defaultValue - an optional fallback which is returned from `useProvider` hook if the `context` isn't provided.
- * @returns tuple of `Provider` component and `useProvider` hook(`[Provider, useProvider]`).
+ * `useProvider` hook will **throw an error** if the `context` is `undefined`.
+ * @param useCreateContextProviderValue - a factory hook which will be called on `Provider` component mount. It takes all of `Provider` component props as argument and it's return value will be available as context value via `useProvider` hook.
+ * @param options - Additional options for `createContextProvider` function. Has `contextName` and `errorMessage` properties.
+ * @returns tuple of `Provider` component and `useProvider` hook `[Provider, useProvider]`.
  */
-function createContextProvider<T, P extends TProviderProperties>(
-    useCreateContextValue: TUseCreateContextValue<T, P>,
-    defaultValue: T
-): TCreateContextProviderReturnType<T, P>
+function createContextProvider<P extends CreateContextProviderProperties, T>(
+    useCreateContextProviderValue: (properties: P) => T,
+    options?: TCreateContextProviderOptions
+) {
+    const Context = createContext<T | undefined>(undefined)
 
-function createContextProvider<T, P extends TProviderProperties>(
-    useCreateContextValue: TUseCreateContextValue<T, P>
-): TCreateContextProviderReturnType<T | undefined, P>
-
-function createContextProvider<T, P extends TProviderProperties>(
-    useCreateContextValue: TUseCreateContextValue<T, P>,
-    defaultValue?: T
-): TCreateContextProviderReturnType<T | undefined, P> {
-    const Context = createContext(defaultValue)
-
-    function Provider(properties: P) {
-        const contextValue = useCreateContextValue(properties)
+    const Provider = (properties: P) => {
+        const contextValue = useCreateContextProviderValue(properties)
 
         return <Context.Provider value={contextValue}>{properties.children}</Context.Provider>
     }
 
-    function useProvider() {
+    if (options?.scope) {
+        Context.displayName = `${options.scope}Context`
+        Provider.displayName = `${options.scope}Provider`
+    }
+
+    const useProvider = () => {
         const providerContext = useContext(Context)
+
+        assert(!isUndefined(providerContext), {
+            scope: options?.scope ? `${options.scope}Provider` : undefined,
+            message: options?.errorMessage
+        })
 
         return providerContext
     }
 
-    return [Provider, useProvider]
+    return [Provider, useProvider] as const
 }
 
 export { createContextProvider }

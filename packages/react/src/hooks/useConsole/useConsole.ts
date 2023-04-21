@@ -17,7 +17,7 @@ export type TUseConsoleParameters<T extends TUseConsoleConsoleLevel> = Parameter
  * @param args - any arguments to watch and log on changes
  */
 function useConsole<T extends TUseConsoleConsoleLevel>(level: T, ...arguments_: TUseConsoleParameters<T>): void {
-    assert(console?.[level], `Invalid level: "${level}" provided!`, { scope: 'useConsole' })
+    assert(console?.[level], { scope: 'useConsole', message: `Invalid level: "${level}" provided!` })
 
     const logger = useMemo(() => {
         return console[level]
