@@ -1,7 +1,7 @@
 import { assert, isUndefined } from '@kickass-coderz/utils'
 import { createContext, useContext } from 'react'
 
-export type CreateContextProviderProperties = {
+export type TCreateContextProviderProperties = {
     children?: React.ReactNode
 } & Record<string, unknown>
 
@@ -23,7 +23,7 @@ export type TCreateContextProviderOptions = {
  * @param options - Additional options for `createContextProvider` function. Has `contextName` and `errorMessage` properties.
  * @returns tuple of `Provider` component and `useProvider` hook `[Provider, useProvider]`.
  */
-function createContextProvider<P extends CreateContextProviderProperties, T>(
+function createContextProvider<P extends TCreateContextProviderProperties, T>(
     useCreateContextProviderValue: (properties: P) => T,
     options?: TCreateContextProviderOptions
 ) {
