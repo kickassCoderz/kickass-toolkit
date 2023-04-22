@@ -7,19 +7,19 @@ describe('assert', () => {
 
     it('should throw if condition is false', () => {
         expect(() => {
-            assert(false, 'error message')
+            assert(false, { message: 'error message' })
         }).toThrow('error message')
     })
 
     it('should not throw if condition is true', () => {
         expect(() => {
-            assert(true, 'error message')
+            assert(true, { message: 'error message' })
         }).not.toThrow()
     })
 
     it("should append prefix if it's provided", () => {
         expect(() => {
-            assert(false, 'error message', { scope: 'prefix' })
+            assert(false, { scope: 'prefix', message: 'error message' })
         }).toThrow('[prefix]: error message')
     })
 })

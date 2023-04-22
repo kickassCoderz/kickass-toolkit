@@ -4,12 +4,15 @@ import { Callout } from 'nextra-theme-docs'
 
 `createContextProvider` is a function that Creates a `Provider` component and `useProvider` hook with type inference based od provided factory function.
 It reduces boilerplate code and makes it easier to use context in your application.
+`useProvider` hook will **throw an error** if the `context` is `undefined`.
+
+<Callout type="warning">`useProvider` hook will **throw an error** if the `context` is `undefined`.</Callout>
 
 <Callout type="warning">`createContextProvider` should be called outside component scope!</Callout>
 
 ## Example usage
 
-### ContextProvider without props and default value
+### ContextProvider without props
 
 ```tsx copy
 import { createContextProvider } from '@kickass-coderz/react'
@@ -41,14 +44,18 @@ const [Provider, useProvider] = createContextProvider((properties: ProviderPrope
 })
 ```
 
-### ContextProvider with props and default value
+### ContextProvider with scope and error message
+
+Adding `scope` and `errorMessage` will make it easier to debug your application.
+If `scope` is used in Component debeugger you will see `NavigationProvider` and `NavigationContext` instead of `Provider` and `Context`. Error message will have `scope` prepended to error messages.
+`errorMessage` will be used in `useProvider` hook if `context` is `undefined`. Combined with `scope` it will look like this: `[NavigationProvider]: useNavigationProvider must be used within NavigationProvider`.
 
 ```tsx copy
 import { createContextProvider } from '@kickass-coderz/react'
 
-const [Provider, useProvider] = createContextProvider(
-    (properties: ProviderProperties) => {
-        const [isOpen, setIsOpen] = useState(properties.defaultOpen)
+const [NavigationProvider, useNavigationProvider] = createContextProvider(
+    () => {
+        const [isOpen, setIsOpen] = useState(false)
 
         const toggleOpen = useCallback(() => {
             setIsOpen(previous => !previous)
@@ -56,6 +63,9 @@ const [Provider, useProvider] = createContextProvider(
 
         return { isOpen, setIsOpen }
     },
-    { isOpen: false, setIsOpen: () => {} }
+    {
+        scope: 'Navigation',
+        errorMessage: 'useNavigationProvider must be used within NavigationProvider'
+    }
 )
 ```
