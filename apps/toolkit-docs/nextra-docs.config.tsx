@@ -11,7 +11,20 @@ const config: DocsThemeConfig = {
     },
     useNextSeoProps() {
         return {
-            titleTemplate: '%s – Kickass Toolkit'
+            titleTemplate: '%s - Kickass Toolkit',
+            description:
+                "Kickass Toolkit is a set of finely crafted and curated tools for rapid development of modern applications based on React and it's ecosystem.",
+            openGraph: {
+                images: [
+                    {
+                        url: 'https://beta.kickass.codes/og.png',
+                        width: 1200,
+                        height: 630,
+                        alt: 'Kickass Toolkit',
+                        type: 'image/png'
+                    }
+                ]
+            }
         }
     },
     logoLink: '/',
