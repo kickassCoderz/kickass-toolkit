@@ -22,6 +22,12 @@ export type PipeFunctions<T extends AnyUnaryFunction[]> = PipeArguments<T> exten
  * @param initialValue - The initial value to pass to the first function in the pipe. It should be of same type as the argument of the first function in the pipe.
  * @param pipeFunctions - A list of `unary` functions to execute in non mathematical order from left to right.
  * @returns The result of the last function in the pipe.
+ * @example
+ * ```ts
+ * const multiplyByTwo = (a: number) => a * 2
+ * const subtractThree = (a: number) => a - 3
+ * pipe(2, multiplyByTwo, subtractThree) // returns 1
+ * ```
  */
 function pipe<T extends AnyUnaryFunction[]>(
     initialValue: PipeInitalValue<T>,
