@@ -1,12 +1,12 @@
 import { isArray, isNumber, isObject, isString, isUndefined } from '../../guards'
 
-export type TConstructCssClassDictionaryValue = Record<string, unknown>
+export type TComposeCssClassDictionaryValue = Record<string, unknown>
 
-export type TConstructCssClassArrayValue = Array<TConstructCssClassValue>
+export type TComposeCssClassArrayValue = Array<TComposeCssClassValue>
 
-export type TConstructCssClassValue =
-    | TConstructCssClassArrayValue
-    | TConstructCssClassDictionaryValue
+export type TComposeCssClassValue =
+    | TComposeCssClassArrayValue
+    | TComposeCssClassDictionaryValue
     | string
     | number
     | null
@@ -14,47 +14,47 @@ export type TConstructCssClassValue =
     | undefined
 
 /**
- * Constructs a CSS class string conditionally from the given values.
+ * Composes a CSS class string conditionally from the given values.
  * Falsy values are discarded as well as standalone boolean values.
  * @param values - The values to construct the CSS class string from. It can take any number of arguments.
  * @returns `string` or `undefined` if no value is truthy.
  * @example
  * Strings:
  * ```ts
- * constructCssClass('foo', 'bar') // 'foo bar'
+ * composeCssClass('foo', 'bar') // 'foo bar'
  * ```
  * @example
  * Strings(variadic):
  * ```ts
- * constructCssClass('foo', true && 'bar', 'baz') // 'foo bar baz'
+ * composeCssClass('foo', true && 'bar', 'baz') // 'foo bar baz'
  * ```
  * @example
  * Objects:
  * ```ts
- * constructCssClass({ foo:true, bar:false, baz:isTrue() }) // 'foo baz'
+ * composeCssClass({ foo:true, bar:false, baz:isTrue() }) // 'foo baz'
  * ```
  * @example
  * Objects(variadic):
  * ```ts
- * constructCssClass({ foo:true }, { bar:false }, null, { '--foobar':'hello' }) // 'foo --foobar'
+ * composeCssClass({ foo:true }, { bar:false }, null, { '--foobar':'hello' }) // 'foo --foobar'
  * ```
  * @example
  * Arrays:
  * ```ts
- * constructCssClass(['foo', 0, false, 'bar']) // 'foo bar'
+ * composeCssClass(['foo', 0, false, 'bar']) // 'foo bar'
  * ```
  * @example
  * Arrays(variadic):
  * ```ts
- * constructCssClass(['foo'], ['', 0, false, 'bar'], [['baz', [['hello'], 'there']]]) // 'foo bar baz hello there'
+ * composeCssClass(['foo'], ['', 0, false, 'bar'], [['baz', [['hello'], 'there']]]) // 'foo bar baz hello there'
  * ```
  * @example
  * Mixed:
  * ```ts
- * constructCssClass('foo', [1 && 'bar', { baz:false, bat:null }, ['hello', ['world']]], 'cya') // 'foo bar hello world cya'
+ * composeCssClass('foo', [1 && 'bar', { baz:false, bat:null }, ['hello', ['world']]], 'cya') // 'foo bar hello world cya'
  * ```
  */
-function constructCssClass(...values: Array<TConstructCssClassValue>): string | undefined {
+function composeCssClass(...values: Array<TComposeCssClassValue>): string | undefined {
     if (values.length === 0) {
         return
     }
@@ -74,7 +74,7 @@ function constructCssClass(...values: Array<TConstructCssClassValue>): string | 
         }
 
         if (isArray(value) && value.length > 0) {
-            const valueFromArray = Reflect.apply(constructCssClass, undefined, value)
+            const valueFromArray = Reflect.apply(composeCssClass, undefined, value)
 
             if (!isUndefined(valueFromArray)) {
                 classNameStack.push(valueFromArray)
@@ -97,4 +97,4 @@ function constructCssClass(...values: Array<TConstructCssClassValue>): string | 
     return classNameStack.length > 0 ? classNameStack.join(' ') : undefined
 }
 
-export { constructCssClass }
+export { composeCssClass }
