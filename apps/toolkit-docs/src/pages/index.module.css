@@ -4,4 +4,5 @@
     flex: 1;
     flex-direction: column;
     justify-content: center;
+    padding: max(env(safe-area-inset-left), 1.5rem) 0;
 }
