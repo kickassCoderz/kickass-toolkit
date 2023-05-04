@@ -59,50 +59,42 @@ function constructCssClass(...values: Array<TConstructCssClassValue>): string | 
         return
     }
 
-    const stringStack: Array<string> = []
+    const classNameStack: Array<string | number> = []
 
-    for (const value of values) {
+    for (let valueIndex = 0; valueIndex < values.length; valueIndex += 1) {
+        const value = values[valueIndex]
+
         // this filters out falsy values: null, undefined, false, 0, NaN, ''
         if (!value) {
             continue
         }
 
-        if (isString(value)) {
-            stringStack.push(value)
-        }
-
-        if (isNumber(value)) {
-            stringStack.push(value.toString())
+        if (isString(value) || isNumber(value)) {
+            classNameStack.push(value)
         }
 
         if (isArray(value) && value.length > 0) {
             const valueFromArray = Reflect.apply(constructCssClass, undefined, value)
 
             if (!isUndefined(valueFromArray)) {
-                stringStack.push(valueFromArray)
+                classNameStack.push(valueFromArray)
             }
         }
 
         if (isObject(value)) {
             const objectEntries = Object.entries(value)
 
-            const objectStringStack: Array<string> = []
+            for (let objectEntryIndex = 0; objectEntryIndex < objectEntries.length; objectEntryIndex += 1) {
+                const [objectKey, objectValue] = objectEntries[objectEntryIndex]
 
-            for (const [objectKey, objectValue] of objectEntries) {
                 if (objectValue) {
-                    objectStringStack.push(objectKey)
+                    classNameStack.push(objectKey)
                 }
-            }
-
-            const objectString = objectStringStack.length > 0 ? objectStringStack.join(' ') : undefined
-
-            if (!isUndefined(objectString)) {
-                stringStack.push(objectString)
             }
         }
     }
 
-    return stringStack.length > 0 ? stringStack.join(' ') : undefined
+    return classNameStack.length > 0 ? classNameStack.join(' ') : undefined
 }
 
 export { constructCssClass }

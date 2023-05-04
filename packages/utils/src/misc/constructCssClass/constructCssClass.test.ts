@@ -23,7 +23,7 @@ describe('constructCssClass', () => {
         expect(constructCssClass('', 'b', {}, '')).toBe('b')
     })
 
-    test('(compat) returns an empty string for an empty configuration', () => {
+    test('(compat) returns undefined for an empty configuration', () => {
         expect(constructCssClass({})).toBeUndefined()
     })
 
