@@ -1,5 +1,3 @@
-import { isArray, isNumber, isObject, isString, isUndefined } from '../../guards'
-
 export type TComposeCssClassDictionaryValue = Record<string, unknown>
 
 export type TComposeCssClassArrayValue = Array<TComposeCssClassValue>
@@ -55,46 +53,41 @@ export type TComposeCssClassValue =
  * ```
  */
 function composeCssClass(...values: Array<TComposeCssClassValue>): string | undefined {
-    if (values.length === 0) {
-        return
-    }
+    let className = ''
 
-    const classNameStack: Array<string | number> = []
-
-    for (let valueIndex = 0; valueIndex < values.length; valueIndex += 1) {
+    for (let valueIndex = 0, valuesLength = values.length; valueIndex < valuesLength; valueIndex += 1) {
         const value = values[valueIndex]
 
-        // this filters out falsy values: null, undefined, false, 0, NaN, ''
-        if (!value) {
-            continue
-        }
-
-        if (isString(value) || isNumber(value)) {
-            classNameStack.push(value)
-        }
-
-        if (isArray(value) && value.length > 0) {
-            const valueFromArray = Reflect.apply(composeCssClass, undefined, value)
-
-            if (!isUndefined(valueFromArray)) {
-                classNameStack.push(valueFromArray)
+        switch (true) {
+            case !value: {
+                continue
             }
-        }
+            case typeof value === 'string':
+            case typeof value === 'number': {
+                // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+                className = className + (className && ' ') + value
+                continue
+            }
+            case Array.isArray(value): {
+                const valueFromArray = composeCssClass(...(value as TComposeCssClassArrayValue))
 
-        if (isObject(value)) {
-            const objectEntries = Object.entries(value)
-
-            for (let objectEntryIndex = 0; objectEntryIndex < objectEntries.length; objectEntryIndex += 1) {
-                const [objectKey, objectValue] = objectEntries[objectEntryIndex]
-
-                if (objectValue) {
-                    classNameStack.push(objectKey)
+                if (valueFromArray) {
+                    className = className + (className && ' ') + valueFromArray
                 }
+                continue
+            }
+            case typeof value === 'object': {
+                for (const key in value as TComposeCssClassDictionaryValue) {
+                    if ((value as TComposeCssClassDictionaryValue)[key]) {
+                        className = className + (className && ' ') + key
+                    }
+                }
+                continue
             }
         }
     }
 
-    return classNameStack.length > 0 ? classNameStack.join(' ') : undefined
+    return className || undefined
 }
 
 export { composeCssClass }
