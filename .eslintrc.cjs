@@ -45,7 +45,8 @@ module.exports = {
             }
         ],
         'unicorn/no-array-for-each': 'off',
-        'unicorn/no-array-reduce': 'off'
+        'unicorn/no-array-reduce': 'off',
+        'unicorn/no-for-loop': 'off'
     },
     settings: {
         react: {
