@@ -126,4 +126,30 @@ describe('useMediaQuery', () => {
 
         expect(matchMediaSpy).toHaveBeenCalledTimes(2)
     })
+
+    it('should use fallback to listener polyfill for old browsers', () => {
+        const onChangeSpy = jest.fn()
+        const offChangeSpy = jest.fn()
+        const matchMediaLegacy = jest.fn((query: string) => {
+            return {
+                matches: query.includes('max-width: 600px'),
+                media: query,
+                // eslint-disable-next-line unicorn/no-null
+                onchange: null,
+                addListener: onChangeSpy,
+                removeListener: offChangeSpy
+            }
+        })
+        global.matchMedia = matchMediaLegacy as never
+
+        const { unmount } = renderHook(() => useMediaQuery('(max-width: 600px)'))
+
+        expect(matchMediaLegacy).toHaveBeenCalledTimes(1)
+        expect(onChangeSpy).toHaveBeenCalledTimes(1)
+        expect(offChangeSpy).toHaveBeenCalledTimes(0)
+
+        unmount()
+
+        expect(offChangeSpy).toHaveBeenCalledTimes(1)
+    })
 })
