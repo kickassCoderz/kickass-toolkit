@@ -23,13 +23,21 @@ const getMediaQueryInstance = (query: string): TMediaQueryPoolItem => {
             for (const callback of callbacks) callback(event)
         }
 
-        mediaQuery.addEventListener('change', handleChange)
+        if (typeof mediaQuery.addEventListener === 'function') {
+            mediaQuery.addEventListener('change', handleChange)
+        } else {
+            mediaQuery.addListener(handleChange)
+        }
 
         mediaQueryPool[query] = {
             mediaQuery,
             callbacks,
             removeListener: () => {
-                mediaQuery.removeEventListener('change', handleChange)
+                if (typeof mediaQuery.removeEventListener === 'function') {
+                    mediaQuery.removeEventListener('change', handleChange)
+                } else {
+                    mediaQuery.removeListener(handleChange)
+                }
             }
         }
     }
