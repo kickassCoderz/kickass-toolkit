@@ -3,7 +3,6 @@ import { createContext, useContext } from 'react'
 
 export type TCreateContextProviderProperties = {
     children?: React.ReactNode
-    [key: string]: unkown
 }
 
 export type TCreateContextProviderOptions = {
