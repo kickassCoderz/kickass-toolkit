@@ -3,7 +3,7 @@ import { createContext, useContext } from 'react'
 
 export type TCreateContextProviderProperties = {
     children?: React.ReactNode
-} & Record<string, unknown>
+}
 
 export type TCreateContextProviderOptions = {
     /**
