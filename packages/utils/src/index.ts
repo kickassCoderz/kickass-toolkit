@@ -1,4 +1,6 @@
+export * from './arrays'
 export * from './functions'
 export * from './guards'
 export * from './misc'
+export * from './strings'
 export * from './types'
